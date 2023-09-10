@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::view('/login', 'login')->name('login');
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/inicia-sesion', [LoginController::class, 'login'])->name('inicia-sesion');
