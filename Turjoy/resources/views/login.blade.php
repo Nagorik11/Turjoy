@@ -10,15 +10,23 @@
 </head>
 <body>
     <main class ="container align-center p-5">
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{route('inicia-sesion')}}">
             @csrf
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="Ingresa tu correo electrónico">
+                @if ($errors->has('email'))
+    <span class="text-danger">{{ $errors->first('email') }}</span>
+@endif
+
             </div>
             <div class="form-group">
                 <label for="password">Contraseña</label>
                 <input type="password" name="password" id="password" class="form-control" placeholder="Ingresa tu contraseña">
+                @if ($errors->has('password'))
+                <span class="text-danger">{{ $errors->first('password') }}</span>
+                @endif
+
             </div>
             <button type="submit" class="btn btn-primary">Iniciar sesión</button>
     

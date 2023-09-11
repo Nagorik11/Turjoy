@@ -13,8 +13,10 @@ use App\Http\Controllers\LoginController;
 |
 */
 Route::view('/login', 'login')->name('login');
+Route::view('/privada', 'secret')->middleware('auth')->name('privada');
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::post('/inicia-sesion', [LoginController::class, 'login'])->name('inicia-sesion');
+Route::get('/logout',[LoginController::class,'logout'])->name('logout');
