@@ -1,0 +1,49 @@
+// header (required)
+erdiagram Name
+
+// notation (optional)
+notation=chen
+
+// model elements
+entity Usuario { id1 key
+    tipo: VARCHAR(255)
+}
+
+entity Bus {
+    id2 key
+    patente: VARCHAR(255)
+    capacidad: INT
+    capacidad_disponible: INT
+    estado: VARCHAR(255)
+}
+
+entity Ruta{
+    id3 key
+    origen: VARCHAR(255)
+    destino: VARCHAR(255)
+    duracion: INT
+    distancia: INT
+} 
+
+entity Viaje {
+    id4 key
+    fecha: DATE
+    hora: TIME
+    tarifa_base: INT
+    fecha_hora_compra: DATE
+    cantidad_asientos: INT
+    estado: VARCHAR(255)
+}
+
+relationship realiza {  Bus  -> Ruta }
+
+weak entity Administrador {
+contrasenia: VARCHAR(255)
+
+}
+relationship puede_ser {Administrador [1] -> Usuario[1]}
+relationship carga {Administrador[1] -> Ruta[0..N]}
+relationship reserva {Usuario [1]-> Viaje[0..N]
+	attr1 : VARCHAR(255)
+}
+
