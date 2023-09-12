@@ -1,12 +1,14 @@
 // header (required)
-erdiagram Name
+erdiagram Turjoy
 
 // notation (optional)
 notation=chen
 
 // model elements
 entity Usuario { id1 key
-    tipo: VARCHAR(255)
+    rol: VARCHAR(255)
+
+	nombre: VARCHAR(255)
 }
 
 entity Bus {
@@ -35,15 +37,16 @@ entity Viaje {
     estado: VARCHAR(255)
 }
 
-relationship realiza {  Bus  -> Ruta }
+relationship realiza {  Bus[0..N]  -> Ruta[1..N] }
 
 weak entity Administrador {
 contrasenia: VARCHAR(255)
-
 }
+
 relationship puede_ser {Administrador [1] -> Usuario[1]}
 relationship carga {Administrador[1] -> Ruta[0..N]}
-relationship reserva {Usuario [1]-> Viaje[0..N]
+relationship asociado {Bus [0..N]-> Viaje[1]}
+relationship reserva {Usuario [0..N]-> Viaje[0..N]
 	attr1 : VARCHAR(255)
 }
 

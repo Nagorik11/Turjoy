@@ -1,0 +1,7 @@
+sudo mysql -u root
+
+SHOW DATABASES;
+CREATE USER 'dbadmin'@'localhost' IDENTIFIED BY 'password';
+CREATE DATABASE turjoy;
+GRANT ALL PRIVILEGES ON * . * TO 'dbadmin'@'localhost';
+exit
