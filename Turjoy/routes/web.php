@@ -15,7 +15,7 @@ use App\Http\Controllers\LoginController;
 Route::view('/login', 'login')->name('login');
 Route::view('/privada', 'secret')->middleware('auth')->name('privada');
 Route::get('/', function () {
-    return view('welcome');
+    return view('loadtravels');
 });
 
 Route::post('/inicia-sesion', [LoginController::class, 'login'])->name('inicia-sesion');
