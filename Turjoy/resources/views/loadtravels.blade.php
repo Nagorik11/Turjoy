@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css','resources/js/app.js'])
-    <title>Cargar viajes</title>
+    <title>Cargar viajes | Turjoy</title>
 </head>
-<body>
 
-    <h2>CARGAR VIAJES</h2>
+<body>
+    <center>
+    <h2 class="text-3xl font-bold">CARGAR VIAJES</h2>
+    </center>
     
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Subir archivo</label>
-    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
-    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Solo se admiten archivos de tipo ".xlsx".</p>
+    <label>
+        <input type="file" accept=".xlsx" class="w-2/5 mx-1 block rounded-lg border-2 border-current border-slate-500
+        file:bg-custom_blue"
+        />
+    </label>
+    <p class="mx-1 text-sm text-gray-500">Solo se admiten archivos de tipo ".xlsx".</p>
 
 </body>
 </html>
+

@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    colors: {
+      custom_blue: '#0A74DA'
+    }
   },
   plugins: [
     require('flowbite/plugin')
