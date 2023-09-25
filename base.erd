@@ -5,10 +5,10 @@ erdiagram Turjoy
 notation=chen
 
 // model elements
-entity Usuario { id1 key
+entity Usuario { 
+    id1 key
     rol: VARCHAR(255)
-
-	nombre: VARCHAR(255)
+	nombre: VARCHAR(255) partial-key
 }
 
 entity Bus {
@@ -37,16 +37,25 @@ entity Viaje {
     estado: VARCHAR(255)
 }
 
+weak entity Voucher{
+    id5 key
+    fecha_emision: DATE
+    bus: VARCHAR(255) partial-key
+    asiento: INT
+    precio: INT
+    }
+
 relationship realiza {  Bus[0..N]  -> Ruta[1..N] }
 
 weak entity Administrador {
 contrasenia: VARCHAR(255)
 }
-
+weak relationship genera {Viaje[1] -> Voucher[1]}
 relationship puede_ser {Administrador [1] -> Usuario[1]}
 relationship carga {Administrador[1] -> Ruta[0..N]}
 relationship asociado {Bus [0..N]-> Viaje[1]}
 relationship reserva {Usuario [0..N]-> Viaje[0..N]
 	attr1 : VARCHAR(255)
 }
+weak relationship paga {Usuario[0..N] -> Voucher[1]}
 
