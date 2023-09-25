@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
-    //
+    /**
+     * Show the register form.
+     * 
+     */
 
     public function show(){
         if(Auth::check()){
@@ -18,7 +21,10 @@ class RegisterController extends Controller
         }
         return view('auth.register');
     }
-
+    /**
+        * Handle the register form submission.
+        * 
+        */
     public function register(RegisterRequest $request){
         
         $user = User::create($request->validated());
