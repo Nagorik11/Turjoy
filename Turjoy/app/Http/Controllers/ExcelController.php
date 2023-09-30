@@ -41,11 +41,12 @@ class ExcelController extends Controller
 
         // Procesar el archivo utilizando la clase UsersImport
         try {
-            Excel::import(new TravelsImport, $archivo);
-            // Mensaje de éxito
 
-            return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
-            #return view('importExportView', ['datos_cargados' => $datos_cargados]);
+            $travelController = new TravelController();
+            $travelController->travelCheck($request);
+            return redirect()->route('login')->with('success', 'El archivo se cargó correctamente.');
+
+
         } catch (\Exception $e) {
             // Mensaje de error
             return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());

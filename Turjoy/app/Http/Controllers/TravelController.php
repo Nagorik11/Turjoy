@@ -25,15 +25,15 @@ class TravelController extends Controller
             $duplicatedRows = $import->getDuplicatedRows();
 
             // BORRAR DEPUES -------------------------------------------------------------------
-            dd($validRows,$invalidRows,$duplicatedRows);
-
+            //dd($validRows,$invalidRows,$duplicatedRows);
             foreach($validRows as $row)
             {
-                $origin = $row['origin'];
-                $destiny = $row['destiny'];
+
+                $origin = $row['origen'];
+                $destiny = $row['destino'];
 
                 $travel = Travel::where('origin',$origin)
-                    ->where('destination',$destiny)
+                    ->where('destiny',$destiny)
                     ->first();
                 if($travel)
                 {
@@ -51,24 +51,23 @@ class TravelController extends Controller
                         'base_rate'=> $row['tarifa_base'],
                     ]);
                 }
-
-
             }
 
             $invalidRows = array_filter($invalidRows, function ($invalidrow) {
                 return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
             });
 
-            dd(session('invalidRows'));
+            //dd(session('invalidRows'));
 
             session()->put('validRows', $validRows);
             session()->put('invalidRows', $invalidRows);
             session()->put('duplicatedRows', $duplicatedRows);
 
-            dd(count(session('validRows')), count(session('invalidRows')));
+            //dd(count(session('validRows')), count(session('invalidRows')));
 
             return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
         }
     }

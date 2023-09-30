@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     /**
      * Show the register form.
-     * 
+     *
      */
 
     public function show(){
@@ -23,15 +23,15 @@ class RegisterController extends Controller
     }
     /**
         * Handle the register form submission.
-        * 
+        *
         */
     public function register(RegisterRequest $request){
-        
+
         $user = User::create($request->validated());
-    
+
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->setPassword($request->password);
+        $user->setPasswordAttribute($request->password);
         $user->role = ($request->role);
         $user->save();
         return redirect('/login')->with('success', "Account successfully registered.");
