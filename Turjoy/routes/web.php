@@ -23,7 +23,7 @@ Route::get('/', function () {
 #Route::post('/action-register', [RegisterController::class, 'register']); 
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
-{   
+{
     /**
      * Home Routes
      */
@@ -49,7 +49,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Logout Routes
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+<<<<<<< Updated upstream
         Route::post('/cargar-archivo', 'ExcelController@cargarArchivo')->name('cargar-archivo');
+=======
+>>>>>>> Stashed changes
 
         // Ruta para mostrar la vista de carga de archivos
         Route::get('/import', [ExcelController::class, 'importExportView'])->name('import-view');
@@ -60,11 +63,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
       #  Route::get('/import-export', 'ExcelController@importExportView')->name('importExportView');
 
         Route::get('/import-export', 'ExcelController@importExportView')->name('importExportView');
-        Route::post('/cargar-archivo', 'ExcelController@cargarArchivo')->name('cargar-archivo');
+        Route::post('/loadFile', 'ExcelController@loadFile')->name('loadFile');
 
-        Route::get('/mostrar-datos-cargados', 'ExcelController@mostrarDatosCargados')->name('mostrar-datos-cargados');
+        Route::get('/showLoadedFiles', 'ExcelController@showLoadedFiles')->name('showLoadedFiles');
     });
-    
-    
+
+
 });
 

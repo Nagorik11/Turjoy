@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\TravelsImport;
 use Illuminate\Http\Request;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\DatosCargados;
+use App\Models\LoadedFiles;
+use App\Models\Travel;
 
 class ExcelController extends Controller
 {
     public function importExportView()
     {
-        $datosCargados = DatosCargados::all();
-        return view('importExportView', ['datosCargados' => $datosCargados]);
+        $loadedFiles = LoadedFiles::all();
+        return view('importExportView', ['loadedFiles' => $loadedFiles]);
     }
 
 
@@ -23,7 +25,7 @@ class ExcelController extends Controller
         ]);
 
         try {
-            Excel::import(new UsersImport, $request->file('archivo'));
+            Excel::import(new TravelsImport, $request->file('archivo'));
             return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
         } catch (\Exception $e) {
             return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
@@ -31,7 +33,7 @@ class ExcelController extends Controller
     }
 
 
-    public function cargarArchivo(Request $request)
+    public function loadFile(Request $request)
     {
         // Validar que se haya enviado un archivo
         if (!$request->hasFile('archivo')) {
@@ -53,9 +55,9 @@ class ExcelController extends Controller
 
         // Procesar el archivo utilizando la clase UsersImport
         try {
-            Excel::import(new UsersImport, $archivo);
+            Excel::import(new TravelsImport, $archivo);
             // Mensaje de éxito
-            
+
             return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
             #return view('importExportView', ['datos_cargados' => $datos_cargados]);
         } catch (\Exception $e) {
@@ -64,13 +66,12 @@ class ExcelController extends Controller
         }
     }
 
-    public function mostrarDatosCargados()
+    public function showLoadedFiles()
     {
-        $datosCargados = DatosCargados::all();
-        return view('mostrar-datos-cargados', ['datosCargados' => $datosCargados]);
+        $loadedFiles = LoadedFiles::all();
+        return view('showLoadedFiles', ['loadedFiles' => $loadedFiles]);
     }
 
 };
 
 
-    

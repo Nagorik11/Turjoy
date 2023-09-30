@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('destiny');
             $table->timestamps();
             $table->integer('seat');
+            $table->integer('base_rate');
 
         });
     }
