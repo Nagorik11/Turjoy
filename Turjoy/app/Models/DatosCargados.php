@@ -13,6 +13,7 @@ class DatosCargados extends Model
         'destino',
         'cant_asientos',
         'tarifa_base',
+        'type',
     ];
 
     // Define relaciones o métodos personalizados según tus necesidades.
