@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('origin');
             $table->string('destiny');
-            $table->timestamps();
-            $table->integer('seat');
+            $table->integer('seats');
             $table->integer('base_rate');
+            $table->timestamps();
 
         });
     }
