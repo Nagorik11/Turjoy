@@ -44,7 +44,7 @@ class ExcelController extends Controller
 
             $travelController = new TravelController();
             $travelController->travelCheck($request);
-            return redirect()->route('login')->with('success', 'El archivo se cargó correctamente.');
+            return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
 
 
         } catch (\Exception $e) {
