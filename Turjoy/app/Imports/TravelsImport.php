@@ -27,25 +27,34 @@ class TravelsImport implements ToCollection,WithHeadingRow
         {
             $origin = $row['origen'];
             $destination = $row['destino'];
-
-        }
-        if($this->hasDuplicateOriginDestination($origin,$destination))
-        {
-            $this->duplicatedRows[] = $row;
-        }
-        else
-        {
-            $base_rate = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
-            if(isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']))
+            if($this->hasDuplicateOriginDestination($origin,$destination))
             {
-                $this->validRows[] = $row;
-                $this->existingOriginsDestinations[] = $origin + '_' + $destination;
+                $row['tarifa_base'] = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
+                if(isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']) && $origin != $destination)
+                {
+                    $this->duplicatedRows[] = $row;
+                }
+                else
+                {
+                    $this->invalidRows[] = $row;
+                }
             }
             else
             {
-                $this->invalidRows[] = $row;
+                $row['tarifa_base'] = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
+                if(isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']) && $origin != $destination)
+                {
+                    $this->validRows[] = $row;
+                    $this->existingOriginsDestinations[] = $origin . '-' . $destination;
+                }
+                else
+                {
+                    $this->invalidRows[] = $row;
+                }
             }
+
         }
+
     }
 
     /**

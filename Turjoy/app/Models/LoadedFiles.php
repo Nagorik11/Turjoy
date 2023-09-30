@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DatosCargados extends Model
+class LoadedFiles extends Model
 {
     protected $table = 'datos_cargados'; // Nombre de la tabla
 
@@ -16,5 +16,5 @@ class DatosCargados extends Model
     ];
 
     // Define relaciones o métodos personalizados según tus necesidades.
-    
+
 };
