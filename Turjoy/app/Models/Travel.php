@@ -14,8 +14,8 @@ class Travel extends Model
         'origin',
         'destiny',
         'date',
-        'time',
-        'price',
-        'seat'
+        'base_rate',
+        'seats',
+        'time'
     ];
 }
