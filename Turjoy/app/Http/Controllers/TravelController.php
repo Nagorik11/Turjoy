@@ -4,23 +4,73 @@ namespace App\Http\Controllers;
 
 use App\Models\Travel;
 use Illuminate\Http\Request;
+use App\Imports\TravelsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TravelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function travelCheck(Request $request)
     {
-        //
+        $request->validate([
+            'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
+        ]);
+
+        try {
+            $import = new TravelsImport;
+            Excel::import($import, $request->file('archivo'));
+
+            $validRows = $import->getValidRows();
+            $invalidRows = $import->getInvalidRows();
+            $duplicatedRows = $import->getDuplicatedRows();
+
+            // BORRAR DEPUES -------------------------------------------------------------------
+            dd($validRows,$invalidRows,$duplicatedRows);
+
+            foreach($validRows as $row)
+            {
+                $origin = $row['origin'];
+                $destiny = $row['destiny'];
+
+                $travel = Travel::where('origin',$origin)
+                    ->where('destination',$destiny)
+                    ->first();
+                if($travel)
+                {
+                    $travel->update([
+                        'seats' => $row['cantidad_de_asientos'],
+                        'base_rate' => $row['tarifa_base']
+                    ]);
+                }
+                else
+                {
+                    Travel::create([
+                        'origin'=> $origin,
+                        'destiny'=> $destiny,
+                        'seats'=> $row['cantidad_de_asientos'],
+                        'base_rate'=> $row['tarifa_base'],
+                    ]);
+                }
+
+
+            }
+
+            $invalidRows = array_filter($invalidRows, function ($invalidrow) {
+                return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
+            });
+
+            dd(session('invalidRows'));
+
+            session()->put('validRows', $validRows);
+            session()->put('invalidRows', $invalidRows);
+            session()->put('duplicatedRows', $duplicatedRows);
+
+            dd(count(session('validRows')), count(session('invalidRows')));
+
+            return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -28,8 +78,6 @@ class TravelController extends Controller
      */
     public function store(Request $request)
     {
-        //validar
-
         //Crear el product
 
         Travel::create([
@@ -45,35 +93,4 @@ class TravelController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Travel $travel)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Travel $travel)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Travel $travel)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Travel $travel)
-    {
-        //
-    }
 }

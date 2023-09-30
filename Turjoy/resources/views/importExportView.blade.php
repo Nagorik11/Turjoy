@@ -21,7 +21,7 @@
         <form action="{{ route('loadFile') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="archivo">Selecciona un archivo XLS:</label>
+                <label for="archivo">Selecciona un archivo XLSX:</label>
                 <input type="file" name="archivo" id="archivo" accept=".xlsx">
             </div>
             <button type="submit" class="btn btn-primary">Cargar archivo</button>

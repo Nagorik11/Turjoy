@@ -6,10 +6,10 @@
         <h1>Dashboard</h1>
         <p class="lead">Cargar rutas de viaje.</p>
 
-        <form action="{{ route('cargar-archivo') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('loadFile') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="archivo">Selecciona un archivo XLS:</label>
+                <label for="archivo">Selecciona un archivo XLSX:</label>
                 <input type="file" name="archivo" id="archivo" accept=".xls">
             </div>
             <button type="submit" class="btn btn-primary">Cargar archivo</button>

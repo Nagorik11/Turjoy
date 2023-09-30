@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ExcelController;
-
+use App\Http\Controllers\TravelController;
+use App\Models\Travel;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 #Route::get('/register', [RegisterController::class, 'show']);
-#Route::post('/action-register', [RegisterController::class, 'register']); 
+#Route::post('/action-register', [RegisterController::class, 'register']);
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
@@ -49,16 +50,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Logout Routes
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
-<<<<<<< Updated upstream
-        Route::post('/cargar-archivo', 'ExcelController@cargarArchivo')->name('cargar-archivo');
-=======
->>>>>>> Stashed changes
 
         // Ruta para mostrar la vista de carga de archivos
         Route::get('/import', [ExcelController::class, 'importExportView'])->name('import-view');
 
         // Ruta para procesar la carga de archivos
-        Route::post('/import', [ExcelController::class, 'import'])->name('import-action');
+        Route::post('/import', [TravelController::class, 'import'])->name('import-action');
 
       #  Route::get('/import-export', 'ExcelController@importExportView')->name('importExportView');
 

@@ -8,6 +8,7 @@ use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\LoadedFiles;
 use App\Models\Travel;
+use App\Http\Controllers\TravelController;
 
 class ExcelController extends Controller
 {
@@ -15,21 +16,6 @@ class ExcelController extends Controller
     {
         $loadedFiles = LoadedFiles::all();
         return view('importExportView', ['loadedFiles' => $loadedFiles]);
-    }
-
-
-    public function import(Request $request)
-    {
-        $request->validate([
-            'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
-        ]);
-
-        try {
-            Excel::import(new TravelsImport, $request->file('archivo'));
-            return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
-        } catch (\Exception $e) {
-            return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
-        }
     }
 
 
