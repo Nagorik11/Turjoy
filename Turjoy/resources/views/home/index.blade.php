@@ -10,7 +10,7 @@
             @csrf
             <div class="form-group">
                 <label for="archivo">Selecciona un archivo XLS:</label>
-                <input type="file" name="archivo" id="archivo" accept=".xls">
+                <input type="file" name="archivo" id="archivo" accept=".xlsx">
             </div>
             <button type="submit" class="btn btn-primary">Cargar archivo</button>
         </form>
