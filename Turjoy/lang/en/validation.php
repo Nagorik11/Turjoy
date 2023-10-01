@@ -141,7 +141,7 @@ return [
     |
     */
     'custom' => [
-        'attribute-name' => ['email',
+        'attribute-name' => ['username',
             'required' => 'Por favor, complete el campo :attribute.',
         ],
     ],
