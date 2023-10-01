@@ -48,7 +48,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
         //revisar
-       // Route::post('/cargar-archivo', 'ExcelController@cargarArchivo')->name('cargar-archivo');
+       // Route::post('/load-file', 'ExcelController@cargarArchivo')->name('load-file');
 
         // Ruta para mostrar la vista de carga de archivos
         Route::get('/import', [ExcelController::class, 'importExportView'])->name('import-view');
@@ -58,7 +58,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         // Ruta para mostrar la vista de exportación de archivos
         Route::get('/import-export', 'ExcelController@importExportView')->name('importExportView');
-        Route::post('/cargar-archivo', 'ExcelController@cargarArchivo')->name('cargar-archivo');
+        Route::post('/load-file', 'ExcelController@loadfile')->name('load-file');
 
         Route::get('/mostrar-datos-cargados', 'ExcelController@mostrarDatosCargados')->name('mostrar-datos-cargados');
     });

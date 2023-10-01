@@ -31,7 +31,7 @@ class ExcelController extends Controller
     }
 
 
-    public function cargarArchivo(Request $request)
+    public function loadfile(Request $request)
     {
         // Validar que se haya enviado un archivo
         if (!$request->hasFile('archivo')) {
