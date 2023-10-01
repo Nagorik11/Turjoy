@@ -9,6 +9,34 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TravelController extends Controller
 {
+    public function indexAddTravels()
+    {
+
+        if (session('validRows') || session('invalidRows') || session('duplicatedRows')) {
+            session()->put('validRows', []);
+            session()->put('invalidRows', []);
+            session()->put('duplicatedRows', []);
+        } else {
+            session(['validRows' => []]);
+            session(['invalidRows' => []]);
+            session(['duplicatedRows' => []]);
+        }
+
+        return view('importExportView', [
+            'validRows' => session('validRows'),
+            'invalidRows' => session('invalidRows'),
+            'duplicatedRows' => session('duplicatedRows')
+        ]);
+    }
+
+    public function indexTravels()
+    {
+        return view('importExportView', [
+            'validRows' => session('validRows'),
+            'invalidRows' => session('invalidRows'),
+            'duplicatedRows' => session('duplicatedRows')
+        ]);
+    }
 
     public function travelCheck(Request $request)
     {
@@ -65,10 +93,10 @@ class TravelController extends Controller
 
             //dd(count(session('validRows')), count(session('invalidRows')));
 
-            return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
+            return redirect()->route('showLoadedFiles')->with('success', 'El archivo se cargó correctamente.');
         } catch (\Exception $e) {
             dd($e);
-            return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
+            return redirect()->route('showLoadedFiles')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
         }
     }
 
