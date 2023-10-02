@@ -17,7 +17,16 @@ class UsersImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-
+            //verifica si el dato existe en la base de datos
+            $dato = DatosCargados::where('origen', $row['origen'])->where('destino', $row['destino'])->first();
+            //si no existe le asigna type = 0
+            //si existe le asigna type = 1
+            //si tiene errores es type = 2
+            if ($dato) {
+                $row['type'] = 1;
+            } else {
+                $row['type'] = 0;
+            }
             $tarifa_base = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
 
             // Convierte la cadena en un valor decimal

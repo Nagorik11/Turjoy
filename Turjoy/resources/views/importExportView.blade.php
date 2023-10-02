@@ -30,6 +30,10 @@
         <h2>Datos Cargados</h2>
 
         @if(isset($datosCargados) && count($datosCargados) > 0)
+            <p>Se han cargado {{ count($datosCargados) }} registros.</p>
+            
+            
+        
             <table class="table">
                 <thead>
                     <tr>
@@ -42,6 +46,7 @@
                 </thead>
                 <tbody>
                     @foreach($datosCargados as $dato)
+                 
                         <tr>
                             <td>{{ $dato->origen }}</td>
                             <td>{{ $dato->destino }}</td>

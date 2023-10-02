@@ -14,6 +14,8 @@ class DatosCargados extends Model
         'destino',
         'cant_asientos',
         'tarifa_base',
-        'drop',
+        'type',
     ];
+
+    
 };

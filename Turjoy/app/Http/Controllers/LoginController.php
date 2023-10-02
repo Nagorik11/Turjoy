@@ -21,14 +21,16 @@ class LoginController extends Controller
     {
         $request->validated([
             'email' => 'required|email',
-            'password' => 'required|password'
+            'password' => 'required|password',
         ]);
         $credentials = $request->getCredentials();
-        
+      
         if(!Auth::validate($credentials)):
             return redirect()->to('login')
             ->withErrors(trans('auth.failed'));
         endif;
+  
+
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
         
 
