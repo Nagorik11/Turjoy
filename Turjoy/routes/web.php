@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ExcelController;
-
+use App\Http\Controllers\TravelController;
+use App\Models\Travel;
+use app\Imports\TravelsImport;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,8 +61,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // Ruta para mostrar la vista de exportación de archivos
         Route::get('/import-export', 'ExcelController@importExportView')->name('importExportView');
         Route::post('/load-file', 'ExcelController@loadfile')->name('load-file');
-
         Route::get('/mostrar-datos-cargados', 'ExcelController@mostrarDatosCargados')->name('mostrar-datos-cargados');
+
+       // Route::get('/import-export', [TravelController::class, 'indexAddTravels'])->name('importExportView');
+        //Route::post('/load-file', [TravelController::class, 'travelCheck'])->name('load-file');
+        //Route::get('/mostrar-datos-cargados', [TravelController::class, 'indexTravels'])->name('mostrar-datos-cargados');
     });
     
     
