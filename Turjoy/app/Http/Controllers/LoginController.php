@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 
+
 class LoginController extends Controller
 {
     //
+    
     public function show()
     {
         if(Auth::check()){
@@ -19,9 +21,10 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $request->validated([
-            'email' => 'required|email',
-            'password' => 'required|password',
+        
+        $request->validate([
+            'email' => 'required|email|not_empty',
+            'password' => 'required|not_empty',
         ]);
         $credentials = $request->getCredentials();
       

@@ -39,7 +39,6 @@
                         <th>Destino</th>
                         <th>Cantidad de Asientos</th>
                         <th>Tarifa Base</th>
-                        <th>Tipo</th>
                         <!-- Agrega más columnas si es necesario -->
                     </tr>
                 </thead>
@@ -50,7 +49,6 @@
                             <td>{{ $dato->destino }}</td>
                             <td>{{ $dato->cant_asientos }}</td>
                             <td>{{ $dato->tarifa_base }}</td>
-                            <td>{{ $dato->type }}</td>
                             <!-- Agrega más celdas si es necesario -->
                         </tr>
                     @endforeach

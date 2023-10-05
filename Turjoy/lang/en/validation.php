@@ -100,6 +100,8 @@ return [
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'The :attribute must be a number.',
+    'not_empty'=>'ingresar su :attribute para iniciar sesión',
+
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'prohibited' => 'The :attribute field is prohibited.',
@@ -129,7 +131,6 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -141,7 +142,7 @@ return [
     |
     */
     'custom' => [
-        'attribute-name' => ['username',
+        'attribute-name' => ['email',
             'required' => 'Por favor, complete el campo :attribute.',
         ],
     ],

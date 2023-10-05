@@ -1,7 +1,16 @@
 {
-    "The :attribute must contain at least one letter.": "The :attribute must contain at least one letter.",
-    "The :attribute must contain at least one number.": "The :attribute must contain at least one number.",
-    "The :attribute must contain at least one symbol.": "The :attribute must contain at least one symbol.",
-    "The :attribute must contain at least one uppercase and one lowercase letter.": "The :attribute must contain at least one uppercase and one lowercase letter.",
-    "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute."
+    "custom": {
+        "attributes": {
+            "email": "correo electrónico",
+            "password": "contraseña"
+        },
+        "not_empty": "El campo :attribute no puede estar vacío."
+    },
+    "validation": {
+        "contains_letter": "El campo :attribute debe contener al menos una letra.",
+        "contains_number": "El campo :attribute debe contener al menos un número.",
+        "contains_symbol": "El campo :attribute debe contener al menos un símbolo.",
+        "contains_upper_lower": "El campo :attribute debe contener al menos una letra mayúscula y una letra minúscula.",
+        "data_leak": "El campo :attribute ha aparecido en una filtración de datos. Por favor, elige un :attribute diferente."
+    }
 }
