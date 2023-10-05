@@ -22,15 +22,17 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         
-        $request->validate([
-            'email' => 'required|email|not_empty',
-            'password' => 'required|not_empty',
-        ]);
-        $credentials = $request->getCredentials();
       
+
+        
+
+        $credentials = $request->getCredentials();
+
         if(!Auth::validate($credentials)):
             return redirect()->to('login')
             ->withErrors(trans('auth.failed'));
+
+          
         endif;
   
 

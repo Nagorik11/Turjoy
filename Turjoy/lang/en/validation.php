@@ -48,7 +48,7 @@ return [
     'enum' => 'The selected :attribute is invalid.',
     'exists' => 'The selected :attribute is invalid.',
     'file' => 'The :attribute must be a file.',
-    'filled' => 'The :attribute field must have a value.',
+    'filled' => 'debe ingresar su :attribute para iniciar sesión.',
     'gt' => [
         'array' => 'The :attribute must have more than :value items.',
         'file' => 'The :attribute must be greater than :value kilobytes.',
@@ -100,8 +100,6 @@ return [
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'The :attribute must be a number.',
-    'not_empty'=>'ingresar su :attribute para iniciar sesión',
-
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'prohibited' => 'The :attribute field is prohibited.',
@@ -109,7 +107,7 @@ return [
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => 'debe ingresar su :attribute para iniciar sesión.',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -142,7 +140,7 @@ return [
     |
     */
     'custom' => [
-        'attribute-name' => ['email',
+        'attribute-name' => ['email','password',
             'required' => 'Por favor, complete el campo :attribute.',
         ],
     ],

@@ -24,12 +24,14 @@ class AppServiceProvider extends ServiceProvider
         
     Validator::extend('not_empty', function ($attribute, $value, $parameters, $validator) {
         // Validar que el valor no esté vacío
-        return !empty($value);
+        #return !empty($value);
+        return trim($value) !== ''; // Verificar que el valor no esté vacío después de quitar los espacios en blanco
     });
 
     Validator::replacer('not_empty', function ($message, $attribute, $rule, $parameters) {
         // Personalizar el mensaje de error
-        return str_replace(':attribute', $attribute, 'El campo :attribute es obligatorio.');
+        
+        return str_replace(':attribute', $attribute, 'debe ingresar su :attribute para iniciar sesión.');
     });
 
     }
