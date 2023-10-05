@@ -1,7 +1,36 @@
 {
-    "The :attribute must contain at least one letter.": "The :attribute must contain at least one letter.",
-    "The :attribute must contain at least one number.": "The :attribute must contain at least one number.",
-    "The :attribute must contain at least one symbol.": "The :attribute must contain at least one symbol.",
-    "The :attribute must contain at least one uppercase and one lowercase letter.": "The :attribute must contain at least one uppercase and one lowercase letter.",
-    "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute."
+    "es ": {
+        "custom": {
+            "attributes": {
+                "email": "correo electrónico",
+                "password": "contraseña"
+            }
+        },
+        "password_rules": {
+            "letter": "The :attribute must contain at least one letter.",
+            "number": "The :attribute must contain at least one number.",
+            "symbol": "The :attribute must contain at least one symbol.",
+            "upper_lower": "The :attribute must contain at least one uppercase and one lowercase letter.",
+            "data_leak": "The given :attribute has appeared in a data leak. Please choose a different :attribute."
+        }
+    },
+    "en": {
+        "custom": {
+            "attributes": {
+                "email": "correo electrónico",
+                "password": "contraseña"
+            }
+        },
+        "password_rules": {
+            "letter": "El campo :attribute debe contener al menos una letra.",
+            "number": "El campo :attribute debe contener al menos un número.",
+            "symbol": "El campo :attribute debe contener al menos un símbolo.",
+            "upper_lower": "El campo :attribute debe contener al menos una letra mayúscula y una minúscula.",
+            "data_leak": "El :attribute proporcionado ha aparecido en una filtración de datos. Por favor, elija un :attribute diferente."
+        },
+        "not_empty": "El campo :attribute no puede estar vacío."
+    }
 }
+
+
+

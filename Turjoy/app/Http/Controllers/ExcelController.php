@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Imports\UsersImport;
+use App\Imports\FilesImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\DatosCargados;
+use App\Models\FileUpload;
 
 class ExcelController extends Controller
 {
     public function importExportView()
     {
-        $datosCargados = DatosCargados::all();
+        $datosCargados = FileUpload::all();
         return view('importExportView', ['datosCargados' => $datosCargados]);
     }
 
@@ -23,7 +23,7 @@ class ExcelController extends Controller
         ]);
 
         try {
-            Excel::import(new UsersImport, $request->file('archivo'));
+            Excel::import(new FilesImport, $request->file('archivo'));
             return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
         } catch (\Exception $e) {
             return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
@@ -51,9 +51,9 @@ class ExcelController extends Controller
             return redirect()->back()->with('error', 'El tamaño máximo del archivo a cargar no puede superar los 5 megabytes.');
         }
 
-        // Procesar el archivo utilizando la clase UsersImport
+        // Procesar el archivo utilizando la clase FilesImport
         try {
-            Excel::import(new UsersImport, $archivo);
+            Excel::import(new FilesImport, $archivo);
             // Mensaje de éxito
             
             return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
@@ -64,9 +64,9 @@ class ExcelController extends Controller
         }
     }
 
-    public function mostrarDatosCargados()
+    public function mostrarFileUpload()
     {
-        $datosCargados = DatosCargados::all();
+        $datosCargados = FileUpload::all();
         return view('mostrar-datos-cargados', ['datosCargados' => $datosCargados]);
     }
 
