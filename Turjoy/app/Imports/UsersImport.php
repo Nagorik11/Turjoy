@@ -9,72 +9,43 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class UsersImport implements ToCollection, WithHeadingRow
 {
-    protected $validRows = [];
-    protected $invalidRows = [];
-    protected $duplicatedRows = [];
-    protected $existingOriginsdestinos = [];
-
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
             $origen = $row['origen'];
             $destino = $row['destino'];
-            
-            if ($this->hasDuplicateOriginDestino($origen, $destino)) {
-                $row['tarifa_base'] = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
-                
-                if (isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']) && $origen != $destino) {
-                    $this->duplicatedRows[] = $row;
-                    $row['type'] = '1';
+            $cantidad_de_asientos = $row['cantidad_de_asientos'];
+            $tarifa_base = (float) str_replace(['$', ',', '.'], '', $row['tarifa_base']);
+            $type = ''; // Inicializamos $type aquí
+
+            // Verificar si los campos requeridos están definidos y son válidos
+            if (isset($origen, $destino, $cantidad_de_asientos, $tarifa_base) &&
+                is_numeric($cantidad_de_asientos) &&$origen !== $destino ) {
+                // Verificar duplicados en base a origen y destino
+                $existingRecord = DatosCargados::where('origen', $origen)
+                    ->where('destino', $destino)
+                    ->first();
+
+                if ($existingRecord) {
+                    // Registro duplicado
+                    $type = '1'; // Asignamos '1' a $type
                 } else {
-                    $this->invalidRows[] = $row;
-                    $row['type'] = '2';
+                    // Nuevo registro
+                    $type = '0'; // Asignamos '0' a $type
                 }
             } else {
-                $row['tarifa_base'] = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
-                
-                if (isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']) && $origen != $destino) {
-                    $row['type'] = '0';
-                    $this->validRows[] = $row;
-                    $this->existingOriginsdestinos[] = $origen . '-' . $destino;
-                } else {
-                    $this->invalidRows[] = $row;
-                    $row['type'] = '2';
-                }
+                // Registro inválido
+                $type = '2'; // Asignamos '2' a $type
             }
 
-            $tarifa_base = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
-
-            $tarifa_base = (float) $tarifa_base;
-
+            // Ahora, creamos el registro en la base de datos después de determinar el valor de $type
             DatosCargados::create([
-                'origen' => $row['origen'],
-                'destino' => $row['destino'],
-                'cant_asientos' => $row['cantidad_de_asientos'],
-                'type' => $row['type'],
+                'origen' => $origen,
+                'destino' => $destino,
+                'cant_asientos' => $cantidad_de_asientos,
+                'type' => $type,
                 'tarifa_base' => $tarifa_base,
             ]);
         }
-    }
-
-    private function hasDuplicateOriginDestino($origen, $destino)
-    {
-        $key = $origen . '-' . $destino;
-        return in_array($key, $this->existingOriginsdestinos);
-    }
-
-    public function getValidRows()
-    {
-        return $this->validRows;
-    }
-
-    public function getInvalidRows()
-    {
-        return $this->invalidRows;
-    }
-
-    public function getDuplicatedRows()
-    {
-        return $this->duplicatedRows;
     }
 }
