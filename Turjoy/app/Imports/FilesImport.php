@@ -19,12 +19,12 @@ class FilesImport implements ToCollection, WithHeadingRow
             $origen = $row['origen'];
             $destino = $row['destino'];
             $cantidad_de_asientos = $row['cantidad_de_asientos'];
-            $tarifa_base = (float) str_replace(['$', ',', '.'], '', $row['tarifa_base']);
+            $tarifa_base = (float) str_replace(['$', ',', '.',], '', $row['tarifa_base']);
             $type = ''; // Inicializamos $type aquí
 
             // Verificar si los campos requeridos están definidos y son válidos
             if (isset($origen, $destino, $cantidad_de_asientos, $tarifa_base) &&
-                is_numeric($cantidad_de_asientos) &&$origen !== $destino ) {
+                is_numeric($cantidad_de_asientos)&&is_numeric($tarifa_base)&&$tarifa_base>0&&$cantidad_de_asientos>0&&$origen !== $destino ) {
                 // Verificar duplicados en base a origen y destino
                 $existingRecord = FileUpload::where('origen', $origen)
                     ->where('destino', $destino)
