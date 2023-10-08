@@ -5,6 +5,10 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\TravelController;
 use App\Models\Travel;
+<<<<<<< HEAD
+=======
+use app\Imports\TravelsImport;
+>>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
 
 /*
 |--------------------------------------------------------------------------
@@ -20,15 +24,13 @@ use App\Models\Travel;
 Route::get('/', function () {
     return view('welcome');
 });
-#Route::get('/register', [RegisterController::class, 'show']);
-#Route::post('/action-register', [RegisterController::class, 'register']);
-
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
     /**
      * Home Routes
      */
     Route::get('/home', 'HomeController@index')->name('home.index');
+
 
     Route::group(['middleware' => ['guest']], function() {
         /**
@@ -50,19 +52,23 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Logout Routes
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+        //revisar
+       // Route::post('/load-file', 'ExcelController@cargarArchivo')->name('load-file');
 
         // Ruta para mostrar la vista de carga de archivos
         Route::get('/import', [ExcelController::class, 'importExportView'])->name('import-view');
 
         // Ruta para procesar la carga de archivos
-        Route::post('/import', [TravelController::class, 'import'])->name('import-action');
+        #Route::post('/import', [ExcelController::class, 'import'])->name('import-action');
 
-      #  Route::get('/import-export', 'ExcelController@importExportView')->name('importExportView');
-
+        // Ruta para mostrar la vista de exportación de archivos
         Route::get('/import-export', 'ExcelController@importExportView')->name('importExportView');
-        Route::post('/loadFile', 'ExcelController@loadFile')->name('loadFile');
+        Route::post('/load-file', 'ExcelController@loadfile')->name('load-file');
+        Route::get('/mostrar-datos-cargados', 'ExcelController@mostrarDatosCargados')->name('mostrar-datos-cargados');
 
-        Route::get('/showLoadedFiles', 'ExcelController@showLoadedFiles')->name('showLoadedFiles');
+       // Route::get('/import-export', [TravelController::class, 'indexAddTravels'])->name('importExportView');
+        //Route::post('/load-file', [TravelController::class, 'travelCheck'])->name('load-file');
+        //Route::get('/mostrar-datos-cargados', [TravelController::class, 'indexTravels'])->name('mostrar-datos-cargados');
     });
 
 

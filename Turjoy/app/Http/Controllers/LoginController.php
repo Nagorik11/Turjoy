@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 
+
 class LoginController extends Controller
 {
     //
+    
     public function show()
     {
         if(Auth::check()){
@@ -19,12 +21,21 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->getCredentials();
         
+      
+
+        
+
+        $credentials = $request->getCredentials();
+
         if(!Auth::validate($credentials)):
             return redirect()->to('login')
             ->withErrors(trans('auth.failed'));
+
+          
         endif;
+  
+
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
         
 

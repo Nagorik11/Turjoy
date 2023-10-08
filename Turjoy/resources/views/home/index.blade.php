@@ -6,11 +6,19 @@
         <h1>Dashboard</h1>
         <p class="lead">Cargar rutas de viaje.</p>
 
+<<<<<<< HEAD
         <form action="{{ route('loadFile') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="archivo">Selecciona un archivo XLSX:</label>
                 <input type="file" name="archivo" id="archivo" accept=".xls">
+=======
+        <form action="{{ route('load-file') }}" novalidate method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="archivo">Selecciona un archivo XLSX:</label>
+                <input type="file" name="archivo" id="archivo" accept=".xlsx">
+>>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
             </div>
             <button type="submit" class="btn btn-primary">Cargar archivo</button>
         </form>
