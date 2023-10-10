@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class LoadedFiles extends Model
 //class FileUploadController extends Model
 
@@ -20,4 +21,3 @@ class LoadedFiles extends Model
     ];
 
 };
-

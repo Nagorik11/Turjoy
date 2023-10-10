@@ -99,4 +99,8 @@ class TravelsImport implements ToCollection,WithHeadingRow
     {
         return $this->duplicatedRows;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5

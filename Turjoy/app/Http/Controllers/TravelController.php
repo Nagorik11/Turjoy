@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Travel;
+use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
 use App\Imports\TravelsImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -31,73 +32,15 @@ class TravelController extends Controller
 
     public function indexTravels()
     {
-        return view('importExportView', [
-            'validRows' => session('validRows'),
-            'invalidRows' => session('invalidRows'),
-            'duplicatedRows' => session('duplicatedRows')
-        ]);
+        //
     }
 
-    public function travelCheck(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        $request->validate([
-            'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
-        ]);
-
-        try {
-            $import = new TravelsImport;
-            Excel::import($import, $request->file('archivo'));
-
-            $validRows = $import->getValidRows();
-            $invalidRows = $import->getInvalidRows();
-            $duplicatedRows = $import->getDuplicatedRows();
-
-            // BORRAR DEPUES -------------------------------------------------------------------
-            //dd($validRows,$invalidRows,$duplicatedRows);
-            foreach($validRows as $row)
-            {
-
-                $origin = $row['origen'];
-                $destiny = $row['destino'];
-
-                $travel = Travel::where('origin',$origin)
-                    ->where('destiny',$destiny)
-                    ->first();
-                if($travel)
-                {
-                    $travel->update([
-                        'seats' => $row['cantidad_de_asientos'],
-                        'base_rate' => $row['tarifa_base']
-                    ]);
-                }
-                else
-                {
-                    Travel::create([
-                        'origin'=> $origin,
-                        'destiny'=> $destiny,
-                        'seats'=> $row['cantidad_de_asientos'],
-                        'base_rate'=> $row['tarifa_base'],
-                    ]);
-                }
-            }
-
-            $invalidRows = array_filter($invalidRows, function ($invalidrow) {
-                return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
-            });
-
-            //dd(session('invalidRows'));
-
-            session()->put('validRows', $validRows);
-            session()->put('invalidRows', $invalidRows);
-            session()->put('duplicatedRows', $duplicatedRows);
-
-            //dd(count(session('validRows')), count(session('invalidRows')));
-
-            return redirect()->route('showLoadedFiles')->with('success', 'El archivo se cargó correctamente.');
-        } catch (\Exception $e) {
-            dd($e);
-            return redirect()->route('showLoadedFiles')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
-        }
+        //
     }
 
     /**
@@ -110,7 +53,7 @@ class TravelController extends Controller
         Travel::create([
             'id' => $request->id,
             'origin' => $request->origin,
-            'destiny' => $request->destiny,
+            'destination' => $request->destination,
             'date' => $request->date,
             'time' => $request->time,
             'price' => $request->price,
@@ -120,4 +63,35 @@ class TravelController extends Controller
 
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(Travel $travel)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Travel $travel)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Travel $travel)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Travel $travel)
+    {
+        //
+    }
 }

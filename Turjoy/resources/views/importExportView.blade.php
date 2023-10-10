@@ -24,7 +24,11 @@
             </div>
         @endif
 
+<<<<<<< HEAD
         <form action="{{ route('loadFile') }}" method="POST" enctype="multipart/form-data">
+=======
+        <form action="{{ route('load-file') }}" method="POST" enctype="multipart/form-data">
+>>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
             @csrf
             <div class="form-group">
                 <label for="archivo">Selecciona un archivo XLSX:</label>
@@ -36,9 +40,35 @@
 
         <h2>Datos Cargados</h2>
 
-        @if ($validRows || $invalidRows || $duplicatedRows)
-            <div class="flex flex-1 flex-col gap-2">
-                
+        @if(isset($datosCargados) && count($datosCargados) > 0)
+            <p>Se han cargado {{ count($datosCargados) }} registros.</p>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Cantidad de Asientos</th>
+                        <th>Tarifa Base</th>
+                        <!-- Agrega más columnas si es necesario -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($datosCargados as $dato)
+                    <tr style="background-color: {{ $dato->type == 0 ? '#a8e6cf' : ($dato->type == 2 ? '#ff8a80' : ($dato->type == 1 ? '#e4e6a8' : '')) }}">                            
+                            <td>{{ $dato->origen }}</td>
+                            <td>{{ $dato->destino }}</td>
+                            <td>{{ $dato->cant_asientos }}</td>
+                            <td>{{ $dato->tarifa_base }}</td>
+                            <!-- Agrega más celdas si es necesario -->
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            
+        @else
+            <p>No hay datos cargados.</p>
+        @endif
 
                 @if (count($validRows) > 0)
                     <h3 class="text-2xl text-black font-semibold uppercase text-center">Listado de viajes agregados
@@ -129,6 +159,7 @@
                     </div>
                 @endif
 
+<<<<<<< HEAD
                 @if (count($duplicatedRows))
                     <h3 class="text-2xl text-black font-semibold uppercase text-center">
                         Listado de viajes que se encuentran duplicados
@@ -182,3 +213,11 @@
     @endauth
 @endsection
 
+=======
+        @guest
+        <h1>Homepage</h1>
+        <p class="lead"></p>
+        @endguest
+    </div>
+@endsection
+>>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
