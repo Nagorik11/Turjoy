@@ -19,10 +19,10 @@ use app\Imports\TravelsImport;
 */
 
 Route::get('/', function () {
-    return view('home.index');
+    return view('welcome');
 });
 Route::group(['namespace' => 'App\Http\Controllers'], function()
-{
+{   
     /**
      * Home Routes
      */
@@ -53,7 +53,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
        // Route::post('/load-file', 'ExcelController@cargarArchivo')->name('load-file');
 
         // Ruta para mostrar la vista de carga de archivos
-        //Route::get('/import', [ExcelController::class, 'importExportView'])->name('import-view');
+        Route::get('/import', [ExcelController::class, 'importExportView'])->name('import-view');
 
         // Ruta para procesar la carga de archivos
         #Route::post('/import', [ExcelController::class, 'import'])->name('import-action');
@@ -67,7 +67,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         //Route::post('/load-file', [TravelController::class, 'travelCheck'])->name('load-file');
         //Route::get('/mostrar-datos-cargados', [TravelController::class, 'indexTravels'])->name('mostrar-datos-cargados');
     });
-
-
+    
+    
 });
-
