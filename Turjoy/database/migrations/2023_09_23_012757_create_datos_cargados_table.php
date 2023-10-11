@@ -11,11 +11,11 @@ return new class extends Migration
     {
         Schema::create('datos_cargados', function (Blueprint $table) {
             $table->id();
-            $table->string('origen');
-            $table->string('destino');
-            $table->integer('cant_asientos');
-            $table->integer('tarifa_base');
-        
+            $table->string('origen')->nullable();
+            $table->string('destino')->nullable();
+            $table->string('cant_asientos')->nullable();
+            $table->string('tarifa_base')->nullable();
+            $table->string('type')->nullable();
             // Agrega otras columnas si es necesario
             $table->timestamps();
         });
@@ -25,4 +25,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('datos_cargados');
     }
+    
 };

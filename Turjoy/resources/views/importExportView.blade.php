@@ -18,7 +18,7 @@
             </div>
         @endif --}}
 
-        <form action="{{ route('loadFile') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('travel.check') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="archivo">Selecciona un archivo XLSX:</label>
@@ -37,7 +37,10 @@
 
             <h2>Datos Cargados</h2>
 
-        @if(isset($datosCargados) && count($datosCargados) > 0)
+            {{-- @if(isset($datosCargados) && count($datosCargados) > 0) --}}
+                {{-- <p>Se han cargado {{ count($datosCargados) }} registros.</p> --}}
+            <p>Se han cargado {{ count($allRows) }} registros.</p>
+
             <table class="table">
                 <thead>
                     <tr>
@@ -49,19 +52,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($datosCargados as $dato)
-                        <tr>
-                            <td>{{ $dato->origen }}</td>
-                            <td>{{ $dato->destino }}</td>
-                            <td>{{ $dato->cant_asientos }}</td>
-                            <td>{{ $dato->tarifa_base }}</td>
+                    @foreach($allRows as $row)
+                    <tr style="background-color: {{ $row['type'] == 0 ? '#a8e6cf' : ($row['type'] == 2 ? '#ff8a80' : ($row['type'] == 1 ? '#e4e6a8' : '')) }}">
+                            <td>{{ $row['origen'] }}</td>
+                            <td>{{ $row['destino'] }}</td>
+                            <td>{{ $row['cantidad_de_asientos'] }}</td>
+                            <td>{{ $row['tarifa_base'] }}</td>
                             <!-- Agrega más celdas si es necesario -->
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        @else
-            <p>No hay datos cargados.</p>
         @endif
 
         @endauth
@@ -72,5 +73,3 @@
         @endguest
     </div>
 @endsection
-
-

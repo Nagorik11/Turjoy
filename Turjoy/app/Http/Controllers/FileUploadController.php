@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Facades\Excel;
 
-class LoadedFiles extends Model
+class FileUploadController extends Model
 {
     protected $table = 'datos_cargados'; // Nombre de la tabla
 
@@ -14,5 +14,8 @@ class LoadedFiles extends Model
         'destino',
         'cant_asientos',
         'tarifa_base',
+        'type',
     ];
+
+    
 };

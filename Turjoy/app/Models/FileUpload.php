@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LoadedFiles extends Model
+class FileUpload extends Model
 {
+    
     protected $table = 'datos_cargados'; // Nombre de la tabla
 
     protected $fillable = [
@@ -13,8 +14,9 @@ class LoadedFiles extends Model
         'destino',
         'cant_asientos',
         'tarifa_base',
+        'type',
     ];
 
     // Define relaciones o métodos personalizados según tus necesidades.
-
+    
 };

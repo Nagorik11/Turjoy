@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Travel;
+use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
 use App\Imports\TravelsImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -73,7 +74,7 @@ class TravelController extends Controller
                 $destiny = $row['destino'];
 
                 $travel = Travel::where('origin',$origin)
-                    ->where('destiny',$destiny)
+                    ->where('destination',$destiny)
                     ->first();
 
                 if($travel)
@@ -128,7 +129,7 @@ class TravelController extends Controller
         Travel::create([
             'id' => $request->id,
             'origin' => $request->origin,
-            'destiny' => $request->destiny,
+            'destination' => $request->destination,
             'date' => $request->date,
             'time' => $request->time,
             'price' => $request->price,

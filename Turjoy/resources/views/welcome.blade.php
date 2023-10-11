@@ -27,17 +27,17 @@
       }
     </style>
 
-
+    
     <!-- Custom styles for this template -->
     <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
 </head>
 <html lang="en" data-bs-theme="auto">
   <head><script src="../assets/js/color-modes.js"></script>
 
-
+   
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/jumbotron/">
 
-
+    
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
@@ -122,7 +122,7 @@
       }
     </style>
 
-
+    
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -176,7 +176,7 @@
       </ul>
     </div>
 
-
+    
 <main>
   <div class="container py-4">
     <header class="pb-3 mb-4 border-bottom">
@@ -187,12 +187,13 @@
   <path d="M15 8a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1V2.64c0-1.188-.845-2.232-2.064-2.372A43.61 43.61 0 0 0 8 0C5.9 0 4.208.136 3.064.268 1.845.408 1 1.452 1 2.64V4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v3.5c0 .818.393 1.544 1 2v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5V14h6v1.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2c.607-.456 1-1.182 1-2V8ZM8 1c2.056 0 3.71.134 4.822.261.676.078 1.178.66 1.178 1.379v8.86a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 11.5V2.64c0-.72.502-1.301 1.178-1.379A42.611 42.611 0 0 1 8 1Z"/>
 </svg>
          <span class="fs-4">Turjoy</span>
+         <a href="login" class="btn btn-primary" style="float">Login</a>
       </a>
     </header>
 
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
       <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Comprar ticket</h1>
+        <h1 class="display-5 fw-bold ">Comprar ticket</h1>
         <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
         <button class="btn btn-primary btn-lg" type="button">Example button</button>
       </div>

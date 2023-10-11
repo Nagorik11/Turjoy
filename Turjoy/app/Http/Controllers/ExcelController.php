@@ -2,24 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\TravelsImport;
 use Illuminate\Http\Request;
-use App\Imports\UsersImport;
+use App\Imports\FilesImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\LoadedFiles;
-use App\Models\Travel;
-use App\Http\Controllers\TravelController;
+use App\Models\FileUpload;
 
 class ExcelController extends Controller
 {
     public function importExportView()
     {
-        $loadedFiles = LoadedFiles::all();
-        return view('importExportView', ['loadedFiles' => $loadedFiles]);
+        $datosCargados = FileUpload::all();
+        return view('importExportView', ['datosCargados' => $datosCargados]);
     }
 
 
-    public function loadFile(Request $request)
+    public function import(Request $request)
+    {
+        $request->validate([
+            'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
+        ]);
+
+        try {
+            Excel::import(new FilesImport, $request->file('archivo'));
+            return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
+        }
+    }
+
+
+    public function loadfile(Request $request)
     {
         // Validar que se haya enviado un archivo
         if (!$request->hasFile('archivo')) {
@@ -39,26 +51,26 @@ class ExcelController extends Controller
             return redirect()->back()->with('error', 'El tamaño máximo del archivo a cargar no puede superar los 5 megabytes.');
         }
 
-        // Procesar el archivo utilizando la clase UsersImport
+        // Procesar el archivo utilizando la clase FilesImport
         try {
-
-            $travelController = new TravelController();
-            $travelController->travelCheck($request);
+            Excel::import(new FilesImport, $archivo);
+            // Mensaje de éxito
+            
             return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
-
-
+            #return view('importExportView', ['datos_cargados' => $datos_cargados]);
         } catch (\Exception $e) {
             // Mensaje de error
             return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
         }
     }
 
-    public function showLoadedFiles()
+    public function mostrarFileUpload()
     {
-        $loadedFiles = LoadedFiles::all();
-        return view('showLoadedFiles', ['loadedFiles' => $loadedFiles]);
+        $datosCargados = FileUpload::all();
+        return view('mostrar-datos-cargados', ['datosCargados' => $datosCargados]);
     }
 
 };
 
 
+    
