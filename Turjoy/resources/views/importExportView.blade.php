@@ -6,7 +6,7 @@
         <h1>Dashboard</h1>
         <p class="lead">Cargar rutas de viaje.</p>
 
-        @if(session('error'))
+        {{-- @if(session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
@@ -17,15 +17,8 @@
                 {{ session('success') }}
             </div>
         @endif --}}
-        {{$errors}}
 
-        @error('archivo')
-            <div class="alert alert-danger mt-3">
-                <p class="m-0">{{ $message }}</p>
-            </div>
-        @enderror
-
-        <form action="{{ route('load-file') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('travel.check') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="archivo">Selecciona un archivo XLSX:</label>
@@ -34,9 +27,15 @@
             <button type="submit" class="btn btn-primary">Cargar archivo</button>
         </form>
 
+        @error('archivo')
+            <div class="alert alert-danger mt-3">
+                <p class="m-0">{{ $message }}</p>
+            </div>
+        @enderror
+
         @if($allRows)
 
-        <h2>Datos Cargados</h2>
+            <h2>Datos Cargados</h2>
 
             {{-- @if(isset($datosCargados) && count($datosCargados) > 0) --}}
                 {{-- <p>Se han cargado {{ count($datosCargados) }} registros.</p> --}}

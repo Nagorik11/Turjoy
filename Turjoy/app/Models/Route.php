@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Travel extends Model
+class Route extends Model
 {
     use HasFactory;
 
+    protected $table = 'Route';
+
     protected $fillable = [
         'id',
+        'origin',
+        'destiny',
         'base_rate',
-        'seats',
-        'Route_id',
-        'User_id'
+        'seat_quantity',
+        'type'
     ];
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FileUpload extends Model
 {
-    
+
     protected $table = 'datos_cargados'; // Nombre de la tabla
 
     protected $fillable = [
@@ -18,5 +18,5 @@ class FileUpload extends Model
     ];
 
     // Define relaciones o métodos personalizados según tus necesidades.
-    
+
 };
