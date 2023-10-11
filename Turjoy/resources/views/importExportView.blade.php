@@ -29,11 +29,11 @@
 
         @error('archivo')
             <div class="alert alert-danger mt-3">
-                {{ $message }}
+                <p class="m-0">{{ $message }}</p>
             </div>
         @enderror
-        @if($allRows)
 
+        @if($allRows)
 
             <h2>Datos Cargados</h2>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Travel;
+use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
 use App\Imports\TravelsImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -53,7 +54,6 @@ class TravelController extends Controller
         $request->validate([
             'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
         ],$message);
-
         try {
             $import = new TravelsImport;
             Excel::import($import, $request->file('archivo'));
@@ -112,9 +112,13 @@ class TravelController extends Controller
             //dd(count(session('validRows')), count(session('invalidRows')), count(session('duplicatedRows')), count(session('allRows')));
 
             return redirect()->route('travel.index')->with('success', 'El archivo se cargó correctamente.');
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             //dd($e);
-            return redirect()->back()->with('error', 'Error al importar el archivo: ' . $message);
+            $request->validate([
+                'archivo' => 'required|string|mimes:xlsx|max:5120', // Max 5MB
+            ],$message);
+            return redirect()->back()->with('error', $message);
         }
     }
 
@@ -128,7 +132,7 @@ class TravelController extends Controller
         Travel::create([
             'id' => $request->id,
             'origin' => $request->origin,
-            'destiny' => $request->destiny,
+            'destination' => $request->destination,
             'date' => $request->date,
             'time' => $request->time,
             'price' => $request->price,
