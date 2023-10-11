@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Travel;
-use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
 use App\Imports\TravelsImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -129,7 +128,7 @@ class TravelController extends Controller
         Travel::create([
             'id' => $request->id,
             'origin' => $request->origin,
-            'destination' => $request->destination,
+            'destiny' => $request->destiny,
             'date' => $request->date,
             'time' => $request->time,
             'price' => $request->price,

@@ -27,17 +27,16 @@
       }
     </style>
 
-    
     <!-- Custom styles for this template -->
     <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
 </head>
 <html lang="en" data-bs-theme="auto">
   <head><script src="../assets/js/color-modes.js"></script>
 
-   
+
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/jumbotron/">
 
-    
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
@@ -122,7 +121,6 @@
       }
     </style>
 
-    
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -176,7 +174,6 @@
       </ul>
     </div>
 
-    
 <main>
   <div class="container py-4">
     <header class="pb-3 mb-4 border-bottom">
