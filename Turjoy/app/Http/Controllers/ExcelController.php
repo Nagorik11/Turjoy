@@ -4,35 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Imports\TravelsImport;
 use Illuminate\Http\Request;
-use App\Imports\FilesImport;
+use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\FileUpload;
+use App\Models\LoadedFiles;
+use App\Models\Travel;
+use App\Http\Controllers\TravelController;
 
 class ExcelController extends Controller
 {
     public function importExportView()
     {
-        $datosCargados = FileUpload::all();
-        return view('importExportView', ['datosCargados' => $datosCargados]);
+        $loadedFiles = LoadedFiles::all();
+        return view('importExportView', ['loadedFiles' => $loadedFiles]);
     }
 
 
-    public function import(Request $request)
-    {
-        $request->validate([
-            'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
-        ]);
-
-        try {
-            Excel::import(new FilesImport, $request->file('archivo'));
-            return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
-        } catch (\Exception $e) {
-            return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
-        }
-    }
-
-
-    public function loadfile(Request $request)
+    public function loadFile(Request $request)
     {
         // Validar que se haya enviado un archivo
         if (!$request->hasFile('archivo')) {
@@ -52,11 +39,11 @@ class ExcelController extends Controller
             return redirect()->back()->with('error', 'El tamaño máximo del archivo a cargar no puede superar los 5 megabytes.');
         }
 
-        // Procesar el archivo utilizando la clase FilesImport
+        // Procesar el archivo utilizando la clase UsersImport
         try {
-            Excel::import(new FilesImport, $archivo);
-            // Mensaje de éxito
 
+            $travelController = new TravelController();
+            $travelController->travelCheck($request);
             return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
 
 
@@ -66,10 +53,10 @@ class ExcelController extends Controller
         }
     }
 
-    public function mostrarFileUpload()
+    public function showLoadedFiles()
     {
-        $datosCargados = FileUpload::all();
-        return view('mostrar-datos-cargados', ['datosCargados' => $datosCargados]);
+        $loadedFiles = LoadedFiles::all();
+        return view('showLoadedFiles', ['loadedFiles' => $loadedFiles]);
     }
 
 };

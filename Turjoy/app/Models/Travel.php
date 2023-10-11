@@ -12,7 +12,7 @@ class Travel extends Model
     protected $fillable = [
         'id',
         'origin',
-        'destiny',
+        'destination',
         'date',
         'base_rate',
         'seats',

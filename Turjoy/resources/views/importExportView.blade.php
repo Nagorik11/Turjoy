@@ -6,7 +6,7 @@
         <h1>Dashboard</h1>
         <p class="lead">Cargar rutas de viaje.</p>
 
-        @if(session('error'))
+        {{-- @if(session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
@@ -16,9 +16,9 @@
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
-        @endif
+        @endif --}}
 
-        <form action="{{ route('load-file') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('loadFile') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="archivo">Selecciona un archivo XLSX:</label>
@@ -27,11 +27,17 @@
             <button type="submit" class="btn btn-primary">Cargar archivo</button>
         </form>
 
-        <h2>Datos Cargados</h2>
+        @error('archivo')
+            <div class="alert alert-danger mt-3">
+                {{ $message }}
+            </div>
+        @enderror
+        @if($allRows)
+
+
+            <h2>Datos Cargados</h2>
 
         @if(isset($datosCargados) && count($datosCargados) > 0)
-            <p>Se han cargado {{ count($datosCargados) }} registros.</p>
-
             <table class="table">
                 <thead>
                     <tr>
@@ -44,7 +50,7 @@
                 </thead>
                 <tbody>
                     @foreach($datosCargados as $dato)
-                    <tr style="background-color: {{ $dato->type == 0 ? '#a8e6cf' : ($dato->type == 2 ? '#ff8a80' : ($dato->type == 1 ? '#e4e6a8' : '')) }}">
+                        <tr>
                             <td>{{ $dato->origen }}</td>
                             <td>{{ $dato->destino }}</td>
                             <td>{{ $dato->cant_asientos }}</td>
@@ -54,7 +60,6 @@
                     @endforeach
                 </tbody>
             </table>
-
         @else
             <p>No hay datos cargados.</p>
         @endif
@@ -67,3 +72,5 @@
         @endguest
     </div>
 @endsection
+
+

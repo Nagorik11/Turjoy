@@ -3,53 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\Travel;
-use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
 use App\Imports\TravelsImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Helpers\MyHelper;
 
 class TravelController extends Controller
 {
-<<<<<<< HEAD
-
-    public function travelCheck(Request $request)
-    {
-=======
     public function indexAddTravels()
     {
-
-        if (session('validRows') || session('invalidRows') || session('duplicatedRows')) {
+        dd('indexAddTravels');
+        if (session('validRows') || session('invalidRows') || session('duplicatedRows')||session()->put('allRows')) {
             session()->put('validRows', []);
             session()->put('invalidRows', []);
             session()->put('duplicatedRows', []);
+            session()->put('allRows', []);
         } else {
             session(['validRows' => []]);
             session(['invalidRows' => []]);
             session(['duplicatedRows' => []]);
+            session(['allRows' => []]);
         }
 
+        dd('Estoy en return view de travel controller');
         return view('importExportView', [
             'validRows' => session('validRows'),
             'invalidRows' => session('invalidRows'),
-            'duplicatedRows' => session('duplicatedRows')
+            'duplicatedRows' => session('duplicatedRows'),
+            'allRows' => session('allRows')
         ]);
     }
 
     public function indexTravels()
     {
+        //dd('indexTravels');
+        //dd(session('allRows'));
         return view('importExportView', [
             'validRows' => session('validRows'),
             'invalidRows' => session('invalidRows'),
-            'duplicatedRows' => session('duplicatedRows')
+            'duplicatedRows' => session('duplicatedRows'),
+            'allRows' => session('allRows')
         ]);
     }
 
     public function travelCheck(Request $request)
     {
->>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
+        //dd('travelCheck');
+        $message = errorMessages();
         $request->validate([
             'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
-        ]);
+        ],$message);
 
         try {
             $import = new TravelsImport;
@@ -58,24 +61,24 @@ class TravelController extends Controller
             $validRows = $import->getValidRows();
             $invalidRows = $import->getInvalidRows();
             $duplicatedRows = $import->getDuplicatedRows();
+            $allRows = $import->getAllRows();
 
             // BORRAR DEPUES -------------------------------------------------------------------
-            //dd($validRows,$invalidRows,$duplicatedRows);
+            //dd($validRows,$invalidRows,$duplicatedRows,$allRows);
+            //dd('antes del foreach');
             foreach($validRows as $row)
             {
-
+                //dd('estoy en el foreach');
                 $origin = $row['origen'];
                 $destiny = $row['destino'];
 
                 $travel = Travel::where('origin',$origin)
-<<<<<<< HEAD
                     ->where('destiny',$destiny)
-=======
-                    ->where('destination',$destiny)
->>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
                     ->first();
+
                 if($travel)
                 {
+                    //dd('estoy en el if de que existe un travel');
                     $travel->update([
                         'seats' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base']
@@ -83,42 +86,35 @@ class TravelController extends Controller
                 }
                 else
                 {
+                    //dd('estoy en el else de que no existe un travel');
                     Travel::create([
                         'origin'=> $origin,
-                        'destiny'=> $destiny,
-<<<<<<< HEAD
+                        'destination'=> $destiny,
                         'seats'=> $row['cantidad_de_asientos'],
-=======
-                        'seats'=> ToStringFormat($row['cantidad_de_asientos']),
->>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
                         'base_rate'=> $row['tarifa_base'],
                     ]);
                 }
+                //dd('despues del  foreach');
             }
-
+            //dd('despues del foreach');
+            //dd('antes del array_filter');
             $invalidRows = array_filter($invalidRows, function ($invalidrow) {
                 return $invalidrow['origen'] !== null || $invalidrow['destino'] !== null || $invalidrow['cantidad_de_asientos'] !== null || $invalidrow['tarifa_base'] !== null;
             });
-
+            //dd('despues del array_filter');
             //dd(session('invalidRows'));
-
+            // dd($allRows);
             session()->put('validRows', $validRows);
             session()->put('invalidRows', $invalidRows);
             session()->put('duplicatedRows', $duplicatedRows);
+            session()->put('allRows', $allRows);
 
-            //dd(count(session('validRows')), count(session('invalidRows')));
+            //dd(count(session('validRows')), count(session('invalidRows')), count(session('duplicatedRows')), count(session('allRows')));
 
-<<<<<<< HEAD
-            return redirect()->route('importExportView')->with('success', 'El archivo se cargó correctamente.');
+            return redirect()->route('travel.index')->with('success', 'El archivo se cargó correctamente.');
         } catch (\Exception $e) {
-            dd($e);
-            return redirect()->route('importExportView')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
-=======
-            return redirect()->route('showLoadedFiles')->with('success', 'El archivo se cargó correctamente.');
-        } catch (\Exception $e) {
-            dd($e);
-            return redirect()->route('showLoadedFiles')->with('error', 'Error al importar el archivo: ' . $e->getMessage());
->>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
+            //dd($e);
+            return redirect()->back()->with('error', 'Error al importar el archivo: ' . $message);
         }
     }
 
@@ -132,7 +128,7 @@ class TravelController extends Controller
         Travel::create([
             'id' => $request->id,
             'origin' => $request->origin,
-            'destination' => $request->destination,
+            'destiny' => $request->destiny,
             'date' => $request->date,
             'time' => $request->time,
             'price' => $request->price,
@@ -142,8 +138,4 @@ class TravelController extends Controller
 
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5
