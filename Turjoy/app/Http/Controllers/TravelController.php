@@ -50,10 +50,10 @@ class TravelController extends Controller
     public function travelCheck(Request $request)
     {
         //dd('travelCheck');
-       // $message = errorMessages();
+       // $message = MyHelper::errorMessages;
         $request->validate([
             'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
-        ],);//$message);
+        ]);
         try {
             $import = new TravelsImport;
             Excel::import($import, $request->file('archivo'));
