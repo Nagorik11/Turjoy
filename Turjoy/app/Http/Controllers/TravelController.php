@@ -50,10 +50,10 @@ class TravelController extends Controller
     public function travelCheck(Request $request)
     {
         //dd('travelCheck');
-        $message = errorMessages();
+       // $message = errorMessages();
         $request->validate([
             'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
-        ],$message);
+        ],);//$message);
         try {
             $import = new TravelsImport;
             Excel::import($import, $request->file('archivo'));
@@ -120,8 +120,8 @@ class TravelController extends Controller
             dd($e);
             $request->validate([
                 'archivo' => 'required|string|mimes:xlsx|max:5120', // Max 5MB
-            ],$message);
-            return redirect()->back()->with('error', $message);
+            ]);//,$message);
+            return redirect()->back()->with('error');//, $message);
         }
     }
 
