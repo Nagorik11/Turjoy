@@ -29,7 +29,13 @@ class LoginRequest extends FormRequest
             'password' => 'required|present|not_empty'
         ];
     }
-
+    public function messages()
+    {
+        return [
+            'email.filled' => 'debe ingresar su correo electrónico para iniciar sesión',
+            'password.required' => 'debe ingresar su contraseña para iniciar sesión',
+        ];
+    }
     /**
      * Get the needed authorization credentials from the request.
      *

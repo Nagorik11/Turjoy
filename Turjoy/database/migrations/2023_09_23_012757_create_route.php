@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
+
     public function up()
     {
-        Schema::create('datos_cargados', function (Blueprint $table) {
+        Schema::create('Route', function (Blueprint $table) {
             $table->id();
-            $table->string('origen')->nullable();
-            $table->string('destino')->nullable();
-            $table->string('cant_asientos')->nullable();
-            $table->string('tarifa_base')->nullable();
+            $table->string('origin')->nullable();
+            $table->string('destiny')->nullable();
+            $table->string('seat_quantity')->nullable();
+            $table->string('base_rate')->nullable();
             $table->string('type')->nullable();
             // Agrega otras columnas si es necesario
             $table->timestamps();
@@ -23,7 +23,7 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('datos_cargados');
+        Schema::dropIfExists('Route');
     }
-    
+
 };
