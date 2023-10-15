@@ -39,8 +39,6 @@
 
             {{-- @if(isset($datosCargados) && count($datosCargados) > 0) --}}
                 {{-- <p>Se han cargado {{ count($datosCargados) }} registros.</p> --}}
-            <p>Se han cargado {{ count($allRows) }} registros.</p>
-
             <table class="table">
                 <thead>
                     <tr>

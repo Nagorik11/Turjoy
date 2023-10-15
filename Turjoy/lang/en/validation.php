@@ -139,13 +139,6 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-    'custom' => [
-        'attribute-name' => ['email','password',
-            'required' => 'Por favor, complete el campo :attribute.',
-        ],
-    ],
-    
-  
 
     /*
     |--------------------------------------------------------------------------

@@ -3,8 +3,7 @@
 @section('content')
     <div class="bg-light p-5 rounded">
         @auth
-        <h1>Dashboard</h1>
-        <p class="lead">Cargar rutas de viaje.</p>
+        <h1>Cargar rutas de viaje</h1>
 
         {{-- @if(session('error'))
             <div class="alert alert-danger">
