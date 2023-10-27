@@ -43,6 +43,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
+        /**
+         * Voucher Routes
+         */
+        Route::get('/voucher', 'VoucherController@indexVoucher')->name('voucher.index');
 
     });
 
