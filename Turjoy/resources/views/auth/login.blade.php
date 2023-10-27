@@ -17,13 +17,13 @@
         
         <div class="form-group form-floating mb-3">
             <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="email" autofocus>
-            <label for="floatingName">Email or email</label>
+            <label for="floatingName">Correo electrónico</label>
            
         </div>
 
         <div class="form-group form-floating mb-3">
             <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <label for="floatingPassword">Contraseña</label>
             
         </div>
 

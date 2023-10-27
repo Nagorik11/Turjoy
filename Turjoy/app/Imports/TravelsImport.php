@@ -14,6 +14,7 @@ class TravelsImport implements ToCollection,WithHeadingRow
     protected $invalidRows = [];
     protected $duplicatedRows = [];
     protected $existingOriginsDestinations = [];
+    protected $allRows = [];
 
     /**
      * Importar una coleccion de filas desde el archivo excel
@@ -30,26 +31,41 @@ class TravelsImport implements ToCollection,WithHeadingRow
             if($this->hasDuplicateOriginDestination($origin,$destination))
             {
                 $row['tarifa_base'] = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
-                if(isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']) && $origin != $destination)
+                if(isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset($row['tarifa_base']) &&
+                is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base'])
+                && $origin != $destination && $row['tarifa_base'] > 0 && $row['cantidad_de_asientos'] > 0)
                 {
                     $this->duplicatedRows[] = $row;
+                    $row['type'] = '1';
+                    $this->allRows[] = $row;
+
                 }
                 else
                 {
                     $this->invalidRows[] = $row;
+                    $row['type'] = '2';
+                    $this->allRows[] = $row;
                 }
             }
             else
             {
                 $row['tarifa_base'] = str_replace(['$', ',', '.'], '', $row['tarifa_base']);
-                if(isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos']) && isset($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos']) && is_numeric($row['tarifa_base']) && $origin != $destination)
+                $row['cantidad_de_asientos'] = str_replace(['.'], '', $row['cantidad_de_asientos']);
+                if(isset($row['origen']) && isset($row['destino']) && isset($row['cantidad_de_asientos'])
+                && isset($row['tarifa_base']) && is_numeric($row['cantidad_de_asientos'])
+                && is_numeric($row['tarifa_base']) && $origin != $destination
+                && $row['tarifa_base'] > 0 && $row['cantidad_de_asientos'] > 0)
                 {
                     $this->validRows[] = $row;
                     $this->existingOriginsDestinations[] = $origin . '-' . $destination;
+                    $row['type'] = '0';
+                    $this->allRows[] = $row;
                 }
                 else
                 {
                     $this->invalidRows[] = $row;
+                    $row['type'] = '2';
+                    $this->allRows[] = $row;
                 }
             }
 
@@ -99,8 +115,9 @@ class TravelsImport implements ToCollection,WithHeadingRow
     {
         return $this->duplicatedRows;
     }
-<<<<<<< HEAD
+
+    public function getAllRows()
+    {
+        return $this->allRows;
+    }
 }
-=======
-}
->>>>>>> 81f025e720e23d3ef07d6e093f54eeb2078857b5

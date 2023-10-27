@@ -18,7 +18,7 @@ class DefaultUserSeeder extends Seeder
         $user = new User();
         $user->name = 'Ítalo Donoso Barraza';
         $user->email = 'italo.donoso@ucn.cl';
-        $user->password = Hash::make('Turjoy91'); // Asegúrate de cambiar 'contraseña' por la contraseña deseada
+        $user->password ='Turjoy91'; // Asegúrate de cambiar 'contraseña' por la contraseña deseada
         $user->role = 'Administrador';
         $user->save();
     }
