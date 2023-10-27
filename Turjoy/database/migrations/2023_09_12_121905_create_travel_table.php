@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('destination');
             $table->integer('seats');
             $table->integer('base_rate');
+            $table->integer('Route_id')->nullable();
+            $table->integer('User_id')->nullable();
             $table->timestamps();
 
         });

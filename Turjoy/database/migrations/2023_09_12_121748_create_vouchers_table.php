@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
+            $table->integer('seats');
+            $table->integer('total');
+            $table->integer('User_id')->nullable();
+            $table->integer('Route_id')->nullable();
             $table->timestamps();
         });
     }

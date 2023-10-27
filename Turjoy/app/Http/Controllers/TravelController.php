@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Travel;
+use App\Models\Route;
 use Carbon\Traits\ToStringFormat;
 use Illuminate\Http\Request;
 use App\Imports\TravelsImport;
@@ -26,7 +26,7 @@ class TravelController extends Controller
             session(['allRows' => []]);
         }
 
-        dd('Estoy en return view de travel controller');
+        //dd('Estoy en return view de travel controller');
         return view('importExportView', [
             'validRows' => session('validRows'),
             'invalidRows' => session('invalidRows'),
@@ -50,10 +50,10 @@ class TravelController extends Controller
     public function travelCheck(Request $request)
     {
         //dd('travelCheck');
-        $message = errorMessages();
+       // $message = MyHelper::errorMessages;
         $request->validate([
             'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
-        ],$message);
+        ]);
         try {
             $import = new TravelsImport;
             Excel::import($import, $request->file('archivo'));
@@ -71,27 +71,31 @@ class TravelController extends Controller
                 //dd('estoy en el foreach');
                 $origin = $row['origen'];
                 $destiny = $row['destino'];
+                //dd($row);
 
-                $travel = Travel::where('origin',$origin)
-                    ->where('destination',$destiny)
+                $travel = Route::where('origin',$origin)
+                    ->where('destiny',$destiny)
                     ->first();
 
                 if($travel)
                 {
+                    //dd($row);
                     //dd('estoy en el if de que existe un travel');
                     $travel->update([
-                        'seats' => $row['cantidad_de_asientos'],
+                        'seat_quantity' => $row['cantidad_de_asientos'],
                         'base_rate' => $row['tarifa_base']
                     ]);
+                    //dd($travel);
                 }
                 else
                 {
                     //dd('estoy en el else de que no existe un travel');
-                    Travel::create([
+                    Route::create([
                         'origin'=> $origin,
-                        'destination'=> $destiny,
-                        'seats'=> $row['cantidad_de_asientos'],
+                        'destiny'=> $destiny,
+                        'seat_quantity'=> $row['cantidad_de_asientos'],
                         'base_rate'=> $row['tarifa_base'],
+                        'type'=> 0,
                     ]);
                 }
                 //dd('despues del  foreach');
@@ -114,11 +118,11 @@ class TravelController extends Controller
             return redirect()->route('travel.index')->with('success', 'El archivo se cargó correctamente.');
         }
         catch (\Exception $e) {
-            //dd($e);
+            dd($e);
             $request->validate([
                 'archivo' => 'required|string|mimes:xlsx|max:5120', // Max 5MB
-            ],$message);
-            return redirect()->back()->with('error', $message);
+            ]);//,$message);
+            return redirect()->back()->with('error');//, $message);
         }
     }
 
@@ -129,7 +133,7 @@ class TravelController extends Controller
     {
         //Crear el product
 
-        Travel::create([
+        Route::create([
             'id' => $request->id,
             'origin' => $request->origin,
             'destination' => $request->destination,

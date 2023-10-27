@@ -38,8 +38,7 @@ class FilesImport implements ToCollection, WithHeadingRow
                     $existingRecord->cant_asientos = $cantidad_de_asientos;
                     $existingRecord->tarifa_base = $tarifa_base;
                     $existingRecord->save();
-                    }
-                else {
+                    } else {
                     // Nuevo registro
                     $type = '0'; // Asignamos '0' a $type
                 }

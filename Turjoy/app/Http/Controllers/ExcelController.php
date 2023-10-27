@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\LoadedFiles;
+use App\Models\FileUpload;
 use App\Models\Travel;
 use App\Http\Controllers\TravelController;
 
@@ -13,7 +13,7 @@ class ExcelController extends Controller
 {
     public function importExportView()
     {
-        $loadedFiles = LoadedFiles::all();
+        $loadedFiles = FileUpload::all();
         return view('importExportView', ['loadedFiles' => $loadedFiles]);
     }
 
@@ -53,10 +53,8 @@ class ExcelController extends Controller
 
     public function showLoadedFiles()
     {
-        $loadedFiles = LoadedFiles::all();
+        $loadedFiles = FileUpload::all();
         return view('showLoadedFiles', ['loadedFiles' => $loadedFiles]);
     }
 
 };
-
-
