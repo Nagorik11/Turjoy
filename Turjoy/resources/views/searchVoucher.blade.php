@@ -20,10 +20,13 @@
                     <p class="fs-4 m-0">Ingrese el codigo de la reserva:</p>
                 </div>
                 <div class="col-md-4 d-flex align-items-center ">
+                <form action="/voucher-search" method="POST">
+                    @csrf
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Codigo de reserva" aria-label="Codigo de reserva" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Buscar</button>
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">Buscar</button>
                     </div>
+                </form>
                 </div>
             </div>
             <hr/>
