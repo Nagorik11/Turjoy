@@ -23,7 +23,7 @@
                 <form action="/voucher-search" method="POST">
                     @csrf
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Codigo de reserva" aria-label="Codigo de reserva" aria-describedby="button-addon2">
+                        <input type="text" name= "search_code" class="form-control" placeholder="Codigo de reserva" aria-label="Codigo de reserva" aria-describedby="button-addon2">
                         <button class="btn btn-outline-primary" type="submit" id="button-addon2">Buscar</button>
                     </div>
                 </form>
@@ -35,7 +35,7 @@
                     <tbody>
                         <tr>
                             <th class="p-3" scope="row">Codigo de la reserva</th>
-                            <td>---</td>
+                            <td>{{$voucher->id}}</td>
                         </tr>
                         <tr>
 
@@ -48,11 +48,11 @@
                         </tr>
                         <tr>
                             <th class="p-3" scope="row">Cantidad de asientos</th>
-                            <td>---</td>
+                            <td>{{$voucher->seats}}</td>
                         </tr>
                         <tr>
                             <th class="p-3" scope="row">Costo total</th>
-                            <td>---</td>
+                            <td>{{$voucher->total}}</td>
                         </tr>
                     </tbody>
                 </table>
