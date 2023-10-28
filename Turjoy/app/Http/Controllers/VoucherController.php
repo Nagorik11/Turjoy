@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Voucher;
+use App\Models\Route;
 use Illuminate\Http\Request;
 
 class VoucherController extends Controller
@@ -21,7 +22,13 @@ class VoucherController extends Controller
 
         if ($voucher)
         {
-            return view('searchVoucher',['voucher' => $voucher]);
+            $route = Route::find($voucher->Route_id);
+
+            if($route)
+            {
+                return view('searchVoucher',['voucher' => $voucher,'route'=>$route]);
+            }
+                
         }
     }
 }

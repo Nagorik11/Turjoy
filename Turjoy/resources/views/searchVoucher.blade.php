@@ -40,11 +40,11 @@
                         <tr>
 
                             <th class="p-3" scope="row">Origen</th>
-                            <td>---</td>
+                            <td>{{$route->origin}}</td>
                         </tr>
                         <tr>
                             <th class="p-3" scope="row">Destino</t>
-                            <td>---</td>
+                            <td>{{$route->destiny}}</td>
                         </tr>
                         <tr>
                             <th class="p-3" scope="row">Cantidad de asientos</th>
