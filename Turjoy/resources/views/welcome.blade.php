@@ -161,9 +161,17 @@
         <p class="col-md-8 fs-4">¡Bienvenido a Turjoy, tu plataforma de reserva de pasajes de confianza! ¿Listo para emprender un emocionante viaje? No esperes más, escoge tu destino, fechas deseadas y asegura tu asiento. Reserva tus pasajes de forma rápida y sencilla.
              ¡No te quedes atrás y asegura tu pasaje ahora!</p>
         <button class="btn btn-primary btn-lg" type="button">Comprar ticket</button>
+      
       </div>
     </div>
 
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold ">Buscar Reserva</h1>
+        <p class="col-md-8 fs-4">¡!</p>
+        <a href="voucher" class="btn btn-primary" style="float">Ingresar Voucher</a>
+      </div>
+    </div>
 </main>
     </body>
 

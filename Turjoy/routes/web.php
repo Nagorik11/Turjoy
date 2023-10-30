@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\TravelController;
+use App\Http\Controllers\VoucherController;
+use App\Models\Voucher;
 use App\Models\Travel;
 use app\Imports\TravelsImport;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,11 @@ use app\Imports\TravelsImport;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/voucher', function(){
+    return view('searchVoucher');
+});
+
+
 #Route::get('/register', [RegisterController::class, 'show']);
 #Route::post('/action-register', [RegisterController::class, 'register']);
 
@@ -30,6 +38,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Home Routes
      */
     Route::get('/home', 'HomeController@index')->name('home.index');
+    Route::get('/voucher', [VoucherController::class,'indexVoucher'])->name('voucher.index');
 
     Route::group(['middleware' => ['guest']], function() {
         /**
@@ -43,6 +52,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
+        /**
+         * Voucher Routes
+         */
+       // Route::get('/voucher', 'VoucherController@indexVoucher')->name('voucher.index');
+
 
     });
 
@@ -64,6 +78,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // Route::get('/import-export', 'ExcelController@importExportView')->name('importExportView');
         // Route::post('/load-file', 'ExcelController@loadfile')->name('load-file');
         // Route::get('/mostrar-datos-cargados', 'ExcelController@mostrarDatosCargados')->name('mostrar-datos-cargados');
+       // Route::get('/voucher', 'VoucherController@indexVoucher')->name('voucher.index');
 
         Route::get('/import-export', [TravelController::class, 'indexAddTravels'])->name('importExportView');
         Route::post('/load-file', [TravelController::class, 'travelCheck'])->name('travel.check');
