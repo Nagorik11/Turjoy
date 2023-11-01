@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\VoucherController;
@@ -34,8 +33,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Home Routes
      */
     Route::get('/home', 'HomeController@index')->name('home.index');
+    /**
+     * Voucher Routes
+     */
+    Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
     Route::get('/voucher', [VoucherController::class,'indexVoucher'])->name('voucher.index');
-    Route::get('/results', [VoucherController::class,'informationVoucher'])->name('voucher.results');
+   /// Route::post('/search-voucher', [VoucherController::class,'searchVoucher'])->name('voucher.search');
+    /**
+     * Guest Routes
+     */
     Route::group(['middleware' => ['guest']], function() {
        
         /**

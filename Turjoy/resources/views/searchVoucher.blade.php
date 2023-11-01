@@ -16,15 +16,35 @@
             <h1 class="">Buscar Reservas</h1>
             
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4  d-flex align-items-center offset-md-2 justify-content-sm-start">
-                    <p class="fs-4 m-0">Ingrese el codigo de la reserva:</p>
-                </div>
-                <div class="col-md-4 d-flex align-items-center ">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Codigo de reserva" aria-label="Codigo de reserva" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Buscar</button>
+        <form method="post" action="{{ route('voucher.search') }}" class="container mt-4">
+        @csrf
+
+    <div class="form-group form-floating mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" name="code" value="{{ old('code') }}" placeholder="Código del Voucher" autofocus>
+            <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+        </div>
+        @if(isset($voucher))
+    <!-- Mostrar detalles del voucher aquí -->
+    @elseif(isset($error))
+    <div class="alert alert-danger">
+        {{ $error }}
+    </div>
+@endif
+       
+    </div>
+</form>
+
+
+
+        @include('layouts.partials.messages')
+
+   
+
+
+                        <a href="{{ route('home.index') }}" class="btn btn-outline-primary">Regresar</a>
                     </div>
                 </div>
             </div>

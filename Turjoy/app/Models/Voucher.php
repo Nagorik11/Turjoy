@@ -9,12 +9,12 @@ class Voucher extends Model
 {
     use HasFactory;
 
+    protected $table = 'vouchers'; //Table name within the database
+
     protected $fillable = [
-        'voucher_code',
-        'travel_id',
-        'origin',
-        'destination',
+        'id',
         'seats',
-        'total_cost',
+        'route_id',
+        
     ];
 }
