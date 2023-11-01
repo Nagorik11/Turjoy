@@ -15,20 +15,26 @@ class VoucherController extends Controller
 
     public function searchVoucher(Request $request)
     {
+
+
         $code = $request->input('search_code');
 
         //Busqueda en la BD del voucher
         $voucher = Voucher::where('id', $code)->first();
 
-        if ($voucher)
-        {
+        if ($voucher) {
             $route = Route::find($voucher->Route_id);
 
-            if($route)
-            {
-                return view('searchVoucher',['voucher' => $voucher,'route'=>$route]);
+            if ($route) {
+
+                return view('searchVoucher', ['voucher' => $voucher, 'route' => $route]);
             }
-                
+        }
+        else{
+            // $request->validate([
+            //     'search_code' => 'required', // Max 5MB
+            // ]);
+            return redirect()->route("voucher.index",)->with('error');
         }
     }
 }

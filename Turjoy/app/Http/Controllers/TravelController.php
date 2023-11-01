@@ -120,7 +120,7 @@ class TravelController extends Controller
             dd($e);
             $request->validate([
                 'archivo' => 'required|string|mimes:xlsx|max:5120', // Max 5MB
-            ]);//,$message);
+            ]);
             return redirect()->back()->with('error');//, $message);
         }
     }
