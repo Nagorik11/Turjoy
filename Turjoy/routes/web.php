@@ -4,9 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\PaymentController;
 use App\Models\Voucher;
 use App\Models\Travel;
+use App\Models\Payment;
 use app\Imports\TravelsImport;
+
 
 
 /*
@@ -38,7 +41,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
     Route::get('/voucher', [VoucherController::class,'indexVoucher'])->name('voucher.index');
-   /// Route::post('/search-voucher', [VoucherController::class,'searchVoucher'])->name('voucher.search');
+   // Route::post('/search-voucher', [VoucherController::class,'searchVoucher'])->name('voucher.search');
+    
+    Route::get('/payment', [PaymentController::class,'indexPayment'])->name('payment.index');
+    //Route::post('/payment', [PaymentController::class,'paymentProcess'])->name('payment.process');
     /**
      * Guest Routes
      */

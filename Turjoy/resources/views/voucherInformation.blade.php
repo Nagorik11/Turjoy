@@ -1,4 +1,4 @@
-@extends('layouts.auth-master')
+@extends('searchVoucher')
 <!DOCTYPE html>
 <html lang="en">
 <head>
