@@ -20,6 +20,9 @@
     <button type="submit" class="btn btn-primary">Confirmar</button>
 </form>
         </div>
+        <div class="return-button">
+            <a href="welcome" class="btn custom-button">Regresar</a>
+        </div>        
     </div>
 </body>
 </html>

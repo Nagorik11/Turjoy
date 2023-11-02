@@ -65,13 +65,13 @@
                             <div id="carouselExampleSlidesOnly1" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="{{ URL('images/desierto.jpg') }}" height="270" width="500" class="d-block w-100">
+                                        <img src="{{ URL('images/florido.jpg') }}" height="270" width="500" class="d-block w-100">
                                     </div>
                                     <div class="carousel-item">
                                         <img src="{{ URL('images/mano.jpg') }}" height="270" width="500" class="d-block w-100">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ URL('images/montaña.jpg') }}" height="270" width="500" class="d-block w-100">
+                                        <img src="{{ URL('images/isladepascua.jpg') }}" height="270" width="500" class="d-block w-100">
                                     </div>
                                 </div>
                             </div>
@@ -89,10 +89,10 @@
                             <div id="carouselExampleSlidesOnly2" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="{{ URL('images/palafito.jpg') }}" height="270" width="500" class="d-block w-100">
+                                        <img src="{{ URL('images/palafitos.jpg') }}" height="270" width="500" class="d-block w-100">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ URL('images/stgo.jpg') }}" height="270" width="500" class="d-block w-100">
+                                        <img src="{{ URL('images/desierto.jpg') }}" height="270" width="500" class="d-block w-100">
                                     </div>
                                     <div class="carousel-item">
                                         <img src="{{ URL('images/valpo.jpg') }}" height="270" width="500" class="d-block w-100">
