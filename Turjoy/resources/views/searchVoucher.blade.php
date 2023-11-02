@@ -30,7 +30,6 @@
             border-collapse: collapse;
             width: 80%; /* Hacemos que la tabla ocupe todo el ancho disponible */
             margin: 100px auto 0; /* Centramos la tabla horizontalmente */
-
         }
         .custom-table th,.custom-table td {
             padding: 15px; /* Aumentamos el relleno para hacer la tabla más grande */
