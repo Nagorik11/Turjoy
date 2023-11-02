@@ -5,9 +5,12 @@ use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReservationController;
+
 use App\Models\Voucher;
 use App\Models\Travel;
 use App\Models\Payment;
+use App\Models\Reservation;
 use app\Imports\TravelsImport;
 
 
@@ -45,6 +48,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     
     Route::get('/payment', [PaymentController::class,'indexPayment'])->name('payment.index');
     //Route::post('/payment', [PaymentController::class,'paymentProcess'])->name('payment.process');
+    
+    Route::get('/reservation', [ReservationController::class,'indexReservation'])->name('reservation.index');
+    //Route::post('/reservation', [ReservationController::class,'showOrigins'])->name('reservation.origin');
+    
     /**
      * Guest Routes
      */

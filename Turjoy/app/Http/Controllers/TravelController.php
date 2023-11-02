@@ -142,7 +142,15 @@ class TravelController extends Controller
             'seat' => $request->seat,
         ]);
 
-
     }
+
+    public function getOrigins()
+    {
+        $origins = Route::all();
+    
+        return view('reservation', compact('origins'));
+    }
+    
+
 
 }
