@@ -20,7 +20,6 @@
       @guest
         <div class="text-end">
           <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Login</a>
-          <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a>
         </div>
       @endguest
     </div>
