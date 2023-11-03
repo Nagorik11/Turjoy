@@ -61,6 +61,12 @@
         .header-logo {
             margin-right: 10px;
         }
+        .custom-button {
+            background-color: #0A74DA;
+            color: #fff;
+            width: 30%;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -84,14 +90,14 @@
             <div class="form-group">
                 <label for="origen">Origen:</label>
                 <div>
-                    <select class="selectpicker countrypicker form-control" data-flag="true" data-width="500px"></select>
+                    <select class="selectpicker countrypicker form-control" data-flag="true" data-width="500px" title="Selecciona un origen..."></select>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="origen">Destino:</label>
                 <div>
-                    <select class="selectpicker countrypicker form-control" data-flag="true" data-width="500px"></select>
+                    <select class="selectpicker countrypicker form-control" data-flag="true" data-width="500px" title="Selecciona un destino..."></select>
                 </div>
             </div>
 
@@ -102,6 +108,9 @@
                 </div>
             </div>
         </form>
+        <div style="text-align: center;">
+            <button type="button" class="btn custom-button">Reservar</button>
+        </div>
         <div class="card-body">
             <form action="#" method="POST">
                 @csrf
