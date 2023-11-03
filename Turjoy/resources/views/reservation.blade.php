@@ -109,7 +109,7 @@
             </div>
         </form>
         <div style="text-align: center;">
-            <button type="button" class="btn custom-button">Reservar</button>
+            <button type="submit" class="btn custom-button">Reservar</button>
         </div>
         <div class="card-body">
             <form action="#" method="POST">
