@@ -44,12 +44,20 @@
                                     <td>{{ $route->origin }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="p-3" scope="row">Destino</t>
+                                    <th class="p-3" scope="row">Destino</th>
                                     <td>{{ $route->destiny }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-3" scope="row">Dia de la reserva</th>
+                                    <td>{{$route->created_at}}</td>
                                 </tr>
                                 <tr>
                                     <th class="p-3" scope="row">Cantidad de asientos</th>
                                     <td>{{ $voucher->seats }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-3" scope="row">Fecha de compra</th>
+                                    <td>{{$voucher->created_at}}</td>
                                 </tr>
                                 <tr>
                                     <th class="p-3" scope="row">Costo total</th>
