@@ -147,10 +147,7 @@ class TravelController extends Controller
     public function getOrigins()
     {
         $origins = Route::all();
-    
-        return view('reservation', compact('origins'));
+        return view('reservation', ['origins' => $origins]);
     }
-    
-
 
 }

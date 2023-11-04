@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="//cdn.tutorialjinni.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.tutorialjinni.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="//g.tutorialjinni.com/mojoaxel/bootstrap-select-country/dist/css/bootstrap-select-country.min.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <style>
         .card {
             height: 800px;
@@ -61,12 +64,6 @@
         .header-logo {
             margin-right: 10px;
         }
-        .custom-button {
-            background-color: #0A74DA;
-            color: #fff;
-            width: 30%;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -84,22 +81,33 @@
         <form style="margin: 20px auto 0; max-width:500px;">
             <div class="form-group">
                 <label for="fecha">Fecha del viaje:</label>
-                <input type="text" style="width: 500px;" id="fecha" class="form-control" placeholder="<?php echo date('d/m/Y'); ?>" maxlength="10">
-            </div>
+
+                <script>
+                    $(function() {
+                        $("datepicker").datepicker({
+                            dateFormat: "yy-mm-dd"
+
+                        });
+                    });
+                </script>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var today = new Date().toISOString().split('T')[0];
+                        document.getElementById("datepicker").min = today;
+                    });
+                </script>
+
+            <input type="date" id="datepicker" class="form-control" min="today">
 
             <div class="form-group">
                 <label for="origen">Origen:</label>
                 <div>
-                    <select class="selectpicker countrypicker form-control" data-flag="true" data-width="500px" title="Selecciona un origen..."></select>
-                </div>
-            </div>
+                    <select name="origin" class="selectpicker  form-control" data-flag="true" data-width="500px">
+                        @foreach($origins as $origin)
+                            <option value="{{ $origin->origin }}">{{ $origin->origin }}</option>
+                        @endforeach
+                    </select>
 
-            <div class="form-group">
-                <label for="origen">Destino:</label>
-                <div>
-                    <select class="selectpicker countrypicker form-control" data-flag="true" data-width="500px" title="Selecciona un destino..."></select>
-                </div>
-            </div>
 
             <div class="form-group">
                 <label for="cantidadAsientos">Cantidad de Asientos:</label>
@@ -108,9 +116,6 @@
                 </div>
             </div>
         </form>
-        <div style="text-align: center;">
-            <button type="submit" class="btn custom-button">Reservar</button>
-        </div>
         <div class="card-body">
             <form action="#" method="POST">
                 @csrf
