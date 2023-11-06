@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
          //\App\Models\User::factory(10)->create();
 
          \App\Models\User::factory()->create([
-             'name' => 'Ítalo Donoso Barraza',
-             'email' => 'italo.donoso@ucn.cl',
+            'name' => 'Ítalo Donoso Barraza',
+            'email' => 'italo.donoso@ucn.cl',
             'password' => 'Turjoy91',
             'role' => 'Administrador',
 

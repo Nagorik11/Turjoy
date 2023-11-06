@@ -42,4 +42,3 @@
         @endguest
     </div>
 @endsection
-

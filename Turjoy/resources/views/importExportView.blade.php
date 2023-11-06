@@ -3,9 +3,10 @@
 @section('content')
     <div class="bg-light p-5 rounded">
         @auth
-        <h1>Dashboard</h1>
+        
         <p class="lead">Cargar rutas de viaje.</p>
 
+        
         {{-- @if(session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
@@ -17,7 +18,7 @@
                 {{ session('success') }}
             </div>
         @endif --}}
-
+            
         <form action="{{ route('travel.check') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -34,13 +35,14 @@
         @enderror
 
         @if($allRows)
-
+        
             <h2>Datos Cargados</h2>
+          
+
+    
 
             {{-- @if(isset($datosCargados) && count($datosCargados) > 0) --}}
                 {{-- <p>Se han cargado {{ count($datosCargados) }} registros.</p> --}}
-            <p>Se han cargado {{ count($allRows) }} registros.</p>
-
             <table class="table">
                 <thead>
                     <tr>
