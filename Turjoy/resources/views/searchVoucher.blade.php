@@ -27,7 +27,7 @@
                 <hr />
                 @error('search_code')
                     <div class="alert alert-danger  mt-3" style="color:  #ff8a80">
-                        <p class="m-0" style="color: #212529">codigo de reserva no encontrado</p>
+                        <p class="m-0" style="color: #212529">{{$message}}</p>
                     </div>
                 @enderror
                 @isset($voucher)
