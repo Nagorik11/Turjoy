@@ -31,9 +31,9 @@ class VoucherController extends Controller
             }
         }
         else{
-            // $request->validate([
-            //     'search_code' => 'required', // Max 5MB
-            // ]);
+            $request->validate([
+                'search_code' => 'required', // Max 5MB
+            ]);
             return redirect()->route("voucher.index",)->with('error');
         }
     }
