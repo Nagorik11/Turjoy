@@ -13,7 +13,7 @@
                         <p class="fs-4 m-0">Ingrese el codigo de la reserva:</p>
                     </div>
                     <div class="col-md-4 d-flex align-items-center ">
-                        <form action="/voucher-search" method="POST">
+                        <form action="/voucher-search/search_code" method="GET">
                             @csrf
                             <div class="input-group">
                                 <input type="text" name= "search_code" class="form-control"
@@ -41,19 +41,19 @@
                                 <tr>
 
                                     <th class="p-3" scope="row">Origen</th>
-                                    <td>{{ $route->origin }}</td>
+                                    <td>{{ $voucher->origin }}</td>
                                 </tr>
                                 <tr>
                                     <th class="p-3" scope="row">Destino</th>
-                                    <td>{{ $route->destiny }}</td>
+                                    <td>{{ $voucher->destiny }}</td>
                                 </tr>
                                 <tr>
                                     <th class="p-3" scope="row">Dia de la reserva</th>
-                                    <td>{{$route->created_at}}</td>
+                                    <td>{{$voucher->date}}</td>
                                 </tr>
                                 <tr>
                                     <th class="p-3" scope="row">Cantidad de asientos</th>
-                                    <td>{{ $voucher->seats }}</td>
+                                    <td>{{ $voucher->seat_quantity }}</td>
                                 </tr>
                                 <tr>
                                     <th class="p-3" scope="row">Fecha de compra</th>
@@ -61,7 +61,7 @@
                                 </tr>
                                 <tr>
                                     <th class="p-3" scope="row">Costo total</th>
-                                    <td>{{ $voucher->total }}</td>
+                                    <td>{{ $cost }}</td>
                                 </tr>
                             </tbody>
                         </table>

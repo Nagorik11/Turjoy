@@ -19,29 +19,28 @@ class VoucherController extends Controller
 
     public function searchVoucher(Request $request)
     {
-
+        //dd($request->input('search_code'));
         $message = errorMessages();
         $request->validate([
             'search_code' => 'required', // Max 5MB
         ],$message);
-
         $code = $request->input('search_code');
-
+        //dd($code);
         //Busqueda en la BD del voucher
         $voucher = Voucher::where('id', $code)->first();
 
         if ($voucher) {
-            $route = Route::find($voucher->Route_id);
-
-            if ($route) {
-
-                return view('searchVoucher', ['voucher' => $voucher, 'route' => $route]);
-            }
+            return view('searchVoucher', ['voucher' => $voucher, 'cost' => ($voucher->base_rate*$voucher->seat_quantity)]);
         }
         else{
-            // $request->validate([
-            //     'search_code' => 'required', // Max 5MB
-            // ],$message);
+            $request->validate([
+                'search_code' => [
+                    'required',
+                    function ($attribute, $value, $fail) {
+                        $fail("la reserva ". $value ." no existe en sistema");
+                    },
+                ],
+            ]);
             return redirect()->route("voucher.index")->with('error');
         }
     }
@@ -62,7 +61,7 @@ class VoucherController extends Controller
         $voucher->base_rate = $request->base_rate;
         $voucher->save();
         return redirect()->route('voucher.index');
-        
+
     }
 
     public function codeVoucherGen()
