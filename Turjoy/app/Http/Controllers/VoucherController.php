@@ -55,13 +55,14 @@ class VoucherController extends Controller
     {
         $voucher = new Voucher();
         $voucher->id = $this->codeVoucherGen();
-        $voucher->travel_id = $request->travel_id;
+        $voucher->date = $request->travel_date;
         $voucher->origin = $request->origin;
-        $voucher->destination = $request->destination;
-        $voucher->seats = $request->seats;
-        $voucher->total_cost = $request->total_cost;
+        $voucher->destiny = $request->destiny;
+        $voucher->seat_quantity = $request->seat_quantity;
+        $voucher->base_rate = $request->base_rate;
         $voucher->save();
         return redirect()->route('voucher.index');
+        
     }
 
     public function codeVoucherGen()
