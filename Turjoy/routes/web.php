@@ -39,7 +39,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Voucher Routes
      */
-    Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
+    //Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
     Route::get('/voucher', [VoucherController::class,'indexVoucher'])->name('voucher.index');
    // Route::post('/search-voucher', [VoucherController::class,'searchVoucher'])->name('voucher.search');
 

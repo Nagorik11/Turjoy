@@ -20,6 +20,10 @@ class VoucherController extends Controller
     public function searchVoucher(Request $request)
     {
 
+        $message = errorMessages();
+        $request->validate([
+            'search_code' => 'required', // Max 5MB
+        ],$message);
 
         $code = $request->input('search_code');
 
@@ -35,10 +39,10 @@ class VoucherController extends Controller
             }
         }
         else{
-            $request->validate([
-                'search_code' => 'required', // Max 5MB
-            ]);
-            return redirect()->route("voucher.index",)->with('error');
+            // $request->validate([
+            //     'search_code' => 'required', // Max 5MB
+            // ],$message);
+            return redirect()->route("voucher.index")->with('error');
         }
     }
 
