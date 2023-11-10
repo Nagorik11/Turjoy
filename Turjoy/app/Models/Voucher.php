@@ -13,8 +13,11 @@ class Voucher extends Model
 
     protected $fillable = [
         'id',
-        'seats',
-        'route_id',
+        'travel_date',
+        'origin',
+        'destiny',
+        'seat_quantity',
+        'base_rate'
         
     ];
 }

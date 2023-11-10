@@ -65,10 +65,10 @@
             margin-right: 10px;
         }
     </style>
-</head>
-<body>
+</head><body>
     <div class="card mx-auto mb-5 mt-4">
         <div class="card-header" style="background-color: #0A74DA;">
+
             <a class="header-container navbar-brand" href="/">
                 <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" width="100" height="100">
             </a>
@@ -78,15 +78,15 @@
             <label class="custom-label">Reservar Pasaje</label>
         </div>
 
-        <form style="margin: 20px auto 0; max-width:500px;">
-            <div class="form-group">
-                <label for="fecha">Fecha del viaje:</label>
+        <form action="{{ route('reservation.store') }}" method="POST" style="margin: 20px auto 0; max-width:500px;">
+
+            <div class="card-body">
+                <label for="travel_date">Fecha del viaje:</label>
 
                 <script>
                     $(function() {
-                        $("datepicker").datepicker({
+                        $("#datepicker").datepicker({
                             dateFormat: "yy-mm-dd"
-
                         });
                     });
                 </script>
@@ -97,30 +97,32 @@
                     });
                 </script>
 
-            <input type="date" id="datepicker" class="form-control" min="today">
+                <input type="date" id="travel_date" class="form-control" min="today">
 
-            <div class="form-group">
-                <label for="origen">Origen:</label>
-                <div>
+                <div class="form-group">
+                    <label for="origin">Origen:</label>
                     <select name="origin" class="selectpicker  form-control" data-flag="true" data-width="500px">
-                        @foreach($origins as $origin)
-                            <option value="{{ $origin->origin }}">{{ $origin->origin }}</option>
+                        @foreach($routes as $route)
+                        <option value="{{ $route->origin }}">{{ $route->origin }}</option>
                         @endforeach
                     </select>
-
-
-            <div class="form-group">
-                <label for="cantidadAsientos">Cantidad de Asientos:</label>
-                <div>
-                    <input type="number" class="number-input form-control" value="1" inputmode="numeric" oninput="validateInput(this)">
+                    <label for="destiny">Destino:</label>
+                    <select name="destiny" class="selectpicker form-control" data-flag="true" data-width="500px">
+                        @foreach($routes as $route)
+                        @if($route->destiny!==$route->origin)
+                        <option value="{{ $route->destiny }}">{{ $route->destiny }}</option>
+                        @endif
+                        @endforeach
+                    </select>
                 </div>
+
+                <label for="seat_quantity">Cantidad de Asientos:</label>
+                <input type="number" class="number-input form-control" value="1" inputmode="numeric" oninput="validateInput(this)">
             </div>
+            @csrf
+            <button type="submit" class="custom-button">Reservar</button>
+
         </form>
-        <div class="card-body">
-            <form action="#" method="POST">
-                @csrf
-            </form>
-        </div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

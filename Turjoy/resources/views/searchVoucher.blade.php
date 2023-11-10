@@ -42,7 +42,6 @@
             <h1 class="text-center">Buscar Reservas</h1>
         </div>
         <form method="post" action="{{ route('voucher.search') }}" class="container mt-4">
-            @csrf
             <div class="d-flex align-items-center justify-content-center">
                 <h5 style="margin-right: 50px;">Ingresa código de reserva:</h5>
                 <div class="input-group" style="width: 300px;">
