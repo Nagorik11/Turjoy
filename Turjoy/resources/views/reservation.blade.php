@@ -87,20 +87,18 @@
 
                 <script>
                     $(function() {
-                        $("datepicker").datepicker({
-                            dateFormat: "yy-mm-dd"
+                        $("#date").datepicker({
+                            format: "yyyy-mm-dd"
+                        });
+                        $("#date").on("changeDate", function() {
+                            var selectedDate = $("#date").datepicker("getDate");
 
+                            console.log(selectedDate);
                         });
                     });
                 </script>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        var today = new Date().toISOString().split('T')[0];
-                        document.getElementById("date").min = today;
-                    });
-                </script>
 
-            <input type="date" id="date" class="form-control" min="today">
+            <input type="date" id="date" name="date" class="form-control" min="{{date('Y-m-d')}}">
 
             <div class="form-group">
 
@@ -114,7 +112,7 @@
                     <label for="destiny">Destino:</label>
                     <select name="destiny" class="selectpicker form-control" data-flag="true" data-width="500px">
                         @foreach($routes as $route)
-                        @if($route->destiny!==$route->origin)
+                        @if($route->destiny!==#origin)
                         <option value="{{ $route->destiny }}">{{ $route->destiny }}</option>
                         @endif
                         @endforeach

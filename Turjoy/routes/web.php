@@ -39,7 +39,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Voucher Routes
      */
-    Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
+    //Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
+    Route::get('/voucher-search/{id}','VoucherController@searchVoucher')->name('voucher.search');
     Route::get('/voucher', [VoucherController::class,'indexVoucher'])->name('voucher.index');
    // Route::post('/search-voucher', [VoucherController::class,'searchVoucher'])->name('voucher.search');
 
@@ -49,6 +50,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/reservation', [ReservationController::class,'indexReservation'])->name('reservation.index');
     //Route::post('/reservation', [ReservationController::class,'showOrigins'])->name('reservation.origin');
     Route::get('/reservation', 'TravelController@getOrigins');
+    Route::post('/reservation', [VoucherController::class,'store'])->name('reservation.store');
 
     /**
      * Guest Routes

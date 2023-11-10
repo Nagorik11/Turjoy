@@ -18,15 +18,30 @@ class VoucherController extends Controller
 
     public function searchVoucher(Request $request)
     {
-        // Realiza la búsqueda del voucher en función del código proporcionado.
-        $voucher = Voucher::where('id', $request->id)->first();
-    
-        // Define el nombre de la vista y los datos que se pasarán a la vista.
-        $viewName = 'voucherInformation';
-        $viewData = $voucher ? ['voucher' => $voucher] : ['error' => 'No se encontró el voucher'];
-    
-        // Renderiza la vista con los datos apropiados.
-        return view($viewName, $viewData);
+        //dd($request->input('search_code'));
+        $message = errorMessages();
+        $request->validate([
+            'search_code' => 'required', // Max 5MB
+        ],$message);
+        $code = $request->input('search_code');
+        //dd($code);
+        //Busqueda en la BD del voucher
+        $voucher = Voucher::where('id', $code)->first();
+
+        if ($voucher) {
+            return view('searchVoucher', ['voucher' => $voucher, 'cost' => ($voucher->base_rate*$voucher->seat_quantity)]);
+        }
+        else{
+            $request->validate([
+                'search_code' => [
+                    'required',
+                    function ($attribute, $value, $fail) {
+                        $fail("la reserva ". $value ." no existe en sistema");
+                    },
+                ],
+            ]);
+            return redirect()->route("voucher.index")->with('error');
+        }
     }
     
 
@@ -39,7 +54,7 @@ class VoucherController extends Controller
     {
         $voucher = new Voucher();
         $voucher->id = $this->codeVoucherGen();
-        $voucher->date = $request->travel_date;
+        $voucher->date = $request->input('date');
         $voucher->origin = $request->origin;
         $voucher->destiny = $request->destiny;
         $voucher->seat_quantity = $request->seat_quantity;
@@ -59,4 +74,6 @@ class VoucherController extends Controller
         }
         return $code;
     }
+
+  
 }

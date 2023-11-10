@@ -1,96 +1,74 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turjoy</title>
-    <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
-    <style>
-        .card {
-            height: 800px;
-            width: 1280px;
-            position: relative; /* Agregamos posicionamiento relativo a la tarjeta */
-        }
+@extends('layouts.app-master')
 
-        .custom-button {
-            background-color: #2ECC71;
-            color: #000;
-            width: 100px;
-        }
+@section('content')
 
-        .return-button {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color:#000;
-        }
-
-        .custom-table {
-            border: 2px solid #2ECC71;
-            border-collapse: collapse;
-            width: 80%; /* Hacemos que la tabla ocupe todo el ancho disponible */
-            margin: 100px auto 0; /* Centramos la tabla horizontalmente */
-        }
-        .custom-table th,.custom-table td {
-            padding: 15px; /* Aumentamos el relleno para hacer la tabla más grande */
-        }
-    </style>
-</head>
-<body>
-    <div class="card mx-auto mb-4 mt-4">
-        <div class="card-header" style="background-color: #2ECC71;">
-            <h1 class="text-center">Buscar Reservas</h1>
-        </div>
-        <form method="post" action="{{ route('voucher.search') }}" class="container mt-4">
-            <div class="d-flex align-items-center justify-content-center">
-                <h5 style="margin-right: 50px;">Ingresa código de reserva:</h5>
-                <div class="input-group" style="width: 300px;">
-                    <input type="text" class="form-control" placeholder="Código de reserva" value="{{ old('code') }}" name="code">
-                    <div class="input-group-append">
-                        <button class="btn custom-button" type="submit">Buscar</button>
+    <body>
+        <div class="card m-5 mt-4">
+            <div class="card-header" style="background-color: lightblue;">
+                <h1 class="">Buscar Reservas</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4  d-flex align-items-center offset-md-2 justify-content-sm-start">
+                        <p class="fs-4 m-0">Ingrese el codigo de la reserva:</p>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center ">
+                        <form action="/voucher-search/search_code" method="GET">
+                            @csrf
+                            <div class="input-group">
+                                <input type="text" name= "search_code" class="form-control"
+                                    placeholder="Codigo de reserva" aria-label="Codigo de reserva"
+                                    aria-describedby="button-addon2">
+                                <button class="btn btn-outline-primary" type="submit" id="button-addon2">Buscar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
+                <hr />
+                @error('search_code')
+                    <div class="alert alert-danger  mt-3" style="color:  #ff8a80">
+                        <p class="m-0" style="color: #212529">{{$message}}</p>
+                    </div>
+                @enderror
+                @isset($voucher)
+                    <div class="row card mx-2">
+                        <table class="table p-5 m-0">
+                            <tbody>
+                                <tr>
+                                    <th class="p-3" scope="row">Codigo de la reserva</th>
+                                    <td>{{ $voucher->id }}</td>
+                                </tr>
+                                <tr>
+
+                                    <th class="p-3" scope="row">Origen</th>
+                                    <td>{{ $voucher->origin }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-3" scope="row">Destino</th>
+                                    <td>{{ $voucher->destiny }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-3" scope="row">Dia de la reserva</th>
+                                    <td>{{$voucher->date}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-3" scope="row">Cantidad de asientos</th>
+                                    <td>{{ $voucher->seat_quantity }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-3" scope="row">Fecha de compra</th>
+                                    <td>{{$voucher->created_at}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-3" scope="row">Costo total</th>
+                                    <td>{{ $cost }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                @endisset
             </div>
-        </form>
+    </body>
+@endsection
 
-        @if(isset($voucher))
-        @elseif(isset($error))
-            <div class="alert alert-danger">
-                {{ $error }}
-            </div>
-        @endif
-
-        @include('layouts.partials.messages')
-
-        <div class="return-button">
-            <a href="{{ route('home.index') }}" class="btn custom-button">Regresar</a>
-        </div>
-        <hr>
-        <table class="table custom-table">
-            <tbody>
-              <tr>
-                <th scope="col">Codigo de reserva</th>
-                <td scope="col">1</td>
-              </tr>
-
-              <tr>
-                <th scope="row">Origen</th>
-                <td>2</td>
-              </tr>
-              <tr>
-                <th scope="row">Destino</th>
-                <td>3</td>
-              </tr>
-              <tr>
-                <th scope="row">Cantidad de asientos</th>
-                <td>4</td>
-              </tr>
-              <tr>
-                <th scope="row">Costo total</th>
-                <td>5</td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
-</body>
 </html>
