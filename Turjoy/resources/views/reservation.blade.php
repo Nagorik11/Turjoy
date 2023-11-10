@@ -65,7 +65,8 @@
             margin-right: 10px;
         }
     </style>
-</head><body>
+</head>
+<body>
     <div class="card mx-auto mb-5 mt-4">
         <div class="card-header" style="background-color: #0A74DA;">
 
@@ -81,23 +82,27 @@
         <form action="{{ route('reservation.store') }}" method="POST" style="margin: 20px auto 0; max-width:500px;">
 
             <div class="card-body">
-                <label for="travel_date">Fecha del viaje:</label>
+            <div class="form-group">
+                <label for="date">Fecha del viaje:</label>
 
                 <script>
                     $(function() {
-                        $("#datepicker").datepicker({
+                        $("datepicker").datepicker({
                             dateFormat: "yy-mm-dd"
+
                         });
                     });
                 </script>
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
                         var today = new Date().toISOString().split('T')[0];
-                        document.getElementById("datepicker").min = today;
+                        document.getElementById("date").min = today;
                     });
                 </script>
 
-                <input type="date" id="travel_date" class="form-control" min="today">
+            <input type="date" id="date" class="form-control" min="today">
+
+            <div class="form-group">
 
                 <div class="form-group">
                     <label for="origin">Origen:</label>
