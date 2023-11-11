@@ -51,13 +51,16 @@ class VoucherController extends Controller
     }
 
     public function store(Request $request)
-    {
+    { $request->validate([
+        'date' => 'date|required'
+    ]);
         $voucher = new Voucher();
         $voucher->id = $this->codeVoucherGen();
         $voucher->date = $request->input('date');
         $voucher->origin = $request->origin;
         $voucher->destiny = $request->destiny;
-        $voucher->seat_quantity = $request->seat_quantity;
+ //       $voucher->seat_quantity = $request->seat_quantity;
+        $voucher->seat_quantity = $request->input('seat_quantity');
         $voucher->base_rate = $request->base_rate;
         $voucher->save();
         return redirect()->route('voucher.index');

@@ -99,7 +99,11 @@
                 </script>
 
             <input type="date" id="date" name="date" class="form-control" min="{{date('Y-m-d')}}">
-
+            @error('date')
+    <div class="alert alert-danger mt-3" style="color: #ff8a80">
+        {{ $message }}
+    </div>
+    @enderror
             <div class="form-group">
 
                 <div class="form-group">
@@ -112,7 +116,7 @@
                     <label for="destiny">Destino:</label>
                     <select name="destiny" class="selectpicker form-control" data-flag="true" data-width="500px">
                         @foreach($routes as $route)
-                        @if($route->destiny!==#origin)
+                        @if($route->destiny!==$route->origin)
                         <option value="{{ $route->destiny }}">{{ $route->destiny }}</option>
                         @endif
                         @endforeach
