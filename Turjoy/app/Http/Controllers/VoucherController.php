@@ -69,14 +69,25 @@ class VoucherController extends Controller
 
     public function codeVoucherGen()
     {
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
+        $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $numbers = '0123456789';
+    
+        $letterLength = strlen($letters);
+        $numberLength = strlen($numbers);
+    
         $code = '';
-        for ($i = 0; $i < 10; $i++) {
-            $code .= $characters[rand(0, $charactersLength - 1)];
+    
+        // Generate 4 letters
+        for ($i = 0; $i < 4; $i++) {
+            $code .= $letters[rand(0, $letterLength - 1)];
         }
+    
+        // Generate 2 numbers
+        for ($i = 0; $i < 2; $i++) {
+            $code .= $numbers[rand(0, $numberLength - 1)];
+        }
+    
         return $code;
     }
 
-  
-}
+};

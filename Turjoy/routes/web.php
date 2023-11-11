@@ -75,7 +75,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // Ruta para mostrar la vista de carga de archivos
         Route::get('/import', [ExcelController::class, 'importExportView'])->name('import-view');
 
-        // Ruta para procesar la carga de archivos
+        /**
+         * Define a route that listens to POST requests to '/import' URL and maps it to the 'import' method of the TravelController class.
+         * The route name is 'import-action'.
+         */
         Route::post('/import', [TravelController::class, 'import'])->name('import-action');
 
 
