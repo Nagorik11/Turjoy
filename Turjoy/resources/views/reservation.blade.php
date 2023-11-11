@@ -87,21 +87,23 @@
 
                 <script>
                     $(function() {
-                        $("datepicker").datepicker({
-                            dateFormat: "yy-mm-dd"
+                        $("#date").datepicker({
+                            format: "yyyy-mm-dd"
+                        });
+                        $("#date").on("changeDate", function() {
+                            var selectedDate = $("#date").datepicker("getDate");
 
+                            console.log(selectedDate);
                         });
                     });
                 </script>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        var today = new Date().toISOString().split('T')[0];
-                        document.getElementById("date").min = today;
-                    });
-                </script>
 
-            <input type="date" id="date" class="form-control" min="today">
-
+            <input type="date" id="date" name="date" class="form-control" min="{{date('Y-m-d')}}">
+            @error('date')
+                <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                    {{ $message }}
+                </div>
+            @enderror
             <div class="form-group">
 
                 <div class="form-group">
@@ -111,6 +113,11 @@
                         <option value="{{ $route->origin }}">{{ $route->origin }}</option>
                         @endforeach
                     </select>
+                    @error('origin')
+                <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                    {{ $message }}
+                </div>
+            @enderror
                     <label for="destiny">Destino:</label>
                     <select name="destiny" class="selectpicker form-control" data-flag="true" data-width="500px">
                         @foreach($routes as $route)
@@ -119,6 +126,11 @@
                         @endif
                         @endforeach
                     </select>
+                    @error('destiny')
+                <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                    {{ $message }}
+                </div>
+            @enderror
                 </div>
 
                 <label for="seat_quantity">Cantidad de Asientos:</label>

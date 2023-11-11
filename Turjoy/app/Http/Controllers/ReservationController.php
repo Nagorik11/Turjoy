@@ -24,8 +24,5 @@ class ReservationController extends Controller
     
         return view('reservation', ['routes' => $routes]);
     }
-    
-    
-  
-    
+ 
 }
