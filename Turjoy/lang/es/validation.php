@@ -112,6 +112,7 @@ return [
     'not_in' => 'El campo :attribute seleccionado es invalido.',
     'not_regex' => 'El formato del campo :attribute no es válido.',
     'numeric' => 'El campo :attribute debe ser un número.',
+    'origin'=> 'Debe seleccionar un origen',
     'password' => [
         'letters' => 'El campo :attribute debe contener al menos una letra.',
         'mixed' => 'El campo :attribute debe contener al menos una letra mayúscula y una minúscula.',
