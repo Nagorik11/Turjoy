@@ -39,7 +39,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Voucher Routes
      */
-    Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
+    //Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
+    Route::get('/voucher-search/{id}','VoucherController@searchVoucher')->name('voucher.search');
     Route::get('/voucher', [VoucherController::class,'indexVoucher'])->name('voucher.index');
    // Route::post('/search-voucher', [VoucherController::class,'searchVoucher'])->name('voucher.search');
 
@@ -49,7 +50,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/reservation', [ReservationController::class,'indexReservation'])->name('reservation.index');
     //Route::post('/reservation', [ReservationController::class,'showOrigins'])->name('reservation.origin');
     Route::get('/reservation', 'TravelController@getOrigins');
-
+    Route::post('/reservation', [VoucherController::class,'store'])->name('reservation.store');
+    Route::get('/postView',[VoucherController::class,'postView'])->name('post.index');
     /**
      * Guest Routes
      */
@@ -78,7 +80,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // Ruta para mostrar la vista de carga de archivos
         Route::get('/import', [ExcelController::class, 'importExportView'])->name('import-view');
 
-        // Ruta para procesar la carga de archivos
+        /**
+         * Define a route that listens to POST requests to '/import' URL and maps it to the 'import' method of the TravelController class.
+         * The route name is 'import-action'.
+         */
         Route::post('/import', [TravelController::class, 'import'])->name('import-action');
 
 
