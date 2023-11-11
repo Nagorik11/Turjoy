@@ -22,7 +22,7 @@ class VoucherController extends Controller
         //dd($request->input('search_code'));
         $message = errorMessages();
         $request->validate([
-            'search_code' => 'required', // Max 5MB
+            'search_code' => 'required', //
         ],$message);
         $code = $request->input('search_code');
         //dd($code);
@@ -57,13 +57,7 @@ class VoucherController extends Controller
     }
 
     public function store(Request $request)
-    {         $message = errorMessages();
-        
-        $request->validate([
-        'date' => 'date|required',
-        'origin'=> 'origin|required',
-        'destiny'=> 'destiny|required'
-    ]);
+    {
         $voucher = new Voucher();
         $voucher->id = $this->codeVoucherGen();
         $voucher->date = $request->input('date');
