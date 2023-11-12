@@ -13,42 +13,36 @@ class SearchVoucherTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function testSuccessSearchVucher()
+    public function testSuccessSearchVoucher()
     {
         $destiny = 'Tierra Media';
         $origin = 'Narnia';
-        $route = Route::where('origin',$origin)
-        ->where('destiny',$destiny)
-        ->first();
-        if(!$route){
-            $route = Route::create([
-                'origin'=> $origin,
-                'destiny'=> $destiny,
-                'seat_quantity'=> 40,
-                'base_rate'=> '50000',
-                'type'=> 0,
-            ]);
-        }
-        //dd($route);
-
+        $route = Route::create([
+            'origin'=> $origin,
+            'destiny'=> $destiny,
+            'seat_quantity'=> 40,
+            'base_rate'=> '50000',
+            'type'=> 0,
+        ]);
         $voucher = Voucher::create([
             'code' => 'XXX000',
-            'date' => now(),
+            'date' => now()->toDateString(),
             'origin' => $route->origin,
             'destiny' => $route->destiny,
             'seat_quantity' => '10',
             'base_rate' => $route->base_rate,
         ]);
         $voucher->save();
-        //dd($voucher);
         $response = $this->get('/voucher-search?search_code='. $voucher->code);
-
         $viewData = $response->original->getData();
-
         $voucher_responce = $viewData['voucher'];
         $cost_responce = $viewData['cost'];
-        // dd($responseVoucher);
 
         $this->assertEquals($voucher->code, $voucher_responce->code);
+        $this->assertEquals($voucher->date, $voucher_responce->date);
+        $this->assertEquals($voucher->origin, $voucher_responce->origin);
+        $this->assertEquals($voucher->destiny, $voucher_responce->destiny);
+        $this->assertEquals($voucher->seat_quantity, $voucher_responce->seat_quantity);
+        $this->assertEquals($voucher->base_rate * $voucher->seat_quantity, $cost_responce);
     }
 }
