@@ -20,12 +20,13 @@ class VoucherController extends Controller
     public function searchVoucher(Request $request)
     {
         //dd($request->input('search_code'));
+        //dd($request);
         $message = errorMessages();
         $request->validate([
             'search_code' => 'required', // Max 5MB
         ],$message);
-        $code = $request->input('search_code');
-        //dd($code);
+        $code = $request->query('search_code');
+        dd($code);
         //Busqueda en la BD del voucher
         $voucher = Voucher::where('id', $code)->first();
 
