@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Voucher;
-use App\Models\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
@@ -46,6 +45,7 @@ class VoucherController extends Controller
         }
     }
 
+
     public function voucherInformation()
     {
         return view('voucherInformation');
@@ -81,4 +81,4 @@ class VoucherController extends Controller
         return $code;
     }
 
-}
+};
