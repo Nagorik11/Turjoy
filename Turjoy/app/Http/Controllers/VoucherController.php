@@ -26,9 +26,9 @@ class VoucherController extends Controller
             'search_code' => 'required', // Max 5MB
         ],$message);
         $code = $request->query('search_code');
-        dd($code);
+        //dd($code);
         //Busqueda en la BD del voucher
-        $voucher = Voucher::where('id', $code)->first();
+        $voucher = Voucher::where('code', $code)->first();
 
         if ($voucher) {
             return view('searchVoucher', ['voucher' => $voucher, 'cost' => ($voucher->base_rate*$voucher->seat_quantity)]);
