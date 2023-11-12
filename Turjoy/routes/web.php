@@ -43,7 +43,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/voucher-search','VoucherController@searchVoucher')->name('voucher.search');
     Route::get('/voucher', [VoucherController::class,'indexVoucher'])->name('voucher.index');
    // Route::post('/search-voucher', [VoucherController::class,'searchVoucher'])->name('voucher.search');
-    Route::get('/voucher-search','VoucherController@searchVoucher')->name('voucher.search');
 
     Route::get('/payment', [PaymentController::class,'indexPayment'])->name('payment.index');
     //Route::post('/payment', [PaymentController::class,'paymentProcess'])->name('payment.process');
@@ -63,11 +62,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
-        /**
-         * Voucher Routes
-         */
-        //Route::get('/voucher', 'VoucherController@indexVoucher')->name('voucher.index');
-        //Route::post('/voucher-search','VoucherController@searchVoucher')->name('voucher.search');
 
 
     });
@@ -95,4 +89,3 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
 
 });
-

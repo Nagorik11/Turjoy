@@ -103,7 +103,7 @@
                         <tbody>
                             <tr>
                                 <th class="p-3" scope="row">Codigo de la reserva</th>
-                                <td>{{ $voucher->id }}</td>
+                                <td>{{ $voucher->code }}</td>
                             </tr>
                             <tr>
 

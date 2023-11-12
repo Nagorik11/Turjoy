@@ -63,7 +63,7 @@ class VoucherController extends Controller
         $voucherId = $this->codeVoucherGen();
 
         $voucher = new Voucher();
-        $voucher->id = $voucherId;
+        $voucher->code = $voucherId;
         $voucher->date = $request->input('date');
         $voucher->origin = $request->origin;
         $voucher->destiny = $request->destiny;
