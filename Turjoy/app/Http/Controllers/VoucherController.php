@@ -28,9 +28,9 @@ class VoucherController extends Controller
         //dd($code);
         //Busqueda en la BD del voucher
         $voucher = Voucher::where('id', $code)->first();
-
         if ($voucher) {
-            return view('searchVoucher', ['voucher' => $voucher, 'cost' => ($voucher->base_rate*$voucher->seat_quantity)]);
+            //dd($voucher->id);
+            return view('searchVoucher', ['voucher' => $voucher, 'cost' => ($voucher->base_rate*$voucher->seat_quantity), 'code' => $code]);
         }
         else{
             $request->validate([
@@ -58,8 +58,10 @@ class VoucherController extends Controller
 
     public function store(Request $request)
     {
+        $voucherId = $this->codeVoucherGen();
+
         $voucher = new Voucher();
-        $voucher->id = $this->codeVoucherGen();
+        $voucher->id = $voucherId;
         $voucher->date = $request->input('date');
         $voucher->origin = $request->origin;
         $voucher->destiny = $request->destiny;

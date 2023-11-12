@@ -4,11 +4,6 @@
     <form method="post" action="{{ route('login.perform') }}" class="container w-25 mt-5">
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-
-        <h1 class="h3 mb-3 fw-normal">Login</h1>
-
-        @include('layouts.partials.messages')
-
         <h1 class="h3 fw-normal">Iniciar Sesión</h1>
 
 
@@ -19,7 +14,6 @@
 
         </div>
 
-
         @include('layouts.partials.messages')
 
         <div class="form-group form-floating mb-3">
@@ -28,9 +22,6 @@
 
         </div>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-
-        @include('auth.partials.copy')
         <button class="w-100 btn btn-lg btn-primary" type="submit">Acceder</button>
 
     </form>
