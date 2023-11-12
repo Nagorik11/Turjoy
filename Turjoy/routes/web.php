@@ -40,9 +40,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Voucher Routes
      */
     //Route::post('/voucher', 'VoucherController@searchVoucher')->name('voucher.search');
-    Route::get('/voucher-search/{id}','VoucherController@searchVoucher')->name('voucher.search');
+    Route::get('/voucher-search','VoucherController@searchVoucher')->name('voucher.search');
     Route::get('/voucher', [VoucherController::class,'indexVoucher'])->name('voucher.index');
    // Route::post('/search-voucher', [VoucherController::class,'searchVoucher'])->name('voucher.search');
+    Route::get('/voucher-search','VoucherController@searchVoucher')->name('voucher.search');
 
     Route::get('/payment', [PaymentController::class,'indexPayment'])->name('payment.index');
     //Route::post('/payment', [PaymentController::class,'paymentProcess'])->name('payment.process');

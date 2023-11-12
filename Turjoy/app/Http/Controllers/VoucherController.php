@@ -20,14 +20,16 @@ class VoucherController extends Controller
     public function searchVoucher(Request $request)
     {
         //dd($request->input('search_code'));
+        //dd($request);
         $message = errorMessages();
         $request->validate([
-            'search_code' => 'required', //
+            'search_code' => 'required', // Max 5MB
         ],$message);
-        $code = $request->input('search_code');
+        $code = $request->query('search_code');
         //dd($code);
         //Busqueda en la BD del voucher
-        $voucher = Voucher::where('id', $code)->first();
+        $voucher = Voucher::where('code', $code)->first();
+
         if ($voucher) {
             //dd($voucher->id);
             return view('searchVoucher', ['voucher' => $voucher, 'cost' => ($voucher->base_rate*$voucher->seat_quantity), 'code' => $code]);
@@ -44,7 +46,7 @@ class VoucherController extends Controller
             return redirect()->route("voucher.index")->with('error');
         }
     }
-    
+
 
     public function voucherInformation()
     {
@@ -69,29 +71,17 @@ class VoucherController extends Controller
         $voucher->base_rate = $request->base_rate;
         $voucher->save();
         return redirect()->route('voucher.index');
-        
+
     }
 
     public function codeVoucherGen()
     {
-        $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $numbers = '0123456789';
-    
-        $letterLength = strlen($letters);
-        $numberLength = strlen($numbers);
-    
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
         $code = '';
-    
-        // Generate 4 letters
-        for ($i = 0; $i < 4; $i++) {
-            $code .= $letters[rand(0, $letterLength - 1)];
+        for ($i = 0; $i < 10; $i++) {
+            $code .= $characters[rand(0, $charactersLength - 1)];
         }
-    
-        // Generate 2 numbers
-        for ($i = 0; $i < 2; $i++) {
-            $code .= $numbers[rand(0, $numberLength - 1)];
-        }
-    
         return $code;
     }
 

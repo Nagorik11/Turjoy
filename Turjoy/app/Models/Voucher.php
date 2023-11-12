@@ -12,12 +12,12 @@ class Voucher extends Model
     protected $table = 'vouchers'; //Table name within the database
 
     protected $fillable = [
-        'id',
-        'travel_date',
+        'code',
+        'date',
         'origin',
         'destiny',
         'seat_quantity',
         'base_rate'
-        
+
     ];
 }
