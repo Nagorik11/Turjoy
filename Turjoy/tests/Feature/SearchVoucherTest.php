@@ -46,4 +46,18 @@ class SearchVoucherTest extends TestCase
         $this->assertEquals($voucher->base_rate * $voucher->seat_quantity, $cost_responce);
     }
 
+    public function testSearchVoucherNonExistent()
+    {
+        $value = 'ABCDEF123';
+
+        //Simular una solicitud con datos inválidos
+        $response = $this->get('/voucher-search?search_code='. $value);
+
+        //Acceder a los mensajes de error
+        $errors = session('errors');
+
+        //Verificar que existe un mensaje de error específico
+        $this->assertArrayHasKey('search_code', $errors->getMessages());
+        $this->assertContains('la reserva '. $value. ' no existe en sistema', $errors->get('search_code'));
+    }
 }

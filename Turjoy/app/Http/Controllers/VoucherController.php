@@ -26,7 +26,7 @@ class VoucherController extends Controller
             'search_code' => 'required', // Max 5MB
         ],$message);
         $code = $request->query('search_code');
-        //dd($code);
+        // dd($code);
         //Busqueda en la BD del voucher
         $voucher = Voucher::where('code', $code)->first();
 
