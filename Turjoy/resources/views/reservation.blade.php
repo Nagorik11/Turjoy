@@ -178,36 +178,45 @@
                 function showSwal() {
                     return new Promise((resolve) => {
                         swalWithBootstrapButtons.fire({
-                            text: "El total de la reserva entre (origin) y (destiny para el día (fecha) es de (base_rate) ((seat_quantity) asientos), ¿Desea continuar?",
+                            text: "El total de la reserva entre y (destiny para el día (fecha) es de (base_rate) ((seat_quantity) asientos), ¿Desea continuar?",
                             showCancelButton: true,
                             confirmButtonText: "Confirmar",
                             cancelButtonText: "Volver",
                             reverseButtons: true,
                             allowOutsideClick: false,
                             allowEscapeKey: false,
-
                         }).then((result) => {
                             resolve(result.isConfirmed);
                         });
                     });
                 }
 
-                document.getElementById('reservarButton').addEventListener('click', function () {
-                    showSwal().then((isConfirmed) => {
-                        if (isConfirmed) {
-                            swalWithBootstrapButtons.fire({
-                                title: "Reserva confirmada!",
-                                text: "Tu reserva ha sido confirmada",
-                                icon: "success"
-                            });
-                        } else {
-                            swalWithBootstrapButtons.fire({
-                                title: "Reserva cancelada!",
-                                text: "Tu reserva ha sido cancelada",
-                                icon: "error"
-                            });
-                        }
-                    });
+                document.getElementById('reservarButton').addEventListener('click', async function (event) {
+                    // Prevent the default form submission
+                    event.preventDefault();
+
+                    // Show SweetAlert and wait for user confirmation
+                    const isConfirmed = await showSwal();
+
+                    // If the user confirms, redirect to the postview route
+                    if (isConfirmed) {
+                        // Redirect to the postview route
+                        swalWithBootstrapButtons.fire({
+                            title: "Reserva confirmada!",
+                            text: "Tu reserva ha sido confirmada",
+                            icon: "success"
+                        }).then(() => {
+                        // Redirect to the postview route
+                        window.location.href = '/postview';
+    });
+                    } else {
+                        // User clicked "Volver" or closed the dialog
+                        swalWithBootstrapButtons.fire({
+                            title: "Reserva cancelada!",
+                            text: "Tu reserva ha sido cancelada",
+                            icon: "error"
+                        });
+                    }
                 });
             </script>
 

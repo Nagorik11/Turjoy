@@ -106,8 +106,6 @@ class VoucherController extends Controller
 
     }
 
-
-
     public function codeVoucherGen()
     {
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
