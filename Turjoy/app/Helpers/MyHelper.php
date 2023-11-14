@@ -12,7 +12,7 @@ function errorMessages()
         'search_code.required' => 'Debe ingresar un código de reserva',
         'date.required' => 'Debe ingresar una fecha',
         'origin.required' => 'Debe ingresar una ciudad de origen',
-        'destiny.required' => 'Debe ingresar una ciudad de destino'
+        'destiny.required' => 'Debe ingresar una ciudad de destino',
     ];
     return $message;
 }

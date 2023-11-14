@@ -46,7 +46,7 @@ class VoucherController extends Controller
             return redirect()->route("voucher.index")->with('error');
         }
     }
-    
+
 
     public function voucherInformation()
     {
@@ -55,12 +55,12 @@ class VoucherController extends Controller
 
     public function postView($code)
     {
-        
+
         $voucher = Voucher::where('code', $code)->first();
-    
+
         return view('postView', ['voucher' => $voucher]);
     }
-    
+
     public function store(Request $request)
     {
         // Define las reglas de validación
@@ -69,18 +69,18 @@ class VoucherController extends Controller
             'origin' => 'required',
             'destiny' => 'required',
         ];
-    
+
         // Define mensajes personalizados para las reglas de validación (opcional)
         $messages = [
-            'date.required' => 'El campo fecha es obligatorio.',
+            'date.required' => 'debe seleccionar la fecha del viaje antes de realizar la reserva',
             'date.date' => 'El campo fecha debe ser una fecha válida.',
             'origin.required' => 'El campo origen es obligatorio.',
             'destiny.required' => 'El campo destino es obligatorio.',
         ];
-    
+
         // Realiza la validación
         $request->validate($rules, $messages);
-    
+
         $voucher = new Voucher();
         $voucher->code = $this->codeVoucherGen();
         $voucher->date = $request->input('date');
@@ -90,9 +90,9 @@ class VoucherController extends Controller
         $voucher->base_rate = $this->getBaseRate($voucher->origin, $voucher->destiny);
         $voucher->save();
         return redirect()->route('postView', ['code' => $voucher->code]);
-    }   
+    }
 
-  
+
     public function getBaseRate($origin, $destiny)
     {
         $baseRate = Route::where('origin', $origin)
@@ -112,22 +112,22 @@ class VoucherController extends Controller
     {
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $numbers = '0123456789';
-    
+
         $letterLength = strlen($letters);
         $numberLength = strlen($numbers);
-    
+
         $code = '';
-    
+
         // Generate 4 letters
         for ($i = 0; $i < 4; $i++) {
             $code .= $letters[rand(0, $letterLength - 1)];
         }
-    
+
         // Generate 2 numbers
         for ($i = 0; $i < 2; $i++) {
             $code .= $numbers[rand(0, $numberLength - 1)];
         }
-    
+
         return $code;
     }
 
