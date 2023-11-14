@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Voucher;
+use App\Models\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\RouteController;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use App\Helpers\MyHelper;
@@ -27,7 +29,7 @@ class VoucherController extends Controller
         $code = $request->input('search_code');
         //dd($code);
         //Busqueda en la BD del voucher
-        $voucher = Voucher::where('id', $code)->first();
+        $voucher = Voucher::where('code', $code)->first();
 
         if ($voucher) {
             return view('searchVoucher', ['voucher' => $voucher, 'cost' => ($voucher->base_rate*$voucher->seat_quantity)]);
@@ -55,21 +57,30 @@ class VoucherController extends Controller
     {
         return view('postView');
     }
-
     public function store(Request $request)
     {
         $voucher = new Voucher();
-        $voucher->id = $this->codeVoucherGen();
+        $voucher->code = $this->codeVoucherGen();
         $voucher->date = $request->input('date');
-        $voucher->origin = $request->origin;
-        $voucher->destiny = $request->destiny;
+        $voucher->origin = $request->input('origin'); // Use input for both origin and destiny
+        $voucher->destiny = $request->input('destiny');
         $voucher->seat_quantity = $request->input('seat_quantity');
-        $voucher->base_rate = $request->base_rate;
+        $voucher->base_rate = $this->getBaseRate($voucher->origin, $voucher->destiny); // Call the method with values
         $voucher->save();
-        return redirect()->route('voucher.index');
-        
+        return redirect()->route('post.index');
     }
+    public function getBaseRate($origin, $destiny)
+    {
+        $baseRate = Route::where('origin', $origin)
+                        ->where('destiny', $destiny)
+                        ->first();
 
+        // If the base rate exists, return it as a numeric value
+        if ($baseRate) {
+            return $baseRate->base_rate;
+        }
+
+    }
     public function codeVoucherGen()
     {
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

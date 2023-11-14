@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}">
     <link rel="stylesheet" href="//cdn.tutorialjinni.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.tutorialjinni.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="//g.tutorialjinni.com/mojoaxel/bootstrap-select-country/dist/css/bootstrap-select-country.min.css">
-    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <style>
         .card {
@@ -78,7 +74,7 @@
 
 
     <body>
-        <h1 class="">Voucher de reserva</h1>
+        <h1 class="text-center">Voucher de reserva</h1>
             </div>
             <div class="card-body">
                 <div class="row">

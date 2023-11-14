@@ -146,11 +146,20 @@
                     {{ $message }}
                 </div>
             @enderror
-                </div>
-
-                <label for="seat_quantity">Cantidad de Asientos:</label>
-                <input type="number" id ="seat_quantity" class="number-input form-control" value="1" inputmode="numeric" oninput="validateInput(this)">
             </div>
+                <label for="seat_quantity">Cantidad de Asientos:</label>
+                <input type="number" name="seat_quantity" class="number-input form-control" value="1" min="1" inputmode="numeric" onchange="validateInput(this)">
+
+            </div>
+
+            <script>
+                function validateInput(input) {
+                    const value = input.value;
+                    if (value === "0" || value < 1) {
+                        input.value = "1";
+                    }
+                }
+            </script>
             @csrf
             <button type="submit" class="custom-button">Reservar</button>
 
