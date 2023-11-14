@@ -55,6 +55,7 @@ class VoucherController extends Controller
 
     public function postView($code)
     {
+        
         $voucher = Voucher::where('code', $code)->first();
     
         return view('postView', ['voucher' => $voucher]);
@@ -90,6 +91,8 @@ class VoucherController extends Controller
         $voucher->save();
         return redirect()->route('postView', ['code' => $voucher->code]);
     }   
+
+  
     public function getBaseRate($origin, $destiny)
     {
         $baseRate = Route::where('origin', $origin)
@@ -103,19 +106,7 @@ class VoucherController extends Controller
 
     }
 
-    public function feedPostView($code)
-    {
-        $voucher = Voucher::where('code', $code)->first();
 
-        if ($voucher) {
-            // El código del voucher existe, puedes desplegar la vista de search voucher aquí
-            // Puedes pasar el objeto $voucher a la vista para mostrar los detalles del voucher
-            return view('search_voucher', ['voucher' => $voucher]);
-        } else {
-            // El código del voucher no existe, puedes manejar esto según tus necesidades
-            return redirect()->route('voucher_not_found');
-        }
-    }
 
     public function codeVoucherGen()
     {
