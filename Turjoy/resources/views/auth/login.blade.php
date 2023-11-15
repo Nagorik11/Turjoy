@@ -30,7 +30,6 @@
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
 
-        @include('auth.partials.copy')
         <button class="w-100 btn btn-lg btn-primary" type="submit">Acceder</button>
 
     </form>

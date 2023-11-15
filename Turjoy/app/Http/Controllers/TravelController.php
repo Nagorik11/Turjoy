@@ -117,9 +117,14 @@ class TravelController extends Controller
             return redirect()->route('travel.index')->with('success', 'El archivo se cargó correctamente.');
         }
         catch (\Exception $e) {
-            dd($e);
+            // dd($e);
             $request->validate([
-                'archivo' => 'required|string|mimes:xlsx|max:5120', // Max 5MB
+                'archivo' => [
+                    'required',
+                    function ($attribute, $value, $fail) {
+                        $fail("El archivo no es valido");
+                    },
+                ],
             ]);
             return redirect()->back()->with('error');//, $message);
         }
