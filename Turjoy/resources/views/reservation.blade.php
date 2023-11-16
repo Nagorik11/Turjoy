@@ -116,21 +116,21 @@
                         <option value="{{ $origin }}">{{ $origin }}</option>
                         @endforeach
                         <script>
-    $(document).ready(function() {
-        $('#origin').on('change', function() {
-            var selectedOrigin = $(this).val();
-            console.log("Valor seleccionado en 'Origen': " + selectedOrigin);
-        });
-    });
-</script>
+                            $(document).ready(function() {
+                                $('#origin').on('change', function() {
+                                    var selectedOrigin = $(this).val();
+                                    console.log("Valor seleccionado en 'Origen': " + selectedOrigin);
+                                });
+                            });
+                        </script>
                     </select>
 
-                    @error('origin')
+            @error('origin')
                 <div class="alert alert-danger mt-3" style="color: #ff8a80">
                     {{ $message }}
                 </div>
             @enderror
-                    <label for="destiny">Destino:</label>
+            <label for="destiny">Destino:</label>
             <select name="destiny" id="destinoSelect" class="selectpicker form-control" data-flag="true" data-width="500px">
                         @php
                             $uniqueDestiny = $routes->pluck('destiny')->unique()->toArray();
@@ -138,10 +138,10 @@
                         @foreach($uniqueDestiny as $destiny)
                         <option value="{{ $destiny }}">{{ $destiny }}</option>
                         @endforeach
-                    </select>  
+                    </select>
             <!-- Opciones de destino se cargarán dinámicamente con JavaScript -->
             </select>
-                    @error('destiny')
+            @error('destiny')
                 <div class="alert alert-danger mt-3" style="color: #ff8a80">
                     {{ $message }}
                 </div>
@@ -149,7 +149,6 @@
             </div>
                 <label for="seat_quantity">Cantidad de Asientos:</label>
                 <input type="number" name="seat_quantity" class="number-input form-control" value="1" min="1" inputmode="numeric" onchange="validateInput(this)">
-
             </div>
 
             <script>
@@ -161,7 +160,70 @@
                 }
             </script>
             @csrf
-            <button type="submit" class="custom-button">Reservar</button>
+            <button id="reservarButton" type="submit" class="custom-button">Reservar</button>
+
+            <script src="{{asset('js/app.js')}}"></script>
+
+
+            <script>
+                // Your existing script
+                
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+                var origen = $('#origin').val();
+                var destiny = $('#destinoSelect').val();
+                var fecha = Date($("#selectedDate").datepicker("getDate"));// falta formatear
+                var seat_quantity=$('#seat_quantity').val();
+                // Function to show SweetAlert and return a Promise
+                function showSwal() {
+                    return new Promise((resolve) => {
+                        swalWithBootstrapButtons.fire({
+                            text: "El total de la reserva entre "+origen+" y "+destiny+" para el día "+fecha+" de (base_rate) (("+seat_quantity+") asientos), ¿Desea continuar?",
+                            showCancelButton: true,
+                            confirmButtonText: "Confirmar",
+                            cancelButtonText: "Volver",
+                            reverseButtons: true,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then((result) => {
+                            resolve(result.isConfirmed);
+                        });
+                    });
+                }
+
+                document.getElementById('reservarButton').addEventListener('click', async function (event) {
+                    // Prevent the default form submission
+                    event.preventDefault();
+
+                    // Show SweetAlert and wait for user confirmation
+                    const isConfirmed = await showSwal();
+
+                    // If the user confirms, redirect to the postview route
+                    if (isConfirmed) {
+                        // Redirect to the postview route
+                        swalWithBootstrapButtons.fire({
+                            title: "Reserva confirmada!",
+                            text: "Tu reserva ha sido confirmada",
+                            icon: "success"
+                        }).then(() => {
+                        // Redirect to the postview route
+                        window.location.href = '{{ route('reservation.store')}}';
+    });
+                    } else {
+                        // User clicked "Volver" or closed the dialog
+                        swalWithBootstrapButtons.fire({
+                            title: "Reserva cancelada!",
+                            text: "Tu reserva ha sido cancelada",
+                            icon: "error"
+                        });
+                    }
+                });
+            </script>
 
         </form>
     </div>
@@ -200,18 +262,9 @@
     <script>
     var seatQuantityInput = document.getElementById("seat_quantity");
     var seatQuantity = seatQuantityInput.value;
-
     </script>
 
 <script>
-    function validateInput(input) {
-        const value = input.value;
-        if (value === "0" || value < 1) {
-            input.value = "1";
-        }
-        document.getElementById('seat_quantity').submit();
-    }
-
     $(document).ready(function() {
         $('#fecha').on('input', function() {
             var input = $(this).val();

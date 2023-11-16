@@ -7,6 +7,8 @@ use App\Models\Voucher;
 use App\Models\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\ReservationController;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 use App\Helpers\MyHelper;
@@ -60,7 +62,7 @@ class VoucherController extends Controller
     
         return view('postView', ['voucher' => $voucher]);
     }
-    
+/*
     public function store(Request $request)
     {
         // Define las reglas de validación
@@ -91,8 +93,43 @@ class VoucherController extends Controller
         $voucher->save();
         return redirect()->route('postView', ['code' => $voucher->code]);
     }   
+*/
+public function store(Request $request)
+{
+    // Define las reglas de validación
+    $rules = [
+        'date' => 'required|date',
+        'origin' => 'required',
+        'destiny' => 'required',
+    ];
 
-  
+    // Define mensajes personalizados para las reglas de validación (opcional)
+    $messages = [
+        'date.required' => 'El campo fecha es obligatorio.',
+        'date.date' => 'El campo fecha debe ser una fecha válida.',
+        'origin.required' => 'El campo origen es obligatorio.',
+        'destiny.required' => 'El campo destino es obligatorio.',
+    ];
+
+    // Realiza la validación
+    $request->validate($rules, $messages);
+
+    $voucher = new Voucher();
+    $voucher->code = $this->codeVoucherGen();
+    $voucher->date = $request->input('date');
+    $voucher->origin = $request->input('origin');
+    $voucher->destiny = $request->input('destiny');
+    $voucher->seat_quantity = $request->input('seat_quantity');
+    $voucher->base_rate = $this->getBaseRate($voucher->origin, $voucher->destiny);
+
+
+// Verifica la respuesta del usuario y si el voucher se guarda exitosamente
+
+    // Realiza la redirección solo si el voucher se guarda exitosamente y confirmación es true
+    $voucher->save();
+    return redirect()->route('postView', ['code' => $voucher->code]);
+
+}
     public function getBaseRate($origin, $destiny)
     {
         $baseRate = Route::where('origin', $origin)
