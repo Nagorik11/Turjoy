@@ -21,7 +21,7 @@
         footer {
             color: #333;
             text-align: center;
-            padding: 10px;
+            padding: 40px;
         }
         .large-card {
             height: 500px;

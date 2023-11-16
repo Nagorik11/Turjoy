@@ -17,40 +17,30 @@
             position: relative;
         }
 
-        .custom-button {
-            background-color: #2ECC71;
-            color: #000;
-            width: 100px;
-        }
-
-        .return-button {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: #000;
-        }
-
-        .custom-table {
-            border: 2px solid #2ECC71;
-            border-collapse: collapse;
-            width: 80%;
-            margin: 100px auto 0;
-        }
-
-        .custom-table th, .custom-table td {
-            padding: 15px;
-        }
-
         .bootstrap-select .bs-caret {
             display: none;
         }
 
         .number-input {
-            width: 500px;
+            width: 480px;
             text-align: left;
         }
 
+        .btn-primary{
+            background-color:#0A74DA;
+            display:block;
+            margin: 0 auto;
+            margin-top:100px;
+            width:200px;
+        }
+
+        .bootstrap-select {
+            width: 480px !important;
+            margin-bottom: 10px !important;
+        }
+
         .custom-label {
+            margin-top:12px;
             font-size: 48px;
             color: #0A74DA;
         }
@@ -63,6 +53,10 @@
 
         .header-logo {
             margin-right: 10px;
+        }
+
+        .form-control{
+            margin-bottom:10px !important;
         }
     </style>
 </head>
@@ -108,6 +102,7 @@
 
                 <div class="form-group">
                     <label for="origin">Origen:</label>
+                <div>
                     <select id="origin" name="origin" class="selectpicker form-control" data-flag="true" data-width="500px">
                         @php
                             $uniqueOrigins = $routes->pluck('origin')->unique()->toArray();
@@ -124,6 +119,7 @@
                             });
                         </script>
                     </select>
+                </div>
 
             @error('origin')
                 <div class="alert alert-danger mt-3" style="color: #ff8a80">
@@ -131,6 +127,7 @@
                 </div>
             @enderror
             <label for="destiny">Destino:</label>
+        <div>
             <select name="destiny" id="destinoSelect" class="selectpicker form-control" data-flag="true" data-width="500px">
                         @php
                             $uniqueDestiny = $routes->pluck('destiny')->unique()->toArray();
@@ -141,16 +138,14 @@
                     </select>
             <!-- Opciones de destino se cargarán dinámicamente con JavaScript -->
             </select>
+        </div class="alert alert-danger mt-3" style="color: #ff8a80">
             @error('destiny')
                 <div class="alert alert-danger mt-3" style="color: #ff8a80">
                     {{ $message }}
                 </div>
             @enderror
-            </div>
                 <label for="seat_quantity">Cantidad de Asientos:</label>
                 <input type="number" name="seat_quantity" class="number-input form-control" value="1" min="1" inputmode="numeric" onchange="validateInput(this)">
-            </div>
-
             <script>
                 function validateInput(input) {
                     const value = input.value;
@@ -160,9 +155,10 @@
                 }
             </script>
             @csrf
-            <button id="reservarButton" type="submit" class="custom-button">Reservar</button>
+            <button id="reservarButton" type="submit" class="btn btn-primary">Reservar</button>
 
             <script src="{{asset('js/app.js')}}"></script>
+
 
             <script>
                 // Your existing script
@@ -207,7 +203,7 @@
                             icon: "success"
                         }).then(() => {
                         // Redirect to the postview route
-                        window.location.href = '/postview';
+                        window.location.href = '{{ route('reservation.store')}}';
     });
                     } else {
                         // User clicked "Volver" or closed the dialog
@@ -221,7 +217,12 @@
             </script>
 
         </form>
+
     </div>
+
+    <footer style="padding-top: 152px; text-align: center; position: relative; bottom: 0; left: 0; right: 0; font-size:16px;">
+        Codecrafters &copy; <script>document.write(new Date().getFullYear())</script>
+    </footer>
 </body>
 
 

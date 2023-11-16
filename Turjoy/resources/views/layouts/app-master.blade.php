@@ -27,12 +27,12 @@
       }
     </style>
 
-    
+
     <!-- Custom styles for this template -->
     <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
 </head>
 <body>
-    
+
     @include('layouts.partials.navbar')
 
     <main class="container">
@@ -40,6 +40,6 @@
     </main>
 
     <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
-      
+
   </body>
 </html>
