@@ -5,40 +5,43 @@
 <head>
     <style>
         .card {
-            height: 800px;
-            width: 800px;
+            height: 800px !important;
+            width: 800px !important;
             position: relative;
         }
-
-        .number-input {
-            width: 500px;
-            text-align: left;
-        }
-
         .custom-label {
             font-size: 48px;
             color: #0A74DA;
+            text-align: center;
             font-weight: bold;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            height: 80px;
+            font-family:Arial;
+            margin-bottom:7px;
         }
 
         .header-logo {
-            margin-right: 10px;
+            margin-top: -14px !important;
+            margin-right: 630px !important;
         }
+
+        input.form-control {
+            margin-top:10px;
+            width:300px !important;
+        }
+
+        .btn-primary {
+            background-color:#0A74DA;
+            width:200px;
+        }
+
     </style>
 </head>
 
 <body>
 
-    <div class="card mx-auto mb-5 mt-4" style="height: 810px; width: 800px;">
+    <div class="card mx-auto mb-5 mt-3" style="height: 810px; width: 800px;">
         <div class="card-header" style="background-color: #0A74DA;">
             <a class="header-container navbar-brand" href="/">
-                <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" width="100" height="85">
+                <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" height="100" width="100">
             </a>
         </div>
 
@@ -62,14 +65,15 @@
                     <label for="floatingPassword">Contraseña</label>
                 </div>
 
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Acceder</button>
+                <button class="btn btn-primary" type="submit">Acceder</button>
             </div>
         </form>
-    </div>
 
-    <footer style="padding: 100px; text-align: center; position: absolute; bottom: 0; left: 0; right: 0;">
-        Codecrafters &copy; <script>document.write(new Date().getFullYear())</script>
-    </footer>
+        <footer style="padding:10px; text-align: center; position: absolute; bottom: 0; left: 0; right: 0;">
+            Codecrafters &copy; <script>document.write(new Date().getFullYear())</script>
+        </footer>
+
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
