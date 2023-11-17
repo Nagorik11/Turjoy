@@ -134,9 +134,12 @@
             <select name="destiny" id="destinoSelect" class="selectpicker form-control" data-flag="true" data-width="500px">
                         @php
                             $uniqueDestiny = $routes->pluck('destiny')->unique()->toArray();
+                            $base_rate = $routes->pluck('base_rate')->toArray();
                         @endphp
                         @foreach($uniqueDestiny as $destiny)
                         <option value="{{ $destiny }}">{{ $destiny }}</option>
+                        return $destiny->base_rate
+                        dd(base_rate);
                         @endforeach
                     </select>
             <!-- Opciones de destino se cargarán dinámicamente con JavaScript -->
@@ -148,9 +151,36 @@
             @enderror
             </div>
                 <label for="seat_quantity">Cantidad de Asientos:</label>
-                <input type="number" name="seat_quantity" class="number-input form-control" value="1" min="1" inputmode="numeric" onchange="validateInput(this)">
+                <input id="seat_quantity"type="number" name="seat_quantity" class="number-input form-control" value="1" min="1" inputmode="numeric" onchange="validateInput(this)">
             </div>
+            <script>
+                $(document).ready(function() {
+                var routes = @json($routes); // Obtén el array de rutas de Blade
+                var baseRate = null; // Declara la variable baseRate fuera del ámbito del evento change
 
+                $('#origin').on('change', function() {
+                    var selectedOrigin = $(this).val();
+                    var selectedDestiny = $('#destinoSelect').val(); // Asegúrate de tener el elemento destinySelect en tu formulario
+
+                    // Buscar la ruta correspondiente
+                    var selectedRoute = routes.find(function(route) {
+                        return route.origin === selectedOrigin && route.destiny === selectedDestiny;
+                    });
+
+                    // Asignar el valor de baseRate si se encuentra la ruta
+                    if (selectedRoute) {
+                        baseRate = selectedRoute.base_rate;
+                        actualizarBaseRate(); // Llama a la función para actualizar el display
+                    }
+                });
+
+                // Función para actualizar el display con el valor de base_rate
+                function actualizarBaseRate() {
+                    return baseRate;
+                }
+            });
+            </script>
+                
             <script>
                 function validateInput(input) {
                     const value = input.value;
@@ -159,6 +189,11 @@
                     }
                 }
             </script>
+            <div>
+            <label id="base_rate" name="base_rate" onchange="actualizarBaseRate()"></label>
+            </div>
+            
+
             @csrf
             <button id="reservarButton" type="submit" class="custom-button">Reservar</button>
 
@@ -166,63 +201,60 @@
 
 
             <script>
-                // Your existing script
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+    },
+    buttonsStyling: false
+});
+
+// Function to show SweetAlert and return a Promise
+        function showSwal(origen, destiny, fecha, seat_quantity,base_rate) {
+            return new Promise((resolve) => {
+                swalWithBootstrapButtons.fire({
+                    text: `El total de la reserva entre ${origen} y ${destiny} para el día ${fecha} de (${seat_quantity} asientos),${base_rate} ¿Desea continuar?`,
+                    showCancelButton: true,
+                    confirmButtonText: "Confirmar",
+                    cancelButtonText: "Volver",
+                    reverseButtons: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                }).then((result) => {
+                    resolve(result.isConfirmed);
+                });
+            });
+        }
+
+        document.getElementById('reservarButton').addEventListener('click', async function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            var origen = $('#origin').val();
+            var destiny = $('#destinoSelect').val();
+            var fecha = $("#date").val();
+            var seat_quantity = $("#seat_quantity").val();
+            var base_rate = $("#baserate").val();
+
+            // Show SweetAlert and wait for user confirmation
+            const isConfirmed = await showSwal(origen, destiny, fecha, seat_quantity, base_rate);
+
+            // If the user confirms, submit the form
+            if (isConfirmed) {
+                // You can submit the form using form.submit()
+                event.target.form.submit();
+
+                // Optionally, you can redirect after the form is successfully submitted
                 
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: "btn btn-success",
-                        cancelButton: "btn btn-danger"
-                    },
-                    buttonsStyling: false
+            } else {
+                // User clicked "Volver" or closed the dialog
+                swalWithBootstrapButtons.fire({
+                    title: "Reserva cancelada!",
+                    text: "Tu reserva ha sido cancelada",
+                    icon: "error"
                 });
-                var origen = $('#origin').val();
-                var destiny = $('#destinoSelect').val();
-                var fecha = Date($("#selectedDate").datepicker("getDate"));// falta formatear
-                var seat_quantity=$('#seat_quantity').val();
-                // Function to show SweetAlert and return a Promise
-                function showSwal() {
-                    return new Promise((resolve) => {
-                        swalWithBootstrapButtons.fire({
-                            text: "El total de la reserva entre "+origen+" y "+destiny+" para el día "+fecha+" de (base_rate) (("+seat_quantity+") asientos), ¿Desea continuar?",
-                            showCancelButton: true,
-                            confirmButtonText: "Confirmar",
-                            cancelButtonText: "Volver",
-                            reverseButtons: true,
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                        }).then((result) => {
-                            resolve(result.isConfirmed);
-                        });
-                    });
-                }
-
-                document.getElementById('reservarButton').addEventListener('click', async function (event) {
-                    // Prevent the default form submission
-                    event.preventDefault();
-
-                    // Show SweetAlert and wait for user confirmation
-                    const isConfirmed = await showSwal();
-
-                    // If the user confirms, redirect to the postview route
-                    if (isConfirmed) {
-                        // Redirect to the postview route
-                        swalWithBootstrapButtons.fire({
-                            title: "Reserva confirmada!",
-                            text: "Tu reserva ha sido confirmada",
-                            icon: "success"
-                        }).then(() => {
-                        // Redirect to the postview route
-                        window.location.href = '{{ route('reservation.store')}}';
-    });
-                    } else {
-                        // User clicked "Volver" or closed the dialog
-                        swalWithBootstrapButtons.fire({
-                            title: "Reserva cancelada!",
-                            text: "Tu reserva ha sido cancelada",
-                            icon: "error"
-                        });
-                    }
-                });
+            }
+        });
             </script>
 
         </form>
@@ -280,6 +312,21 @@
         });
     });
 </script>
+<script>
+    $document.ready(function(){
+        $('#fecha').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            autoclose: true,
+            changeMonth: true,
+            changeYear: true,
+        });
+    
+    })
+    </script>
 <script src="//cdn.tutorialjinni.com/jquery/3.6.1/jquery.min.js"></script>
 <script src="//cdn.tutorialjinni.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="//cdn.tutorialjinni.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>

@@ -52,7 +52,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/reservation', 'TravelController@getOrigins');
     Route::post('/reservation', [VoucherController::class,'store'])->name('reservation.store');
     Route::get('/postView/{code}',[VoucherController::class,'postView'])->name('post.index');
-    Route::get('/postView/{code}', 'VoucherController@postView')->name('postView');    /**
+    Route::get('/postView/{code}', 'VoucherController@postView')->name('postView');    
+    
+    /**
      * Guest Routes
      */
     Route::group(['middleware' => ['guest']], function() {

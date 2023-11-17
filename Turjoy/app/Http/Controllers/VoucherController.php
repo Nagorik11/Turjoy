@@ -57,12 +57,42 @@ class VoucherController extends Controller
 
     public function postView($code)
     {
-        
         $voucher = Voucher::where('code', $code)->first();
+        echo '<script>
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        var origen = $("#origin").val();
+        var destiny = $("#destinoSelect").val();
+        var fecha = new Date($("#selectedDate").datepicker("getDate")).toLocaleDateString(); // Corrected the date formatting
+        var seat_quantity = $("#seat_quantity").val();
+        
+        function showSwal() {
+            return new Promise((resolve) => {
+                swalWithBootstrapButtons.fire({
+                    text: "El total de la reserva entre " + origen + " y " + destiny + " para el día " + fecha + " de (base_rate) (" + seat_quantity + " asientos), ¿Desea continuar?",
+                    showCancelButton: true,
+                    confirmButtonText: "Confirmar",
+                    cancelButtonText: "Volver",
+                    reverseButtons: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                }).then((result) => {
+                    resolve(result.isConfirmed);
+                });
+            });
+        }
+    
+        showSwal();
+    </script>';
     
         return view('postView', ['voucher' => $voucher]);
     }
-/*
+
     public function store(Request $request)
     {
         // Define las reglas de validación
@@ -93,7 +123,7 @@ class VoucherController extends Controller
         $voucher->save();
         return redirect()->route('postView', ['code' => $voucher->code]);
     }   
-*/
+/*
 public function store(Request $request)
 {
     // Define las reglas de validación
@@ -129,7 +159,7 @@ public function store(Request $request)
     $voucher->save();
     return redirect()->route('postView', ['code' => $voucher->code]);
 
-}
+}*/
     public function getBaseRate($origin, $destiny)
     {
         $baseRate = Route::where('origin', $origin)
