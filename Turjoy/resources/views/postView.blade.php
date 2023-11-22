@@ -8,47 +8,50 @@
     <link rel="stylesheet" href="//cdn.tutorialjinni.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
     <style>
+        .custom-label {
+            font-size: 48px;
+            color: #0A74DA;
+            text-align: center;
+            font-weight: bold;
+        }
+
         .card {
             height: 800px;
             width: 800px;
             position: relative;
         }
 
-        .custom-button {
-            background-color: #2ECC71;
-            color: #000;
-            width: 100px;
-        }
-
-        .return-button {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: #000;
-        }
-
-        .custom-table {
-            border: 2px solid #2ECC71;
-            border-collapse: collapse;
-            width: 80%;
-            margin: 100px auto 0;
-        }
-
-        .custom-table th, .custom-table td {
+        .tr-custom{
+            background-color:#EAEAEA;
             padding: 15px;
         }
-
-
 
         .header-container {
             display: flex;
             align-items: center;
-            height:80px;
+            height: 80px;
         }
 
         .header-logo {
             margin-right: 10px;
         }
+
+        .btn-primary{
+            background-color:#0A74DA;
+            display:block;
+            margin: 0 auto;
+            width:200px;
+        }
+        .col-md-4 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-group input.form-control {
+            margin-bottom:10px;
+            width: 300px;
+        }
+
     </style>
     <div class="card mx-auto mb-5 mt-4">
         <div class="card-header" style="background-color: #0A74DA;">
