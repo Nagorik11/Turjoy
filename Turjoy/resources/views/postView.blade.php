@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +22,8 @@
             position: relative;
         }
 
-        .tr-custom{
-            background-color:#EAEAEA;
+        .tr-custom {
+            background-color: #EAEAEA;
             padding: 15px;
         }
 
@@ -36,33 +37,36 @@
             margin-right: 10px;
         }
 
-        .btn-primary{
-            background-color:#0A74DA;
-            display:block;
+        .btn-primary {
+            background-color: #0A74DA;
+            display: block;
             margin: 0 auto;
-            width:200px;
+            width: 200px;
         }
+
         .col-md-4 {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .input-group input.form-control {
-            margin-bottom:10px;
+            margin-bottom: 10px;
             width: 300px;
         }
-
     </style>
     <div class="card mx-auto mb-5 mt-4">
         <div class="card-header" style="background-color: #0A74DA;">
 
             <a class="header-container navbar-brand" href="/">
-                <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" width="100" height="100">
+                <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" width="100"
+                    height="100">
             </a>
-            </div>
-            
+        </div>
+
 
 </head>
+
 <body>
     <div>
         <h1>Detalles del Voucher</h1>
@@ -89,11 +93,11 @@
             </tr>
             <tr>
                 <th>Tarifa base</th>
-                <td>{{ $voucher->base_rate }}</td>
+                <td>{{ number_format($voucher->base_rate, 0, ',', '.') }}</td>
             </tr>
             <tr>
                 <th>Total</th>
-                <td>{{ $voucher->base_rate*$voucher->seat_quantity }}</td>
+                <td>{{ number_format($voucher->base_rate * $voucher->seat_quantity, 0, ',', '.') }}</td>
             </tr>
         </table>
         <button onclick="imprimir()">Imprimir Voucher</button>
@@ -105,4 +109,5 @@
         }
     </script>
 </body>
+
 </html>
