@@ -48,7 +48,7 @@ class VoucherController extends Controller
             return redirect()->route("voucher.index")->with('error');
         }
     }
-    
+
 
     public function voucherInformation()
     {
@@ -58,38 +58,7 @@ class VoucherController extends Controller
     public function postView($code)
     {
         $voucher = Voucher::where('code', $code)->first();
-        echo '<script>
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-        });
-        var origen = $("#origin").val();
-        var destiny = $("#destinoSelect").val();
-        var fecha = new Date($("#selectedDate").datepicker("getDate")).toLocaleDateString(); // Corrected the date formatting
-        var seat_quantity = $("#seat_quantity").val();
-        
-        function showSwal() {
-            return new Promise((resolve) => {
-                swalWithBootstrapButtons.fire({
-                    text: "El total de la reserva entre " + origen + " y " + destiny + " para el día " + fecha + " de (base_rate) (" + seat_quantity + " asientos), ¿Desea continuar?",
-                    showCancelButton: true,
-                    confirmButtonText: "Confirmar",
-                    cancelButtonText: "Volver",
-                    reverseButtons: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                }).then((result) => {
-                    resolve(result.isConfirmed);
-                });
-            });
-        }
-    
-        showSwal();
-    </script>';
-    
+
         return view('postView', ['voucher' => $voucher]);
     }
 
@@ -102,7 +71,7 @@ class VoucherController extends Controller
             'destiny' => 'required',
             'seat_quantity' => 'required|numeric|min:1',
         ];
-    
+
         // Define mensajes personalizados para las reglas de validación (opcional)
         $messages = [
             'date.required' => 'El campo fecha es obligatorio.',
@@ -111,11 +80,20 @@ class VoucherController extends Controller
             'destiny.required' => 'El campo destino es obligatorio.',
             'seat_quantity.required' => 'El campo cantidad de asientos es obligatorio.',
         ];
-    
+
         // Realiza la validación
         $request->validate($rules, $messages);
         $vouchers = Voucher::where('origin',$request->origin)->where('destiny',$request->destiny)->where('date',$request->date)->sum('seat_quantity');
         //dd($vouchers);
+        $route = Route::where('origin',$request->origin)->where('destiny',$request->destiny)->first();
+        //dif entre actuales y total
+        $result = $route->seat_quantity - $vouchers;
+        if($result == 0){
+            return back()->with('message', 'No hay pasajes disponibles para esa ruta.');
+        }
+        if($request->seat_quantity > $result){
+            return back()->with('message', 'La cantidad de asientos no puede ser mayor que la cantidad disponible de asientos para ese viaje.');
+        }
         $voucher = new Voucher();
         $voucher->code = $this->codeVoucherGen();
         $voucher->date = $request->input('date');
@@ -125,7 +103,7 @@ class VoucherController extends Controller
         $voucher->base_rate = $this->getBaseRate($voucher->origin, $voucher->destiny);
         $voucher->save();
         return redirect()->route('postView', ['code' => $voucher->code]);
-    }   
+    }
 /*
 public function store(Request $request)
 {
@@ -182,22 +160,22 @@ public function store(Request $request)
     {
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $numbers = '0123456789';
-    
+
         $letterLength = strlen($letters);
         $numberLength = strlen($numbers);
-    
+
         $code = '';
-    
+
         // Generate 4 letters
         for ($i = 0; $i < 4; $i++) {
             $code .= $letters[rand(0, $letterLength - 1)];
         }
-    
+
         // Generate 2 numbers
         for ($i = 0; $i < 2; $i++) {
             $code .= $numbers[rand(0, $numberLength - 1)];
         }
-    
+
         return $code;
     }
 
