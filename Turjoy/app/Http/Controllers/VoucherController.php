@@ -75,7 +75,7 @@ class VoucherController extends Controller
 
         // Define mensajes personalizados para las reglas de validación (opcional)
         $messages = [
-            'date.required' => 'El campo fecha es obligatorio.',
+            'date.required' => 'Debe seleccionar la fecha del viaje antes de realizar la reserva.',
             'date.date' => 'El campo fecha debe ser una fecha válida.',
             'origin.required' => 'El campo origen es obligatorio.',
             'destiny.required' => 'El campo destino es obligatorio.',
@@ -90,10 +90,10 @@ class VoucherController extends Controller
         //dif entre actuales y total
         $result = $route->seat_quantity - $vouchers;
         if($result == 0){
-            return back()->with('message', 'No hay pasajes disponibles para esa ruta.');
+            return back()->with('message', 'No hay servicios disponibles para la ruta seleccionada.');
         }
         if($request->seat_quantity > $result){
-            return back()->with('message', 'La cantidad de asientos no puede ser mayor que la cantidad disponible de asientos para ese viaje.');
+            return back()->with('message', 'No hay servicios disponibles para la ruta seleccionada.');
         }
         $voucher = new Voucher();
         $voucher->code = $this->codeVoucherGen();

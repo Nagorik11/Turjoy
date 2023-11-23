@@ -73,7 +73,7 @@
             </a>
         </div>
         @if ($routes->count() == 0)
-            <div class="alert alert-danger mt-3" style="color: #ff8a80">No hay pasajes disponibles</div>
+            <div class="mt-3 alert" style="background-color: #ff8a80; color:black;">No hay pasajes disponibles</div>
         @else
             <div style="display: flex; justify-content: center; align-items: center; height: 100px;">
                 <label class="custom-label">Reservar Pasaje</label>
@@ -102,7 +102,7 @@
                         <input type="date" id="date" name="date" class="form-control"
                             min="{{ date('Y-m-d') }}">
                         @error('date')
-                            <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                            <div class="mt-3 alert" style="background-color: #ff8a80; color:black;">
                                 {{ $message }}
                             </div>
                         @enderror
@@ -132,7 +132,7 @@
                                 </select>
 
                                 @error('origin')
-                                    <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                                    <div class="mt-3 alert" style="background-color: #ff8a80; color:black;">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -156,7 +156,7 @@
                                 <!-- Opciones de destino se cargarán dinámicamente con JavaScript -->
                                 </select>
                                 @error('destiny')
-                                    <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                                    <div class=" mt-3 alert" style="background-color: #ff8a80; color:black;">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -166,12 +166,12 @@
                                 class="number-input form-control" value="1" min="1" max="getMaxSeats(this)"
                                 inputmode="numeric" onchange="validateInput(this)">
                             @error('seat_quantity')
-                                <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                                <div class=" mt-3 alert" style="background-color: #ff8a80; color:black;">
                                     {{ $message }}
                                 </div>
                             @enderror
                             @if (session('message'))
-                                <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                                <div class="mt-3 alert" style="background-color: #ff8a80; color:black;">
                                     {{ session('message') }}</div>
                             @endif
                         </div>

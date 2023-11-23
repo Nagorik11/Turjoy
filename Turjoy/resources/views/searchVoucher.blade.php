@@ -82,7 +82,7 @@
             <hr>
 
             @error('search_code')
-            <div class="alert alert-danger  mt-3" style="color:  #ff8a80">
+            <div class="alert alert-danger  mt-3" style="background-color:  #ff8a80">
                 <p class="m-0" style="color: #212529">{{$message}}</p>
             </div>
             @enderror
@@ -105,7 +105,7 @@
                         </tr>
                         <tr class='tr-custom'>
                             <th class="p-3" scope="row">Dia de la Reserva</th>
-                            <td>{{$voucher->date}}</td>
+                            <td>{{ \Carbon\Carbon::parse($voucher->date)->format('d/m/Y') }}</td>
                         </tr>
                         <tr>
                             <th class="p-3" scope="row">Cantidad de Asientos</th>
@@ -113,7 +113,7 @@
                         </tr>
                         <tr class='tr-custom'>
                             <th class="p-3" scope="row">Fecha de la compra</th>
-                            <td>{{$voucher->created_at}}</td>
+                            <td>{{\Carbon\Carbon::parse($voucher->created_at)->format('d/m/Y')}}</td>
                         </tr>
                         <tr>
                             <th class="p-3" scope="row">Total</th>
