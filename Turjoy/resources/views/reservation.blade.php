@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="//g.tutorialjinni.com/mojoaxel/bootstrap-select-country/dist/css/bootstrap-select-country.min.css">
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         .card {
@@ -147,18 +148,14 @@
             </div>
                 <label for="seat_quantity">Cantidad de Asientos:</label>
                 <input id="seat_quantity"type="number" name="seat_quantity" class="number-input form-control" value="1" min="1" max="getMaxSeats(this)" inputmode="numeric" onchange="validateInput(this)">
-                <div class="form-group">
-                    <label for="seat_quantity">Cantidad de Pasajes:</label>
-                    <select id="seat_quantity" name="seat_quantity" class="form-control">
-                        @for ($i = 1; $i <= $maxSeatQuantity; $i++)
-                            <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                </div>
-
+                @error('seat_quantity')
+                    <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div>
-                <label id=sqCounter" name="sqCounter"></label>
+                <label id="sqCounter" name="sqCounter"></label>
                 <label id="base_rate_label" name="base_rate"></label>
                 <label id="max_seats" name="max_seats"></label>
 

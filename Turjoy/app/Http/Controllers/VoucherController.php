@@ -100,6 +100,7 @@ class VoucherController extends Controller
             'date' => 'required|date',
             'origin' => 'required',
             'destiny' => 'required',
+            'seat_quantity' => 'required|numeric|min:1',
         ];
     
         // Define mensajes personalizados para las reglas de validación (opcional)
@@ -108,11 +109,13 @@ class VoucherController extends Controller
             'date.date' => 'El campo fecha debe ser una fecha válida.',
             'origin.required' => 'El campo origen es obligatorio.',
             'destiny.required' => 'El campo destino es obligatorio.',
+            'seat_quantity.required' => 'El campo cantidad de asientos es obligatorio.',
         ];
     
         // Realiza la validación
         $request->validate($rules, $messages);
-    
+        $vouchers = Voucher::where('origin',$request->origin)->where('destiny',$request->destiny)->where('date',$request->date)->sum('seat_quantity');
+        //dd($vouchers);
         $voucher = new Voucher();
         $voucher->code = $this->codeVoucherGen();
         $voucher->date = $request->input('date');
