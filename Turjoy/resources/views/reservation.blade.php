@@ -297,7 +297,10 @@
 
                             var origen = $('#origin').val();
                             var destiny = $('#destinoSelect').val();
-                            var fecha = $("#date").val();
+                            var fecha = $("#date").val().split('-');
+                            if (fecha.length === 3) {
+                                fecha = fecha[2] + '/' + fecha[1] + '/' + fecha[0];
+                            }
                             var seat_quantity = $("#seat_quantity").val();
                             var base_rate = $("#base_rate_label").text(); // Cambiado de .val() a .text()
 

@@ -85,7 +85,7 @@
             </tr>
             <tr>
                 <th>Fecha</th>
-                <td>{{ $voucher->date }}</td>
+                <td>{{ date('d/m/Y', strtotime($voucher->date)) }}</td>
             </tr>
             <tr>
                 <th>Cantidad de asientos</th>
