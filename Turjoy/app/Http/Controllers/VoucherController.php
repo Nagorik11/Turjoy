@@ -65,6 +65,7 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         // Define las reglas de validación
+        // dd($request);
         $rules = [
             'date' => 'required|date',
             'origin' => 'required',

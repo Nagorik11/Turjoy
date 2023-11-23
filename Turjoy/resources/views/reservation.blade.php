@@ -72,270 +72,276 @@
                     height="100">
             </a>
         </div>
+        @if ($routes->count() == 0)
+            <div class="alert alert-danger mt-3" style="color: #ff8a80">No hay pasajes disponibles</div>
+        @else
+            <div style="display: flex; justify-content: center; align-items: center; height: 100px;">
+                <label class="custom-label">Reservar Pasaje</label>
+            </div>
 
-        <div style="display: flex; justify-content: center; align-items: center; height: 100px;">
-            <label class="custom-label">Reservar Pasaje</label>
-        </div>
+            <form action="{{ route('reservation.store') }}" method="POST"
+                style="margin: 20px auto 0; max-width:500px;">
 
-        <form action="{{ route('reservation.store') }}" method="POST" style="margin: 20px auto 0; max-width:500px;">
-
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="date">Fecha del viaje:</label>
-
-                    <script>
-                        $(function() {
-                            $("#date").datepicker({
-                                format: "dd-mm-yyyy"
-                            });
-                            $("#date").on("changeDate", function() {
-                                var selectedDate = $("#date").datepicker("getDate");
-
-                                console.log(selectedDate);
-                            });
-                        });
-                    </script>
-
-                    <input type="date" id="date" name="date" class="form-control" min="{{ date('Y-m-d') }}">
-                    @error('date')
-                        <div class="alert alert-danger mt-3" style="color: #ff8a80">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <div class="card-body">
                     <div class="form-group">
+                        <label for="date">Fecha del viaje:</label>
 
-                        <div class="form-group">
-                            <label for="origin">Origen:</label>
-                            <select id="origin" name="origin" class="selectpicker form-control" data-flag="true"
-                                title="Selecciona una opción..." data-width="margin: 20px auto 0; max-width:480px;">
-                                @php
-                                    $uniqueOrigins = $routes
-                                        ->pluck('origin')
-                                        ->unique()
-                                        ->toArray();
-                                @endphp
-                                @foreach ($uniqueOrigins as $origin)
-                                    <option value="{{ $origin }}">{{ $origin }}</option>
-                                @endforeach
-                                <script>
-                                    $(document).ready(function() {
-                                        $('#origin').on('change', function() {
-                                            var selectedOrigin = $(this).val();
-                                            console.log("Valor seleccionado en 'Origen': " + selectedOrigin);
-                                        });
-                                    });
-                                </script>
-                            </select>
+                        <script>
+                            $(function() {
+                                $("#date").datepicker({
+                                    format: "dd-mm-yyyy"
+                                });
+                                $("#date").on("changeDate", function() {
+                                    var selectedDate = $("#date").datepicker("getDate");
 
-                            @error('origin')
-                                <div class="alert alert-danger mt-3" style="color: #ff8a80">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                            <label for="destiny">Destino:</label>
-                            <select name="destiny" id="destinoSelect" class="selectpicker form-control" data-flag="true"
-                                title="Selecciona una opción..." data-width=480px;">
-                                @php
-                                    $uniqueDestiny = $routes
-                                        ->pluck('destiny')
-                                        ->unique()
-                                        ->toArray();
-                                    $base_rate = $routes->pluck('base_rate')->toArray();
-                                @endphp
+                                    console.log(selectedDate);
+                                });
+                            });
+                        </script>
 
-                                @foreach ($uniqueDestiny as $destiny)
-                                    <option value="{{ $destiny }}">{{ $destiny }}</option>
-                                    return $destiny
-                                    dd(base_rate);
-                                @endforeach
-                            </select>
-                            <!-- Opciones de destino se cargarán dinámicamente con JavaScript -->
-                            </select>
-                            @error('destiny')
-                                <div class="alert alert-danger mt-3" style="color: #ff8a80">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <label for="seat_quantity">Cantidad de Asientos:</label>
-                        <input id="seat_quantity"type="number" name="seat_quantity" class="number-input form-control"
-                            value="1" min="1" max="getMaxSeats(this)" inputmode="numeric"
-                            onchange="validateInput(this)">
-                        @error('seat_quantity')
+                        <input type="date" id="date" name="date" class="form-control"
+                            min="{{ date('Y-m-d') }}">
+                        @error('date')
                             <div class="alert alert-danger mt-3" style="color: #ff8a80">
                                 {{ $message }}
                             </div>
                         @enderror
-                        @if (session('message'))
-                            <p class="">
-                                {{ session('message') }}</p>
-                        @endif
-                    </div>
-                    <div>
-                        <label id="sqCounter" name="sqCounter"></label>
-                        <label id="base_rate_label" name="base_rate"></label>
-                        <label id="max_seats" name="max_seats"></label>
+                        <div class="form-group">
 
-                    </div>
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+                            <div class="form-group">
+                                <label for="origin">Origen:</label>
+                                <select id="origin" name="origin" class="selectpicker form-control" data-flag="true"
+                                    title="Selecciona una opción..." data-width="margin: 20px auto 0; max-width:480px;">
+                                    @php
+                                        $uniqueOrigins = $routes
+                                            ->pluck('origin')
+                                            ->unique()
+                                            ->toArray();
+                                    @endphp
+                                    @foreach ($uniqueOrigins as $origin)
+                                        <option value="{{ $origin }}">{{ $origin }}</option>
+                                    @endforeach
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#origin').on('change', function() {
+                                                var selectedOrigin = $(this).val();
+                                                console.log("Valor seleccionado en 'Origen': " + selectedOrigin);
+                                            });
+                                        });
+                                    </script>
+                                </select>
+
+                                @error('origin')
+                                    <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <label for="destiny">Destino:</label>
+                                <select name="destiny" id="destinoSelect" class="selectpicker form-control"
+                                    data-flag="true" title="Selecciona una opción..." data-width=480px;">
+                                    @php
+                                        $uniqueDestiny = $routes
+                                            ->pluck('destiny')
+                                            ->unique()
+                                            ->toArray();
+                                        $base_rate = $routes->pluck('base_rate')->toArray();
+                                    @endphp
+
+                                    @foreach ($uniqueDestiny as $destiny)
+                                        <option value="{{ $destiny }}">{{ $destiny }}</option>
+                                        return $destiny
+                                        dd(base_rate);
+                                    @endforeach
+                                </select>
+                                <!-- Opciones de destino se cargarán dinámicamente con JavaScript -->
+                                </select>
+                                @error('destiny')
+                                    <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <label for="seat_quantity">Cantidad de Asientos:</label>
+                            <input id="seat_quantity"type="number" name="seat_quantity"
+                                class="number-input form-control" value="1" min="1" max="getMaxSeats(this)"
+                                inputmode="numeric" onchange="validateInput(this)">
+                            @error('seat_quantity')
+                                <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            @if (session('message'))
+                                <div class="alert alert-danger mt-3" style="color: #ff8a80">
+                                    {{ session('message') }}</div>
+                            @endif
+                        </div>
+                        <div>
+                            <label id="sqCounter" name="sqCounter" style="display: none;"></label>
+                            <label id="base_rate_label" name="base_rate" style="display: none;"></label>
+                            <label id="max_seats" name="max_seats" style="display: none;"></label>
+
+                        </div>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
 
-                    <script>
-                        $(document).ready(function() {
-                            // Manejo del cambio en el elemento con ID 'origin'
-                            $('#origin').on('change', function() {
-                                // Obtén el valor seleccionado en el campo de origen
-                                var selectedOrigin = $(this).val();
-                                // Obtén el elemento de destinoSelect
-                                var destinoSelect = $('#destinoSelect');
-                                // Limpia las opciones actuales del campo de destino
-                                destinoSelect.empty();
-                                // Itera sobre las rutas y agrega las opciones de destino correspondientes
-                                $.each(@json($routes), function(index, route) {
-                                    if (route.origin === selectedOrigin && route.origin !== route.destiny) {
-                                        destinoSelect.append($('<option>', {
-                                            value: route.destiny,
-                                            text: route.destiny
-                                        }));
+                        <script>
+                            $(document).ready(function() {
+                                // Manejo del cambio en el elemento con ID 'origin'
+                                $('#origin').on('change', function() {
+                                    // Obtén el valor seleccionado en el campo de origen
+                                    var selectedOrigin = $(this).val();
+                                    // Obtén el elemento de destinoSelect
+                                    var destinoSelect = $('#destinoSelect');
+                                    // Limpia las opciones actuales del campo de destino
+                                    destinoSelect.empty();
+                                    // Itera sobre las rutas y agrega las opciones de destino correspondientes
+                                    $.each(@json($routes), function(index, route) {
+                                        if (route.origin === selectedOrigin && route.origin !== route.destiny) {
+                                            destinoSelect.append($('<option>', {
+                                                value: route.destiny,
+                                                text: route.destiny
+                                            }));
+                                        }
+                                    });
+                                    // Actualiza el selector de destino
+                                    destinoSelect.selectpicker('refresh');
+                                    // Triggers change event on destinoSelect to update base rate when origin changes
+                                    destinoSelect.trigger('change');
+                                });
+
+                                // Manejo del cambio en el elemento con ID 'destinoSelect'
+                                $('#destinoSelect').on('change', function() {
+                                    // Obtiene la ruta seleccionada
+                                    var selectedDestiny = $(this).val();
+
+                                    // Busca la información de la ruta en el array de rutas
+                                    var routeInfo = @json($routes).find(function(route) {
+                                        return route.destiny === selectedDestiny;
+                                    });
+
+                                    // Verifica si se encontró la información de la ruta
+                                    if (routeInfo) {
+                                        var baseRate = routeInfo.base_rate;
+                                        var sq = routeInfo.seat_quantity;
+
+                                        // Puedes hacer algo con el baseRate, por ejemplo, mostrarlo en el label
+                                        $('#base_rate_label').text(baseRate);
+                                        $('#max_seats').text(sq);
+
+                                        // Triggers change event on base_rate_label to ensure it updates automatically
+                                        $('#base_rate_label').trigger('change');
+                                        $('#max_seats').trigger('change');
+
                                     }
                                 });
-                                // Actualiza el selector de destino
-                                destinoSelect.selectpicker('refresh');
-                                // Triggers change event on destinoSelect to update base rate when origin changes
-                                destinoSelect.trigger('change');
+
+                                // Inicializa el selector de destino al cargar la página
+                                $('#origin').trigger('change');
                             });
+                        </script>
 
-                            // Manejo del cambio en el elemento con ID 'destinoSelect'
-                            $('#destinoSelect').on('change', function() {
-                                // Obtiene la ruta seleccionada
-                                var selectedDestiny = $(this).val();
-
-                                // Busca la información de la ruta en el array de rutas
-                                var routeInfo = @json($routes).find(function(route) {
-                                    return route.destiny === selectedDestiny;
-                                });
-
-                                // Verifica si se encontró la información de la ruta
-                                if (routeInfo) {
-                                    var baseRate = routeInfo.base_rate;
-                                    var sq = routeInfo.seat_quantity;
-
-                                    // Puedes hacer algo con el baseRate, por ejemplo, mostrarlo en el label
-                                    $('#base_rate_label').text(baseRate);
-                                    $('#max_seats').text(sq);
-
-                                    // Triggers change event on base_rate_label to ensure it updates automatically
-                                    $('#base_rate_label').trigger('change');
-                                    $('#max_seats').trigger('change');
-
+                        <script>
+                            //validacion de
+                            function validateInput(input) {
+                                const value = input.value;
+                                if (value === "0" || value < 1) {
+                                    input.value = "1";
                                 }
-                            });
-
-                            // Inicializa el selector de destino al cargar la página
-                            $('#origin').trigger('change');
-                        });
-                    </script>
-
-                    <script>
-                        //validacion de
-                        function validateInput(input) {
-                            const value = input.value;
-                            if (value === "0" || value < 1) {
-                                input.value = "1";
                             }
-                        }
 
-                        function getMaxSeats(qqqqqq) {
-                            var max_seats = route.seat_quantity;
-                            return max_seats;
-                        }
-                    </script>
+                            function getMaxSeats(qqqqqq) {
+                                var max_seats = route.seat_quantity;
+                                return max_seats;
+                            }
+                        </script>
 
-                    {{-- <label id="base_rate_label" name="base_rate" onchange="actualizarBaseRate()"></label>
+                        {{-- <label id="base_rate_label" name="base_rate" onchange="actualizarBaseRate()"></label>
                     <label id="max_seats" name="max_seats" onchange="actualizarMaxSeats()"></label>
                     <label id="sqCounter" name="sqCounter" onchange="actualizarSqCounter()"></label> --}}
 
 
 
-                    @csrf
-                    <button id="reservarButton" type="submit" class="btn btn-primary">Reservar</button>
-                    <script src="{{ asset('js/app.js') }}"></script>
+                        @csrf
+                        <button id="reservarButton" type="submit" class="btn btn-primary">Reservar</button>
+                        <script src="{{ asset('js/app.js') }}"></script>
 
 
-                    <script>
-                        const swalWithBootstrapButtons = Swal.mixin({
-                            customClass: {
-                                confirmButton: "btn btn-success swal-btn-confirm",
-                                cancelButton: "btn btn-danger swal-btn-cancel"
-                            },
-                            buttonsStyling: false
-                        });
-
-                        // Function to show SweetAlert and return a Promise
-                        function showSwal(origen, destiny, fecha, seat_quantity, base_rate_label) {
-
-                            return new Promise((resolve) => {
-                                swalWithBootstrapButtons.fire({
-                                    text: `El total de la reserva entre  ${origen} y ${destiny} para el día ${fecha} de (${seat_quantity} asientos),${(base_rate_label*seat_quantity).toLocaleString('es-CL', { minimumFractionDigits: 0 })} ¿Desea continuar?`,
-                                    showCancelButton: true,
-                                    confirmButtonText: "Confirmar",
-                                    cancelButtonText: "Volver",
-                                    reverseButtons: true,
-                                    allowOutsideClick: false,
-                                    allowEscapeKey: false,
-                                }).then((result) => {
-                                    resolve(result.isConfirmed);
-                                });
+                        <script>
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: "btn btn-success swal-btn-confirm",
+                                    cancelButton: "btn btn-danger swal-btn-cancel"
+                                },
+                                buttonsStyling: false
                             });
-                        }
 
+                            // Function to show SweetAlert and return a Promise
+                            function showSwal(origen, destiny, fecha, seat_quantity, base_rate_label) {
 
-                        document.getElementById('reservarButton').addEventListener('click', async function(event) {
-                            // Prevent the default form submission
-                            event.preventDefault();
-
-                            var origen = $('#origin').val();
-                            var destiny = $('#destinoSelect').val();
-                            var fecha = $("#date").val().split('-');
-                            if (fecha.length === 3) {
-                                fecha = fecha[2] + '/' + fecha[1] + '/' + fecha[0];
-                            }
-                            var seat_quantity = $("#seat_quantity").val();
-                            var base_rate = $("#base_rate_label").text(); // Cambiado de .val() a .text()
-
-                            // Verificar si los campos requeridos están llenos
-                            if (!origen || !destiny || !fecha || !seat_quantity || !base_rate) {
-                                // Mostrar un mensaje de error indicando que se deben completar todos los campos
-                                swalWithBootstrapButtons.fire({
-                                    title: "Error",
-                                    text: "Por favor, complete todos los campos antes de continuar",
-                                    icon: "error"
-                                });
-                                return; // Salir de la función si falta algún campo
-                            }
-
-                            // Show SweetAlert y esperar la confirmación del usuario
-                            const isConfirmed = await showSwal(origen, destiny, fecha, seat_quantity, base_rate);
-
-                            // Si el usuario confirma, enviar el formulario
-                            if (isConfirmed) {
-                                // Puedes enviar el formulario utilizando form.submit()
-                                event.target.form.submit();
-
-                                // Opcionalmente, puedes redirigir después de que se envíe el formulario con éxito
-                            } else {
-                                // El usuario hizo clic en "Volver" o cerró el cuadro de diálogo
-                                swalWithBootstrapButtons.fire({
-                                    title: "Reserva cancelada!",
-                                    text: "Tu reserva ha sido cancelada",
-                                    icon: "error"
+                                return new Promise((resolve) => {
+                                    swalWithBootstrapButtons.fire({
+                                        text: `El total de la reserva entre  ${origen} y ${destiny} para el día ${fecha} de (${seat_quantity} asientos),${(base_rate_label*seat_quantity).toLocaleString('es-CL', { minimumFractionDigits: 0 })} ¿Desea continuar?`,
+                                        showCancelButton: true,
+                                        confirmButtonText: "Confirmar",
+                                        cancelButtonText: "Volver",
+                                        reverseButtons: true,
+                                        allowOutsideClick: false,
+                                        allowEscapeKey: false,
+                                    }).then((result) => {
+                                        resolve(result.isConfirmed);
+                                    });
                                 });
                             }
-                        });
-                    </script>
 
-        </form>
+
+                            document.getElementById('reservarButton').addEventListener('click', async function(event) {
+                                // Prevent the default form submission
+                                event.preventDefault();
+
+                                var origen = $('#origin').val();
+                                var destiny = $('#destinoSelect').val();
+                                var fecha = $("#date").val().split('-');
+                                if (fecha.length === 3) {
+                                    fecha = fecha[2] + '/' + fecha[1] + '/' + fecha[0];
+                                }
+                                var seat_quantity = $("#seat_quantity").val();
+                                var base_rate = $("#base_rate_label").text(); // Cambiado de .val() a .text()
+
+                                // Verificar si los campos requeridos están llenos
+                                if (!origen || !destiny || !fecha || !seat_quantity || !base_rate) {
+                                    // Mostrar un mensaje de error indicando que se deben completar todos los campos
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Error",
+                                        text: "Por favor, complete todos los campos antes de continuar",
+                                        icon: "error"
+                                    });
+                                    return; // Salir de la función si falta algún campo
+                                }
+
+                                // Show SweetAlert y esperar la confirmación del usuario
+                                const isConfirmed = await showSwal(origen, destiny, fecha, seat_quantity, base_rate);
+
+                                // Si el usuario confirma, enviar el formulario
+                                if (isConfirmed) {
+                                    // Puedes enviar el formulario utilizando form.submit()
+                                    event.target.form.submit();
+
+                                    // Opcionalmente, puedes redirigir después de que se envíe el formulario con éxito
+                                } else {
+                                    // El usuario hizo clic en "Volver" o cerró el cuadro de diálogo
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Reserva cancelada!",
+                                        text: "Tu reserva ha sido cancelada",
+                                        icon: "error"
+                                    });
+                                }
+                            });
+                        </script>
+
+            </form>
+        @endif
+
     </div>
 </body>
 
