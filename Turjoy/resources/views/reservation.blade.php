@@ -281,7 +281,7 @@
 
                                 return new Promise((resolve) => {
                                     swalWithBootstrapButtons.fire({
-                                        text: `El total de la reserva entre  ${origen} y ${destiny} para el día ${fecha} de (${seat_quantity} asientos),${(base_rate_label*seat_quantity).toLocaleString('es-CL', { minimumFractionDigits: 0 })} ¿Desea continuar?`,
+                                        text: `El total de la reserva entre  ${origen} y ${destiny} para el día ${fecha} de $${(base_rate_label*seat_quantity).toLocaleString('es-CL', { minimumFractionDigits: 0 })} (${seat_quantity} asientos) ¿Desea continuar?`,
                                         showCancelButton: true,
                                         confirmButtonText: "Confirmar",
                                         cancelButtonText: "Volver",
@@ -370,9 +370,14 @@
         });
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script>
-    $document.ready(function() {
-        $('#fecha').datepicker({
+    $(document).ready(function() {
+        $('#date').datepicker({
             format: 'dd/mm/yyyy',
             autoclose: true,
             todayHighlight: true,
@@ -382,7 +387,6 @@
             changeMonth: true,
             changeYear: true,
         });
-
     })
 </script>
 <script src="//cdn.tutorialjinni.com/jquery/3.6.1/jquery.min.js"></script>

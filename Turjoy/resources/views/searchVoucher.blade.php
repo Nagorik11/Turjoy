@@ -117,7 +117,7 @@
                         </tr>
                         <tr>
                             <th class="p-3" scope="row">Total</th>
-                            <td>{{ $cost }}</td>
+                            <td>{{"$". number_format($cost, 0, ',', '.') }}</td>
                         </tr>
                     </tbody>
                 </table>

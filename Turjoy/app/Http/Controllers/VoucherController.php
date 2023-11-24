@@ -67,7 +67,7 @@ class VoucherController extends Controller
         // Define las reglas de validación
         // dd($request);
         $rules = [
-            'date' => 'required|date',
+            'date' => 'required|date|after_or_equal:today',
             'origin' => 'required',
             'destiny' => 'required',
             'seat_quantity' => 'required|numeric|min:1',
