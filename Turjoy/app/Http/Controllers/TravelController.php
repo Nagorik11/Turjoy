@@ -152,6 +152,7 @@ class TravelController extends Controller
     public function getOrigins()
     {
         $routes = Route::all();
+        
         return view('reservation', ['routes' => $routes]);
     }
 
