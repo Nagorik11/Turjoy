@@ -104,12 +104,7 @@ class VoucherController extends Controller
         $voucher->seat_quantity = $request->input('seat_quantity');
         $voucher->base_rate = $this->getBaseRate($voucher->origin, $voucher->destiny);
         $voucher->save();
-<<<<<<< HEAD
-        return redirect()->route('voucher.index');
-
-=======
         return redirect()->route('postView', ['code' => $voucher->code]);
->>>>>>> 8ebd5c0b452da6b7e3c4d8fd28806598daeefb42
     }
 /*
 public function store(Request $request)
@@ -165,14 +160,6 @@ public function store(Request $request)
 
     public function codeVoucherGen()
     {
-<<<<<<< HEAD
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $code = '';
-        for ($i = 0; $i < 10; $i++) {
-            $code .= $characters[rand(0, $charactersLength - 1)];
-        }
-=======
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $numbers = '0123456789';
 
@@ -191,7 +178,6 @@ public function store(Request $request)
             $code .= $numbers[rand(0, $numberLength - 1)];
         }
 
->>>>>>> 8ebd5c0b452da6b7e3c4d8fd28806598daeefb42
         return $code;
     }
 

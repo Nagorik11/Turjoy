@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}">
-<<<<<<< HEAD
-    <style>
-=======
     <link rel="stylesheet" href="//cdn.tutorialjinni.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
    <style>
@@ -18,40 +15,14 @@
             font-weight: bold;
         }
 
->>>>>>> 8ebd5c0b452da6b7e3c4d8fd28806598daeefb42
         .card {
             height: 800px;
             width: 800px;
             position: relative;
         }
 
-<<<<<<< HEAD
-        .custom-button {
-            background-color: #2ECC71;
-            color: #000;
-            width: 100px;
-        }
-
-        .return-button {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: #000;
-        }
-
-        .custom-table {
-            border: 2px solid #2ECC71;
-            border-collapse: collapse;
-            width: 80%;
-            margin: 100px auto 0;
-        }
-
-        .custom-table th,
-        .custom-table td {
-=======
         .tr-custom{
             background-color:#EAEAEA;
->>>>>>> 8ebd5c0b452da6b7e3c4d8fd28806598daeefb42
             padding: 15px;
         }
 
@@ -92,77 +63,12 @@
                     height="100">
             </a>
         </div>
-<<<<<<< HEAD
-        <h1 class="text-center">Buscar Reservas</h1>
-
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4  d-flex align-items-center offset-md-2 justify-content-sm-start">
-                    <p class="fs-4 m-0">Ingrese el codigo de la reserva:</p>
-                </div>
-                <div class="col-md-4 d-flex align-items-center ">
-                    <form action="/voucher-search" method="GET">
-                        <div class="input-group d-flex justify-content-center">
-                            <input type="text" name="search_code" class="form-control"
-                                placeholder="Codigo de reserva" aria-label="Codigo de reserva"
-                                aria-describedby="button-addon2">
-                            <button class="btn btn-outline-primary" type="submit" id="button-addon2">Buscar</button>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-            <hr />
-            @error('search_code')
-                <div class="alert alert-danger  mt-3" style="color:  #ff8a80">
-                    <p class="m-0" style="color: #212529">{{ $message }}</p>
-                </div>
-            @enderror
-            @isset($voucher)
-                <div class="row card mx-2">
-                    <table class="table p-5 m-0">
-                        <tbody>
-                            <tr>
-                                <th class="p-3" scope="row">Codigo de la reserva</th>
-                                <td>{{ $voucher->code }}</td>
-                            </tr>
-                            <tr>
-
-                                <th class="p-3" scope="row">Origen</th>
-                                <td>{{ $voucher->origin }}</td>
-                            </tr>
-                            <tr>
-                                <th class="p-3" scope="row">Destino</th>
-                                <td>{{ $voucher->destiny }}</td>
-                            </tr>
-                            <tr>
-                                <th class="p-3" scope="row">Dia de la reserva</th>
-                                <td>{{ $voucher->date }}</td>
-                            </tr>
-                            <tr>
-                                <th class="p-3" scope="row">Cantidad de asientos</th>
-                                <td>{{ $voucher->seat_quantity }}</td>
-                            </tr>
-                            <tr>
-                                <th class="p-3" scope="row">Fecha de compra</th>
-                                <td>{{ $voucher->created_at }}</td>
-                            </tr>
-                            <tr>
-                                <th class="p-3" scope="row">Costo total</th>
-                                <td>{{ $cost }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            @endisset
-        </div>
-=======
         <h1 class="custom-label">Buscar Reservas</h1>
 
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4 mx-auto d-flex align-items-center ">
-                    <form action="/voucher-search/search_code" method="GET">
+                    <form action="/voucher-search" method="GET">
                         @csrf
                         <div class="input-group">
                                 <input type="text" name="search_code" class="form-control" placeholder="Codigo de reserva">
@@ -225,7 +131,6 @@
         </footer>
     </div>
 
->>>>>>> 8ebd5c0b452da6b7e3c4d8fd28806598daeefb42
 </body>
 
 </html>

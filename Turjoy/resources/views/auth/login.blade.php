@@ -1,41 +1,6 @@
 @extends('layouts.auth-master')
 
 @section('content')
-<<<<<<< HEAD
-    <form method="post" action="{{ route('login.perform') }}" class="container w-25 mt-5">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-
-
-        <h1 class="h3 mb-3 fw-normal">Login</h1>
-
-        @include('layouts.partials.messages')
-
-        <h1 class="h3 fw-normal">Iniciar Sesión</h1>
-
-
-
-        <div class="form-group form-floating mb-3">
-            <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="email" autofocus>
-            <label for="floatingName">Correo electrónico</label>
-
-        </div>
-
-
-        @include('layouts.partials.messages')
-
-        <div class="form-group form-floating mb-3">
-            <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password">
-            <label for="floatingPassword">Contraseña</label>
-
-        </div>
-
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Acceder</button>
-
-    </form>
-=======
->>>>>>> 8ebd5c0b452da6b7e3c4d8fd28806598daeefb42
 
 <head>
     <style>
