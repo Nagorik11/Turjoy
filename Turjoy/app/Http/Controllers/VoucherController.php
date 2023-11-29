@@ -106,43 +106,7 @@ class VoucherController extends Controller
         $voucher->save();
         return redirect()->route('postView', ['code' => $voucher->code]);
     }
-/*
-public function store(Request $request)
-{
-    // Define las reglas de validación
-    $rules = [
-        'date' => 'required|date',
-        'origin' => 'required',
-        'destiny' => 'required',
-    ];
 
-    // Define mensajes personalizados para las reglas de validación (opcional)
-    $messages = [
-        'date.required' => 'El campo fecha es obligatorio.',
-        'date.date' => 'El campo fecha debe ser una fecha válida.',
-        'origin.required' => 'El campo origen es obligatorio.',
-        'destiny.required' => 'El campo destino es obligatorio.',
-    ];
-
-    // Realiza la validación
-    $request->validate($rules, $messages);
-
-    $voucher = new Voucher();
-    $voucher->code = $this->codeVoucherGen();
-    $voucher->date = $request->input('date');
-    $voucher->origin = $request->input('origin');
-    $voucher->destiny = $request->input('destiny');
-    $voucher->seat_quantity = $request->input('seat_quantity');
-    $voucher->base_rate = $this->getBaseRate($voucher->origin, $voucher->destiny);
-
-
-// Verifica la respuesta del usuario y si el voucher se guarda exitosamente
-
-    // Realiza la redirección solo si el voucher se guarda exitosamente y confirmación es true
-    $voucher->save();
-    return redirect()->route('postView', ['code' => $voucher->code]);
-
-}*/
     public function getBaseRate($origin, $destiny)
     {
         $baseRate = Route::where('origin', $origin)
@@ -153,9 +117,7 @@ public function store(Request $request)
         if ($baseRate) {
             return $baseRate->base_rate;
         }
-
     }
-
 
 
     public function codeVoucherGen()
@@ -179,6 +141,37 @@ public function store(Request $request)
         }
 
         return $code;
+    }
+
+
+    public function reservationReport()
+    {
+        if (session('vouchers_report')) {
+            session()->put('vouchers_report', []);
+
+        } else {
+            session(['vouchers_report' => []]);
+        }
+        return view('reservationReport', ['vouchers_report' => session('vouchers_report')]);
+    }
+
+    public function reportReservations(Request $request)
+    {
+        // dd($request);
+        $message = errorMessages();
+        $request->validate([
+            'min_date' => 'required|date', // Max 5MB
+            'max_date' => 'required|date', // Max 5MB
+        ],$message);
+
+        $vouchers = Voucher::where('date', '<', $request->max_date)
+                   ->where('date', '>', $request->min_date)
+                   ->orderBy('date', 'asc')
+                   ->get();
+
+        session()->put('vouchersReport', $vouchers);
+        // dd(session());
+        return view('reservationReport')->with('vouchers',$vouchers);
     }
 
 };

@@ -53,8 +53,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/reservation', 'TravelController@getOrigins');
     Route::post('/reservation', [VoucherController::class,'store'])->name('reservation.store');
     Route::get('/postView/{code}',[VoucherController::class,'postView'])->name('post.index');
-    Route::get('/postView/{code}', 'VoucherController@postView')->name('postView');    
-    
+    Route::get('/postView/{code}', 'VoucherController@postView')->name('postView');
+
     /**
      * Guest Routes
      */
@@ -70,6 +70,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/voucher', 'VoucherController@indexVoucher')->name('voucher.index');
 
+        Route::get('/reservation-report','VoucherController@reservationReport')->name('reservation.report');
+        Route::get('/report-reservations','VoucherController@reportReservations')->name('report.reservations');
 
     });
 
@@ -92,6 +94,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/import-export', [TravelController::class, 'indexAddTravels'])->name('importExportView');
         Route::post('/load-file', [TravelController::class, 'travelCheck'])->name('travel.check');
         Route::get('/travel.index', [TravelController::class, 'indexTravels'])->name('travel.index');
+
     });
 
 

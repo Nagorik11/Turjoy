@@ -13,7 +13,6 @@ class TravelController extends Controller
 {
     public function indexAddTravels()
     {
-        dd('indexAddTravels');
         if (session('validRows') || session('invalidRows') || session('duplicatedRows')||session()->put('allRows')) {
             session()->put('validRows', []);
             session()->put('invalidRows', []);
@@ -152,7 +151,7 @@ class TravelController extends Controller
     public function getOrigins()
     {
         $routes = Route::all();
-        
+
         return view('reservation', ['routes' => $routes]);
     }
 
