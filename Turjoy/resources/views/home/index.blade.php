@@ -2,30 +2,76 @@
 
 @section('content')
 
-    <div class="bg-light p-5 rounded">
-        @auth
-        <h1></h1>
-        <p class="lead">Cargar rutas de viaje.</p>
+<style>
+    #custom-button {
+        border-width: 1px;
+    }
 
-        @error('archivo')
-            <div class="alert alert-danger mt-3">
-                <p class="m-0">{{ $message }}</p>
-            </div>
-        @enderror
+    #file-input {
+        display: none;
+    }
 
-        <form action="{{ route('travel.check') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label for="archivo">Selecciona un archivo XLSX:</label>
-                <input type="file" name="archivo" id="archivo" accept=".xlsx" value="Seleccionar archivo"></div>
-            <button type="submit" class="btn btn-primary">Cargar archivo</button>
-        </form>
+    #file-input-container {
+        margin-bottom: 10px;
+    }
 
-        @endauth
+    .card {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
 
-        @guest
-        <h1>Homepage</h1>
-        <p class="lead"></p>
-        @endguest
-    </div>
+    @auth
+    <div class="card">
+    <h1>Cargar rutas</h1>
+    <hr>
+
+    @error('archivo')
+        <div class="alert alert-danger mt-3">
+            <p class="m-0">{{ $message }}</p>
+        </div>
+    @enderror
+
+    <form action="{{ route('travel.check') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div id="file-input-container">
+            <input type="file" name="archivo" id="file-input" accept=".xlsx" hidden="hidden">
+            <button type="button" id="custom-button">Escoge un archivo</button>
+            <span id="custom-text">No has seleccionado ningún archivo</span>
+        </div>
+        <button type="submit" class="btn btn-primary">Cargar archivo</button>
+    </form>
+</div>
+    @endauth
+
+
+<script>
+    const fileInputBtn = document.getElementById("file-input");
+    const customTxt = document.getElementById("custom-text");
+    const customBtn = document.getElementById("custom-button");
+    customBtn.addEventListener("click", function () {
+        fileInputBtn.click();
+    });
+
+    fileInputBtn.addEventListener("change", function () {
+        if (fileInputBtn.files.length > 0) {
+            const fileName = fileInputBtn.files[0].name;
+            customTxt.innerHTML = fileName;
+        } else {
+            customTxt.innerHTML = "No has seleccionado ningún archivo";
+        }
+    });
+</script>
+
+@guest
+
+<div class=" mt-3 alert" style="background-color: #ff8a80; color:black;">
+    <p>No tienes acceso a este apartado</p>
+</div>
+
+@endguest
+
 @endsection
