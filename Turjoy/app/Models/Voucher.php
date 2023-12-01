@@ -17,7 +17,8 @@ class Voucher extends Model
         'origin',
         'destiny',
         'seat_quantity',
-        'base_rate'
+        'base_rate',
+        'payment'
         
     ];
 }

@@ -95,6 +95,11 @@
                 <th>Tarifa base</th>
                 <td>{{"$". number_format($voucher->base_rate, 0, ',', '.') }}</td>
             </tr>
+
+            <tr>
+                <th>Método de pago</th>
+                <td>{{$voucher->payment }}</td>
+            </tr>
             <tr>
                 <th>Total</th>
                 <td>{{"$". number_format($voucher->base_rate * $voucher->seat_quantity, 0, ',', '.') }}</td>

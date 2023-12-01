@@ -181,6 +181,15 @@
                             <label id="max_seats" name="max_seats" style="display: none;"></label>
 
                         </div>
+                        <div>
+                            <label for="payment">Método de pago:</label>
+                            <select name="payment" id="payment" class="form-control">
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Cŕedito">Tarjeta de Crédito</option>
+                                <option value="Débito">Tarjeta de Débito</option>
+                                <option value="Paypal">PayPal</option>
+                            </select>
+                        </div>
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 

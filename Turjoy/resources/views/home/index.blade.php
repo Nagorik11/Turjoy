@@ -4,7 +4,7 @@
 
     <div class="bg-light p-5 rounded">
         @auth
-        <h1>Dashboard</h1>
+        <h1></h1>
         <p class="lead">Cargar rutas de viaje.</p>
 
         @error('archivo')
@@ -17,8 +17,7 @@
             @csrf
             <div class="form-group">
                 <label for="archivo">Selecciona un archivo XLSX:</label>
-                <input type="file" name="archivo" id="archivo" accept=".xlsx">
-            </div>
+                <input type="file" name="archivo" id="archivo" accept=".xlsx" value="Seleccionar archivo"></div>
             <button type="submit" class="btn btn-primary">Cargar archivo</button>
         </form>
 

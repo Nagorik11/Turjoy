@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('destiny');
             $table->integer('seat_quantity')->nullable();
             $table->integer('base_rate')->nullable();
+            $table->string('payment');
             $table->timestamps();
         });
     }
