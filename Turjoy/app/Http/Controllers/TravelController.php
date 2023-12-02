@@ -13,7 +13,6 @@ class TravelController extends Controller
 {
     public function indexAddTravels()
     {
-        dd('indexAddTravels');
         if (session('validRows') || session('invalidRows') || session('duplicatedRows')||session()->put('allRows')) {
             session()->put('validRows', []);
             session()->put('invalidRows', []);
@@ -117,9 +116,14 @@ class TravelController extends Controller
             return redirect()->route('travel.index')->with('success', 'El archivo se cargó correctamente.');
         }
         catch (\Exception $e) {
-            dd($e);
+            // dd($e);
             $request->validate([
-                'archivo' => 'required|string|mimes:xlsx|max:5120', // Max 5MB
+                'archivo' => [
+                    'required',
+                    function ($attribute, $value, $fail) {
+                        $fail("El archivo no es valido");
+                    },
+                ],
             ]);
             return redirect()->back()->with('error');//, $message);
         }
@@ -147,6 +151,7 @@ class TravelController extends Controller
     public function getOrigins()
     {
         $routes = Route::all();
+
         return view('reservation', ['routes' => $routes]);
     }
 
