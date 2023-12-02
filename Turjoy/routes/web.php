@@ -65,9 +65,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
 
-        Route::get('/reservation-report','VoucherController@reservationReport')->name('reservation.report');
-        Route::get('/report-reservations','VoucherController@reportReservations')->name('report.reservations');
-
     });
 
     Route::group(['middleware' => ['auth']], function() {
@@ -89,6 +86,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/import-export', [TravelController::class, 'indexAddTravels'])->name('importExportView');
         Route::post('/load-file', [TravelController::class, 'travelCheck'])->name('travel.check');
         Route::get('/travel.index', [TravelController::class, 'indexTravels'])->name('travel.index');
+
+        Route::get('/reservation-report','VoucherController@reservationReport')->name('reservation.report');
+        Route::get('/report-reservations','VoucherController@reportReservations')->name('report.reservations');        
 
     });
 
