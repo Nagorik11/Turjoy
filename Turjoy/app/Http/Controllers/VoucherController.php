@@ -147,31 +147,46 @@ class VoucherController extends Controller
 
     public function reservationReport()
     {
-        if (session('vouchers_report')) {
-            session()->put('vouchers_report', []);
+        $vouchers = Voucher::all();
+        // if (session('vouchers_report')) {
+        //     session()->put('vouchers_report', []);
 
-        } else {
-            session(['vouchers_report' => []]);
-        }
-        return view('reservationReport', ['vouchers_report' => session('vouchers_report')]);
+        // } else {
+        //     session(['vouchers_report' => []]);
+        // }
+        return view('reservationReport', [
+            'vouchers' => $vouchers
+        ]);
+        // return view('reservationReport', ['vouchers_report' => session('vouchers_report')]);
     }
 
     public function reportReservations(Request $request)
     {
-        // dd($request);
-        $message = errorMessages();
-        $request->validate([
-            'min_date' => 'required|date', // Max 5MB
-            'max_date' => 'required|date', // Max 5MB
-        ],$message);
+        //dd($request);
+        // $message = errorMessages();
+        // $request->validate([
+        //     'min_date' => 'required|date', // Max 5MB
+        //     'max_date' => 'required|date', // Max 5MB
+        // ],$message);
 
-        $vouchers = Voucher::where('date', '<', $request->max_date)
-                   ->where('date', '>', $request->min_date)
-                   ->orderBy('date', 'asc')
-                   ->get();
+        $this->validate($request,[
+            'min_date' => ['required','date'],
+            'max_date' => ['required','date'],
+        ]);
 
-        session()->put('vouchersReport', $vouchers);
-        // dd(session());
+        $min_date = $request->min_date;
+        $max_date = $request->max_date;
+
+
+        // $vouchers = Voucher::where('date', '<', $request->max_date)
+        //            ->where('date', '>', $request->min_date)
+        //            ->orderBy('date', 'asc')
+        //            ->get();
+
+        $vouchers = Voucher::whereBetween('date',[$min_date,$max_date])->get();
+
+        // dd($vouchers);
+        // session()->put('vouchersReport', $vouchers);
         return view('reservationReport')->with('vouchers',$vouchers);
     }
 
