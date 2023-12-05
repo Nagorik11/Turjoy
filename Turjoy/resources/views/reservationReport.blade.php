@@ -8,11 +8,11 @@
             @csrf
             <div class="d-flex flex justify-center  gap-4 my-4">
                 <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">Fecha minima</span>
+                    <span class="input-group-text" id="basic-addon1">Fecha mínima</span>
                     <input type="date" class="border border-2 rounded-end" name="min_date" id="min_date" class="">
                 </div>
                 <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">Fecha maxima</span>
+                    <span class="input-group-text" id="basic-addon1">Fecha máxima</span>
                     <input type="date" class="border border-2 rounded-end" name="max_date" id="max_date" class="">
                 </div>
                 <button type="submit" class="btn btn-primary">Buscar</button>
@@ -30,9 +30,9 @@
         @enderror
         @if ($vouchers->count() > 0)
             @isset($vouchers)
-                <table class="table border border-1" style="background-color: #EAEAEA">
+                <table class="table border border-1" style="font-size:0.9rem">
                     <thead>
-                        <tr>
+                        <tr >
                             <th class="border border-1">Codigo de reserva</th>
                             <th class="border border-1">Fecha de reserva</th>
                             <th class="border border-1">Dia de la reserva</th>
@@ -40,25 +40,29 @@
                             <th class="border border-1">Ciudad de destino</th>
                             <th class="border border-1">Cantidad de asientos</th>
                             <th class="border border-1">Valor total</th>
+                            <th class="border border-1">Metodo de pago</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vouchers as $row)
-                            <tr class="border border-1" style="background-color: #F4F4F4">
+                        @foreach ($vouchers as $index => $row)
+                        <tr class="border border-1" style="{{ $index % 2 == 0 ? 'background-color: #EAEAEA;' : '' }}">
                                 <td class="border border-1">{{ $row['code'] }}</td>
                                 <td class="border border-1">{{ \Carbon\Carbon::parse($row['date'])->format('d/m/Y') }}</td>
-                                <td class="border border-1">{{ \Carbon\Carbon::parse($row['created_at'])->format('d/m/Y') }}</td>
+                                <td class="border border-1">{{ \Carbon\Carbon::parse($row['created_at'])->format('d/m/Y') }}
+                                </td>
                                 <td class="border border-1">{{ $row['origin'] }}</td>
                                 <td class="border border-1">{{ $row['destiny'] }}</td>
                                 <td class="border border-1">{{ $row['seat_quantity'] }}</td>
                                 <td class="border border-1">{{ $row['base_rate'] * $row['seat_quantity'] }}</td>
+                                <td class="border border-1">{{ $row['payment'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             @endisset
         @else
-            <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">No hay reservas en sistema</p>
+            <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">No hay reservas en sistema
+            </p>
         @endif
     </div>
 @endsection
