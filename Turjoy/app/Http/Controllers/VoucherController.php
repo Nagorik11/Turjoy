@@ -148,28 +148,14 @@ class VoucherController extends Controller
 
     public function reservationReport()
     {
-        $vouchers = Voucher::all();
-        // if (session('vouchers_report')) {
-        //     session()->put('vouchers_report', []);
-
-        // } else {
-        //     session(['vouchers_report' => []]);
-        // }
+        $vouchers = Voucher::orderBy('date', 'asc')->get();
         return view('reservationReport', [
             'vouchers' => $vouchers
         ]);
-        // return view('reservationReport', ['vouchers_report' => session('vouchers_report')]);
     }
 
     public function reportReservations(Request $request)
     {
-        //dd($request);
-        // $message = errorMessages();
-        // $request->validate([
-        //     'min_date' => 'required|date', // Max 5MB
-        //     'max_date' => 'required|date', // Max 5MB
-        // ],$message);
-
         $this->validate($request,[
             'min_date' => ['required','date'],
             'max_date' => ['required','date'],
