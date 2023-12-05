@@ -89,8 +89,8 @@
             @enderror
             @isset($voucher)
 
-            <div class="row card mx-1 mt-5" style="width: 775px; height:290px;">
-                <table>
+            <div class="row card mx-1 mt-5" style="width: 775px; height:331px;">
+                <table class="table">
                     <tbody>
                         <tr>
                             <th class="p-3" scope="row">Código de la reserva</th>
@@ -120,6 +120,11 @@
                             <th class="p-3" scope="row">Total</th>
                             <td>{{"$". number_format($cost, 0, ',', '.') }}</td>
                         </tr>
+                        <tr class='tr-custom'>
+                            <th class="p-3" scope="row">Método de pago</th>
+                            <td>{{ $voucher->payment }}</td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>

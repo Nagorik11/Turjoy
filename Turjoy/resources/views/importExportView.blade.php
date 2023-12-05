@@ -1,6 +1,7 @@
 @extends('layouts.app-master')
 
 @section('content')
+
     <div class="bg-light p-5 rounded">
         @auth
 
@@ -35,10 +36,9 @@
         @enderror
 
         @if($allRows)
+
             <h2>Datos Cargados</h2>
 
-            {{-- @if(isset($datosCargados) && count($datosCargados) > 0) --}}
-                {{-- <p>Se han cargado {{ count($datosCargados) }} registros.</p> --}}
             <table class="table">
                 <thead>
                     <tr>
@@ -46,7 +46,6 @@
                         <th>Destino</th>
                         <th>Cantidad de Asientos</th>
                         <th>Tarifa Base</th>
-                        <!-- Agrega más columnas si es necesario -->
                     </tr>
                 </thead>
                 <tbody>
@@ -56,19 +55,12 @@
                             <td>{{ $row['destino'] }}</td>
                             <td>{{ $row['cantidad_de_asientos'] }}</td>
                             <td>{{ $row['tarifa_base'] }}</td>
-                            <!-- Agrega más celdas si es necesario -->
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         @endif
-
         @endauth
-
-        @guest
-        <h1>Homepage</h1>
-        <p class="lead"></p>
-        @endguest
     </div>
 @endsection
 

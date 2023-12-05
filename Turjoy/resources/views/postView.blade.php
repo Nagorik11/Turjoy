@@ -20,17 +20,16 @@
             height: 800px;
             width: 800px;
             position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: auto;
+            margin-top: 5rem;
         }
-
-        .tr-custom {
-            background-color: #EAEAEA;
-            padding: 15px;
-        }
-
         .header-container {
             display: flex;
             align-items: center;
-            height: 80px;
+            justify-content: center;
+            margin-top: 15px; /* Adjust the margin-top value as needed */
         }
 
         .header-logo {
@@ -44,63 +43,66 @@
             width: 200px;
         }
 
-        .col-md-4 {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .table th,
+        .table td {
+            text-align: left;
         }
 
-        .input-group input.form-control {
-            margin-bottom: 10px;
-            width: 300px;
+        .tr-custom{
+            background-color:#EAEAEA;
+            padding: 15px;
         }
     </style>
+</head>
+
+<body>
     <div class="card mx-auto mb-5 mt-4">
         <div class="card-header" style="background-color: #0A74DA;">
-
             <a class="header-container navbar-brand" href="/">
                 <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" width="100"
                     height="100">
             </a>
         </div>
 
-
-</head>
-
-<body>
-    <div>
-        <h1>Detalles del Voucher</h1>
-        <table>
-            <tr>
-                <th>Código de la reserva</th>
-                <td>{{ $voucher->code }}</td>
-            </tr>
-            <tr>
-                <th>Origen</th>
-                <td>{{ $voucher->origin }}</td>
-            </tr>
-            <tr>
-                <th>Destino</th>
-                <td>{{ $voucher->destiny }}</td>
-            </tr>
-            <tr>
-                <th>Fecha</th>
-                <td>{{ date('d/m/Y', strtotime($voucher->date)) }}</td>
-            </tr>
-            <tr>
-                <th>Cantidad de asientos</th>
-                <td>{{ $voucher->seat_quantity }}</td>
-            </tr>
-            <tr>
-                <th>Tarifa base</th>
-                <td>{{"$". number_format($voucher->base_rate, 0, ',', '.') }}</td>
-            </tr>
-            <tr>
-                <th>Total</th>
-                <td>{{"$". number_format($voucher->base_rate * $voucher->seat_quantity, 0, ',', '.') }}</td>
-            </tr>
-        </table>
-        <button onclick="imprimir()">Imprimir Voucher</button>
+        <div class="card-body">
+            <h1 class="custom-label">Detalles del Voucher</h1>
+            <hr>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Código de la reserva</th>
+                    <td>{{ $voucher->code }}</td>
+                </tr>
+                <tr class="tr-custom">
+                    <th>Origen</th>
+                    <td>{{ $voucher->origin }}</td>
+                </tr>
+                <tr>
+                    <th>Destino</th>
+                    <td>{{ $voucher->destiny }}</td>
+                </tr>
+                <tr class="tr-custom">
+                    <th>Fecha</th>
+                    <td>{{ date('d/m/Y', strtotime($voucher->date)) }}</td>
+                </tr>
+                <tr>
+                    <th>Cantidad de asientos</th>
+                    <td>{{ $voucher->seat_quantity }}</td>
+                </tr>
+                <tr class="tr-custom">
+                    <th>Tarifa base</th>
+                    <td>{{"$". number_format($voucher->base_rate, 0, ',', '.') }}</td>
+                </tr>
+                <tr>
+                    <th>Método de pago</th>
+                    <td>{{$voucher->payment }}</td>
+                </tr>
+                <tr class="tr-custom">
+                    <th>Total</th>
+                    <td>{{"$". number_format($voucher->base_rate * $voucher->seat_quantity, 0, ',', '.') }}</td>
+                </tr>
+            </table>
+            <button class="btn btn-primary" onclick="imprimir()">Imprimir Voucher</button>
+        </div>
     </div>
 
     <script>
@@ -108,6 +110,9 @@
             window.print();
         }
     </script>
+
+    <!-- Add any necessary script tags or additional dependencies here -->
+
 </body>
 
 </html>

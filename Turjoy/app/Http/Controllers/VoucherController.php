@@ -104,6 +104,7 @@ class VoucherController extends Controller
         $voucher->destiny = $request->input('destiny');
         $voucher->seat_quantity = $request->input('seat_quantity');
         $voucher->base_rate = $this->getBaseRate($voucher->origin, $voucher->destiny);
+        $voucher->payment = $request->input('payment');
         $voucher->save();
         return redirect()->route('postView', ['code' => $voucher->code]);
     }

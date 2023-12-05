@@ -1,1 +1,0 @@
-//crear una vista para la vista posterior a la reserva

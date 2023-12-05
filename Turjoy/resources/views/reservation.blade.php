@@ -181,6 +181,15 @@
                             <label id="max_seats" name="max_seats" style="display: none;"></label>
 
                         </div>
+                        <div>
+                            <label for="payment">Método de pago:</label>
+                            <select name="payment" id="payment" class="form-control">
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Cŕedito">Tarjeta de Crédito</option>
+                                <option value="Débito">Tarjeta de Débito</option>
+                                <option value="Paypal">PayPal</option>
+                            </select>
+                        </div>
                         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
@@ -267,78 +276,67 @@
                         <script src="{{ asset('js/app.js') }}"></script>
 
 
-                        <script>
-                            const swalWithBootstrapButtons = Swal.mixin({
-                                customClass: {
-                                    confirmButton: "btn btn-success swal-btn-confirm",
-                                    cancelButton: "btn btn-danger swal-btn-cancel"
-                                },
-                                buttonsStyling: false
-                            });
+                <script>
+                    const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success swal-btn-confirm",
+                        cancelButton: "btn btn-danger swal-btn-cancel"
+                    },
+                    buttonsStyling: false
+                });
 
-                            // Function to show SweetAlert and return a Promise
-                            function showSwal(origen, destiny, fecha, seat_quantity, base_rate_label) {
+                function showSwal(origen, destiny, fecha, seat_quantity, base_rate_label, paymentMethod) {
+                    return new Promise((resolve) => {
+                        swalWithBootstrapButtons.fire({
+                            text: `El total de la reserva entre  ${origen} y ${destiny} para el día ${fecha} de $${(base_rate_label*seat_quantity).toLocaleString('es-CL', { minimumFractionDigits: 0 })} (${seat_quantity} asientos) con método de pago ${paymentMethod}. ¿Desea continuar?`,
+                            showCancelButton: true,
+                            confirmButtonText: "Confirmar",
+                            cancelButtonText: "Volver",
+                            reverseButtons: true,
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then((result) => {
+                            resolve(result.isConfirmed);
+                        });
+                    });
+                }
 
-                                return new Promise((resolve) => {
-                                    swalWithBootstrapButtons.fire({
-                                        text: `El total de la reserva entre  ${origen} y ${destiny} para el día ${fecha} de $${(base_rate_label*seat_quantity).toLocaleString('es-CL', { minimumFractionDigits: 0 })} (${seat_quantity} asientos) ¿Desea continuar?`,
-                                        showCancelButton: true,
-                                        confirmButtonText: "Confirmar",
-                                        cancelButtonText: "Volver",
-                                        reverseButtons: true,
-                                        allowOutsideClick: false,
-                                        allowEscapeKey: false,
-                                    }).then((result) => {
-                                        resolve(result.isConfirmed);
-                                    });
-                                });
-                            }
+                document.getElementById('reservarButton').addEventListener('click', async function(event) {
+                    event.preventDefault();
 
+                    var origen = $('#origin').val();
+                    var destiny = $('#destinoSelect').val();
+                    var fecha = $("#date").val().split('-');
+                    if (fecha.length === 3) {
+                        fecha = fecha[2] + '/' + fecha[1] + '/' + fecha[0];
+                    }
+                    var seat_quantity = $("#seat_quantity").val();
+                    var base_rate = $("#base_rate_label").text();
+                    var paymentMethod = $("#payment").val();
 
-                            document.getElementById('reservarButton').addEventListener('click', async function(event) {
-                                // Prevent the default form submission
-                                event.preventDefault();
+                    if (!origen || !destiny || !fecha || !seat_quantity || !base_rate || !paymentMethod) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Error",
+                            text: "Por favor, complete todos los campos antes de continuar",
+                            icon: "error"
+                        });
+                        return;
+                    }
 
-                                var origen = $('#origin').val();
-                                var destiny = $('#destinoSelect').val();
-                                var fecha = $("#date").val().split('-');
-                                if (fecha.length === 3) {
-                                    fecha = fecha[2] + '/' + fecha[1] + '/' + fecha[0];
-                                }
-                                var seat_quantity = $("#seat_quantity").val();
-                                var base_rate = $("#base_rate_label").text(); // Cambiado de .val() a .text()
+                    const isConfirmed = await showSwal(origen, destiny, fecha, seat_quantity, base_rate, paymentMethod);
 
-                                // Verificar si los campos requeridos están llenos
-                                if (!origen || !destiny || !fecha || !seat_quantity || !base_rate) {
-                                    // Mostrar un mensaje de error indicando que se deben completar todos los campos
-                                    swalWithBootstrapButtons.fire({
-                                        title: "Error",
-                                        text: "Por favor, complete todos los campos antes de continuar",
-                                        icon: "error"
-                                    });
-                                    return; // Salir de la función si falta algún campo
-                                }
+                    if (isConfirmed) {
+                        event.target.form.submit();
+                    } else {
+                        swalWithBootstrapButtons.fire({
+                            title: "Reserva cancelada!",
+                            text: "Tu reserva ha sido cancelada",
+                            icon: "error"
+                        });
+                    }
+                });
 
-                                // Show SweetAlert y esperar la confirmación del usuario
-                                const isConfirmed = await showSwal(origen, destiny, fecha, seat_quantity, base_rate);
-
-                                // Si el usuario confirma, enviar el formulario
-                                if (isConfirmed) {
-                                    // Puedes enviar el formulario utilizando form.submit()
-                                    event.target.form.submit();
-
-                                    // Opcionalmente, puedes redirigir después de que se envíe el formulario con éxito
-                                } else {
-                                    // El usuario hizo clic en "Volver" o cerró el cuadro de diálogo
-                                    swalWithBootstrapButtons.fire({
-                                        title: "Reserva cancelada!",
-                                        text: "Tu reserva ha sido cancelada",
-                                        icon: "error"
-                                    });
-                                }
-                            });
-                        </script>
-
+                </script>
             </form>
         @endif
 
