@@ -88,7 +88,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/travel.index', [TravelController::class, 'indexTravels'])->name('travel.index');
 
         Route::get('/reservation-report','VoucherController@reservationReport')->name('reservation.report');
-        Route::post('/report-reservations','VoucherController@reportReservations')->name('report.reservations');        
+        Route::get('/report-reservations','VoucherController@reportReservations')->name('report.reservations');
 
     });
 

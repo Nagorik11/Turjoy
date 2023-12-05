@@ -4,7 +4,7 @@
 
     <div class="bg-light p-5 rounded">
         <h3 class="my-6 font-bold text-3x1 uppercase">Reporte de reservas</h3>
-        <form action="{{ route('report.reservations') }}" method="POST">
+        <form action="{{ route('report.reservations') }}" method="GET">
             @csrf
             <div class="flex justify-center gap-4 my-4">
                 <div class="relative max-w-sm gap-4 my-4">
@@ -20,7 +20,7 @@
                             {{ $message }}
                         </p>
                     @enderror
-    
+
                 </div>
                 <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
@@ -44,8 +44,8 @@
                         @foreach ($vouchers as $row)
                             <tr>
                                 <td>{{ $row['code'] }}</td>
-                                <td>{{ $row['date'] }}</td>
-                                <td>{{ $row['created_at'] }}</td>
+                                <td>{{\Carbon\Carbon::parse($row['date'])->format('d/m/Y')}}</td>
+                                <td>{{\Carbon\Carbon::parse($row['created_at'])->format('d/m/Y') }}</td>
                                 <td>{{ $row['origin'] }}</td>
                                 <td>{{ $row['destiny'] }}</td>
                                 <td>{{ $row['seat_quantity'] }}</td>
