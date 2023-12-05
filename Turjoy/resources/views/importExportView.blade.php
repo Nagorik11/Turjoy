@@ -77,4 +77,22 @@
         @endauth
     </div>
     </div>
+
+    <script>
+        const fileInputBtn = document.getElementById("file-input");
+        const customTxt = document.getElementById("custom-text");
+        const customBtn = document.getElementById("custom-button");
+        customBtn.addEventListener("click", function() {
+            fileInputBtn.click();
+        });
+
+        fileInputBtn.addEventListener("change", function() {
+            if (fileInputBtn.files.length > 0) {
+                const fileName = fileInputBtn.files[0].name;
+                customTxt.innerHTML = fileName;
+            } else {
+                customTxt.innerHTML = "No has seleccionado ningún archivo";
+            }
+        });
+    </script>
 @endsection
