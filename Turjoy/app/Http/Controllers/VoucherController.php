@@ -177,16 +177,8 @@ class VoucherController extends Controller
         $min_date = $request->min_date;
         $max_date = $request->max_date;
 
+        $vouchers = Voucher::whereBetween('date',[$min_date,$max_date])->orderBy('date', 'asc')->get();
 
-        // $vouchers = Voucher::where('date', '<', $request->max_date)
-        //            ->where('date', '>', $request->min_date)
-        //            ->orderBy('date', 'asc')
-        //            ->get();
-
-        $vouchers = Voucher::whereBetween('date',[$min_date,$max_date])->get();
-
-        // dd($vouchers);
-        // session()->put('vouchersReport', $vouchers);
         return view('reservationReport')->with('vouchers',$vouchers);
     }
 
