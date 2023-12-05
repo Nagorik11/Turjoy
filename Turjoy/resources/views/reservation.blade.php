@@ -73,7 +73,8 @@
             </a>
         </div>
         @if ($routes->count() == 0)
-            <div class="mt-3 alert" style="background-color: #ff8a80; color:black;">No hay pasajes disponibles</div>
+            <div class="m-3 alert d-flex justify-content-center align-items-center"
+                style="background-color: #ff8a80; color:black; font-size:20px">No hay pasajes disponibles en este momento</div>
         @else
             <div style="display: flex; justify-content: center; align-items: center; height: 100px;">
                 <label class="custom-label">Reservar Pasaje</label>
@@ -276,67 +277,66 @@
                         <script src="{{ asset('js/app.js') }}"></script>
 
 
-                <script>
-                    const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: "btn btn-success swal-btn-confirm",
-                        cancelButton: "btn btn-danger swal-btn-cancel"
-                    },
-                    buttonsStyling: false
-                });
+                        <script>
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: "btn btn-success swal-btn-confirm",
+                                    cancelButton: "btn btn-danger swal-btn-cancel"
+                                },
+                                buttonsStyling: false
+                            });
 
-                function showSwal(origen, destiny, fecha, seat_quantity, base_rate_label, paymentMethod) {
-                    return new Promise((resolve) => {
-                        swalWithBootstrapButtons.fire({
-                            text: `El total de la reserva entre  ${origen} y ${destiny} para el día ${fecha} de $${(base_rate_label*seat_quantity).toLocaleString('es-CL', { minimumFractionDigits: 0 })} (${seat_quantity} asientos) con método de pago ${paymentMethod}. ¿Desea continuar?`,
-                            showCancelButton: true,
-                            confirmButtonText: "Confirmar",
-                            cancelButtonText: "Volver",
-                            reverseButtons: true,
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                        }).then((result) => {
-                            resolve(result.isConfirmed);
-                        });
-                    });
-                }
+                            function showSwal(origen, destiny, fecha, seat_quantity, base_rate_label, paymentMethod) {
+                                return new Promise((resolve) => {
+                                    swalWithBootstrapButtons.fire({
+                                        text: `El total de la reserva entre  ${origen} y ${destiny} para el día ${fecha} de $${(base_rate_label*seat_quantity).toLocaleString('es-CL', { minimumFractionDigits: 0 })} (${seat_quantity} asientos) con método de pago ${paymentMethod}. ¿Desea continuar?`,
+                                        showCancelButton: true,
+                                        confirmButtonText: "Confirmar",
+                                        cancelButtonText: "Volver",
+                                        reverseButtons: true,
+                                        allowOutsideClick: false,
+                                        allowEscapeKey: false,
+                                    }).then((result) => {
+                                        resolve(result.isConfirmed);
+                                    });
+                                });
+                            }
 
-                document.getElementById('reservarButton').addEventListener('click', async function(event) {
-                    event.preventDefault();
+                            document.getElementById('reservarButton').addEventListener('click', async function(event) {
+                                event.preventDefault();
 
-                    var origen = $('#origin').val();
-                    var destiny = $('#destinoSelect').val();
-                    var fecha = $("#date").val().split('-');
-                    if (fecha.length === 3) {
-                        fecha = fecha[2] + '/' + fecha[1] + '/' + fecha[0];
-                    }
-                    var seat_quantity = $("#seat_quantity").val();
-                    var base_rate = $("#base_rate_label").text();
-                    var paymentMethod = $("#payment").val();
+                                var origen = $('#origin').val();
+                                var destiny = $('#destinoSelect').val();
+                                var fecha = $("#date").val().split('-');
+                                if (fecha.length === 3) {
+                                    fecha = fecha[2] + '/' + fecha[1] + '/' + fecha[0];
+                                }
+                                var seat_quantity = $("#seat_quantity").val();
+                                var base_rate = $("#base_rate_label").text();
+                                var paymentMethod = $("#payment").val();
 
-                    if (!origen || !destiny || !fecha || !seat_quantity || !base_rate || !paymentMethod) {
-                        swalWithBootstrapButtons.fire({
-                            title: "Error",
-                            text: "Por favor, complete todos los campos antes de continuar",
-                            icon: "error"
-                        });
-                        return;
-                    }
+                                if (!origen || !destiny || !fecha || !seat_quantity || !base_rate || !paymentMethod) {
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Error",
+                                        text: "Por favor, complete todos los campos antes de continuar",
+                                        icon: "error"
+                                    });
+                                    return;
+                                }
 
-                    const isConfirmed = await showSwal(origen, destiny, fecha, seat_quantity, base_rate, paymentMethod);
+                                const isConfirmed = await showSwal(origen, destiny, fecha, seat_quantity, base_rate, paymentMethod);
 
-                    if (isConfirmed) {
-                        event.target.form.submit();
-                    } else {
-                        swalWithBootstrapButtons.fire({
-                            title: "Reserva cancelada!",
-                            text: "Tu reserva ha sido cancelada",
-                            icon: "error"
-                        });
-                    }
-                });
-
-                </script>
+                                if (isConfirmed) {
+                                    event.target.form.submit();
+                                } else {
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Reserva cancelada!",
+                                        text: "Tu reserva ha sido cancelada",
+                                        icon: "error"
+                                    });
+                                }
+                            });
+                        </script>
             </form>
         @endif
 

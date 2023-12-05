@@ -43,7 +43,7 @@ class VoucherController extends Controller
                 'search_code' => [
                     'required',
                     function ($attribute, $value, $fail) {
-                        $fail("la reserva ". $value ." no existe en sistema");
+                        $fail("La reserva ". $value ." no existe en sistema");
                     },
                 ],
             ]);
@@ -92,10 +92,10 @@ class VoucherController extends Controller
         //dif entre actuales y total
         $result = $route->seat_quantity - $vouchers;
         if($result == 0){
-            return back()->with('message', 'No hay servicios disponibles para la ruta seleccionada.');
+            return back()->with('message', 'No hay asientos disponibles para el día seleccionado.');
         }
         if($request->seat_quantity > $result){
-            return back()->with('message', 'No hay servicios disponibles para la ruta seleccionada.');
+            return back()->with('message', 'No hay asientos disponibles para el día seleccionado.');
         }
         $voucher = new Voucher();
         $voucher->code = $this->codeVoucherGen();
