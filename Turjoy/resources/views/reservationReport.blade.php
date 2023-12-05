@@ -58,7 +58,7 @@
                 </table>
             @endisset
         @else
-            <p>No hay reservas en sistema</p>
+            <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">No hay reservas en sistema</p>
         @endif
     </div>
 @endsection
