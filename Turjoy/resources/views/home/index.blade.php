@@ -33,7 +33,8 @@
                 @csrf
                 <div id="file-input-container">
                     <input type="file" name="archivo" id="file-input" accept=".xlsx" hidden="hidden">
-                    <button type="button" id="custom-button">Escoge un archivo</button>
+                    <button type="button" id="custom-button" data-toggle="tooltip"
+                        title="Solo archivos .xlsx con peso menor a 5MB">Escoge un archivo</button>
                     <span id="custom-text">No has seleccionado ningún archivo</span>
                 </div>
                 <button type="submit" class="btn btn-primary">Cargar archivo</button>
@@ -62,6 +63,9 @@
             } else {
                 customTxt.innerHTML = "No has seleccionado ningún archivo";
             }
+        });
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 

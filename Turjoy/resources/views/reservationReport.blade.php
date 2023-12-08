@@ -10,11 +10,13 @@
             <div class="d-flex flex justify-center  gap-4 my-4">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1">Fecha inicial</span>
-                    <input type="date" class="border border-2 rounded-end" name="min_date" id="min_date" class="">
+                    <input type="date" class="border border-2 rounded-end" name="min_date" id="min_date" class=""
+                        data-toggle="tooltip" data-placement="top" title="Las reservas tendran una fecha superior a esta">
                 </div>
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1">Fecha termino</span>
-                    <input type="date" class="border border-2 rounded-end" name="max_date" id="max_date" class="">
+                    <input type="date" class="border border-2 rounded-end" name="max_date" id="max_date" class=""
+                        data-toggle="tooltip" data-placement="top" title="Las reservas tendran una fecha inferior a esta">
                 </div>
                 <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
@@ -62,4 +64,11 @@
             </p>
         @endif
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
 @endsection
