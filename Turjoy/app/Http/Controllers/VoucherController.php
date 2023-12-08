@@ -157,14 +157,34 @@ class VoucherController extends Controller
     public function reportReservations(Request $request)
     {
         $this->validate($request,[
-            'min_date' => ['required','date'],
-            'max_date' => ['required','date'],
+            'min_date' => ['date','nullable'],
+            'max_date' => ['date','nullable'],
         ]);
 
         $min_date = $request->min_date;
         $max_date = $request->max_date;
 
-        $vouchers = Voucher::whereBetween('date',[$min_date,$max_date])->orderBy('date', 'asc')->get();
+        if($min_date==$max_date){
+            if($min_date==null){
+                $vouchers = Voucher::orderBy('date', 'asc')->get();
+                return view('reservationReport')->with('vouchers',$vouchers);
+            }
+            return redirect()->back()->withErrors(['date' => 'La fecha de inicio y de término no pueden ser iguales']);
+
+        }
+        if($min_date == null){
+            $vouchers = Voucher::where('date', '<', $max_date)->orderBy('date', 'asc')->get();
+            // dd("min",$vouchers);
+        }
+        elseif($max_date==null){
+            $vouchers = Voucher::where('date', '>', $min_date)->orderBy('date', 'asc')->get();
+            // dd("max",$vouchers);
+        }
+        else{
+            $vouchers = Voucher::whereBetween('date',[$min_date,$max_date])->orderBy('date', 'asc')->get();
+            // dd("none",$vouchers);
+
+        }
 
         return view('reservationReport')->with('vouchers',$vouchers);
     }
