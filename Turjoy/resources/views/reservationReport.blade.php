@@ -3,29 +3,33 @@
 @section('content')
 
     <div class="pt-5 rounded">
+
         <h3 class="my-6 font-bold text-3x1 uppercase">Reporte de reservas</h3>
-        @if ($vouchers->count() > 0)
-            <form action="{{ route('report.reservations') }}" method="GET">
-                @csrf
-                <div class="d-flex flex justify-center  gap-4 my-4">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1">Fecha mínima</span>
-                        <input type="date" class="border border-2 rounded-end" name="min_date" id="min_date"
-                            class="">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1">Fecha máxima</span>
-                        <input type="date" class="border border-2 rounded-end" name="max_date" id="max_date"
-                            class="">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Buscar</button>
+        @error('no_vouchers')
+            <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">
+                {{ $message }}
+            </p>
+        @enderror
+        <form action="{{ route('report.reservations') }}" method="GET">
+            @csrf
+            <div class="d-flex flex justify-center  gap-4 my-4">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">Fecha mínima</span>
+                    <input type="date" class="border border-2 rounded-end" name="min_date" id="min_date" class="">
                 </div>
-            </form>
-            @error('date')
-                <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">
-                    {{ $message }}
-                </p>
-            @enderror
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">Fecha máxima</span>
+                    <input type="date" class="border border-2 rounded-end" name="max_date" id="max_date" class="">
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+        @error('error')
+            <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">
+                {{ $message }}
+            </p>
+        @enderror
+        @if ($vouchers->count() > 0)
             @isset($vouchers)
                 <table class="table border border-1" style="font-size:0.9rem">
                     <thead>
@@ -58,8 +62,6 @@
                 </table>
             @endisset
         @else
-            <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">No hay reservas en sistema
-            </p>
         @endif
     </div>
 @endsection

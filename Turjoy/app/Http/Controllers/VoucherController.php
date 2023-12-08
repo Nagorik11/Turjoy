@@ -149,6 +149,9 @@ class VoucherController extends Controller
     public function reservationReport()
     {
         $vouchers = Voucher::orderBy('date', 'asc')->get();
+        if($vouchers->isEmpty()){
+            return redirect()->back()->withErrors(['no_vouchers' => 'No hay reservas en el sistema']);
+        }
         return view('reservationReport', [
             'vouchers' => $vouchers
         ]);
@@ -169,7 +172,7 @@ class VoucherController extends Controller
                 $vouchers = Voucher::orderBy('date', 'asc')->get();
                 return view('reservationReport')->with('vouchers',$vouchers);
             }
-            return redirect()->back()->withErrors(['date' => 'La fecha de inicio y de término no pueden ser iguales']);
+            return redirect()->back()->withErrors(['error' => 'La fecha de inicio y de término no pueden ser iguales']);
 
         }
         if($min_date == null){
@@ -183,6 +186,9 @@ class VoucherController extends Controller
         else{
             $vouchers = Voucher::whereBetween('date',[$min_date,$max_date])->orderBy('date', 'asc')->get();
             // dd("none",$vouchers);
+            if($vouchers->isEmpty()){
+                return redirect()->back()->withErrors(['error' => 'No se encontraron reservas dentro del rango seleccionado']);
+            }
 
         }
 
