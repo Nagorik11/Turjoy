@@ -5,11 +5,6 @@
     <div class="pt-5 rounded">
 
         <h3 class="my-6 font-bold text-3x1 uppercase">Reporte de reservas</h3>
-        @error('no_vouchers')
-            <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">
-                {{ $message }}
-            </p>
-        @enderror
         <form action="{{ route('report.reservations') }}" method="GET">
             @csrf
             <div class="d-flex flex justify-center  gap-4 my-4">
@@ -62,6 +57,9 @@
                 </table>
             @endisset
         @else
+            <p class="relative alert rounded-lg" style="background-color: #ff8a80; color:black;">
+                No hay reservas en el sistema
+            </p>
         @endif
     </div>
 @endsection

@@ -150,7 +150,7 @@ class VoucherController extends Controller
     {
         $vouchers = Voucher::orderBy('date', 'asc')->get();
         if($vouchers->isEmpty()){
-            return redirect()->back()->withErrors(['no_vouchers' => 'No hay reservas en el sistema']);
+            return view('reservationReport')->with('no_vouchers', 'No hay reservas en el sistema');
         }
         return view('reservationReport', [
             'vouchers' => $vouchers
