@@ -44,11 +44,6 @@
                     <p class="m-0">{{ $message }}</p>
                 </div>
             @enderror
-            @error('archivo')
-                <div class="alert alert-danger mt-3">
-                    <p class="m-0">{{ $message }}</p>
-                </div>
-            @enderror
 
             @if ($allRows)
                 <h2>Datos Cargados</h2>

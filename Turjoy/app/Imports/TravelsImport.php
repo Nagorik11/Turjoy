@@ -63,8 +63,7 @@ class TravelsImport implements ToCollection,WithHeadingRow
                 }
                 else
                 {
-                    if ($row['origen'] != null && $row['destino'] != null && $row['cantidad_de_asientos'] != "" && $row['tarifa_base'] != "") {
-                        // dd($row);
+                    if (!($row['origen'] == null && $row['destino'] == null && $row['cantidad_de_asientos'] == "")) {
                         $this->invalidRows[] = $row;
                         $row['type'] = '2';
                         $this->allRows[] = $row;
@@ -77,6 +76,8 @@ class TravelsImport implements ToCollection,WithHeadingRow
     }
 
     /**
+     * else{
+     * dd($row);}
      * Verifica si la combinación origen y destino ya existe en el archivo.
      *
      * @param string $origin

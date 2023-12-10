@@ -13,7 +13,7 @@ class TravelController extends Controller
 {
     public function indexAddTravels()
     {
-        if (session('validRows') || session('invalidRows') || session('duplicatedRows')||session()->put('allRows')) {
+        if (session('validRows') || session('invalidRows') || session('duplicatedRows') || session()->put('allRows')) {
             session()->put('validRows', []);
             session()->put('invalidRows', []);
             session()->put('duplicatedRows', []);
@@ -48,11 +48,16 @@ class TravelController extends Controller
 
     public function travelCheck(Request $request)
     {
-        //dd('travelCheck');
         $message = errorMessages();
+
+        if (!$request->hasFile('archivo')) {
+            return redirect()->back()->withErrors(['archivo' => 'El tamaño máximo del archivo a cargar no puede superar los 5 megabytes']);
+
+        }
+
         $request->validate([
-            'archivo' => 'required|file|mimes:xlsx|max:5120', // Max 5MB
-        ],$message);
+            'archivo' => ['required', 'file', 'mimes:xlsx', 'max:5120'], // Max 5MB
+        ], $message);
         try {
             $import = new TravelsImport;
             Excel::import($import, $request->file('archivo'));
@@ -65,18 +70,16 @@ class TravelController extends Controller
             // BORRAR DEPUES -------------------------------------------------------------------
             //dd($validRows,$invalidRows,$duplicatedRows,$allRows);
             //dd('antes del foreach');
-            foreach($validRows as $row)
-            {
+            foreach ($validRows as $row) {
                 //dd('estoy en el foreach');
                 $origin = $row['origen'];
                 $destiny = $row['destino'];
                 //dd($row);
 
-                $travel = Route::where('origin',$origin)
-                    ->where('destiny',$destiny)
+                $travel = Route::where('origin', $origin)
+                    ->where('destiny', $destiny)
                     ->first();
-                if($travel)
-                {
+                if ($travel) {
                     //dd($row);
                     //dd('estoy en el if de que existe un travel');
                     $travel->update([
@@ -84,16 +87,14 @@ class TravelController extends Controller
                         'base_rate' => $row['tarifa_base']
                     ]);
                     //dd($travel);
-                }
-                else
-                {
+                } else {
                     //dd('estoy en el else de que no existe un travel');
                     Route::create([
-                        'origin'=> $origin,
-                        'destiny'=> $destiny,
-                        'seat_quantity'=> $row['cantidad_de_asientos'],
-                        'base_rate'=> $row['tarifa_base'],
-                        'type'=> 0,
+                        'origin' => $origin,
+                        'destiny' => $destiny,
+                        'seat_quantity' => $row['cantidad_de_asientos'],
+                        'base_rate' => $row['tarifa_base'],
+                        'type' => 0,
                     ]);
                 }
                 //dd('despues del  foreach');
@@ -114,8 +115,7 @@ class TravelController extends Controller
             //dd(count(session('validRows')), count(session('invalidRows')), count(session('duplicatedRows')), count(session('allRows')));
 
             return redirect()->route('travel.index')->with('success', 'El archivo se cargó correctamente.');
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             // dd($e);
             $request->validate([
                 'archivo' => [
@@ -125,7 +125,7 @@ class TravelController extends Controller
                     },
                 ],
             ]);
-            return redirect()->back()->with('error');//, $message);
+            return redirect()->back()->with('error'); //, $message);
         }
     }
 
@@ -145,7 +145,6 @@ class TravelController extends Controller
             'price' => $request->price,
             'seat' => $request->seat,
         ]);
-
     }
 
     public function getOrigins()
@@ -154,6 +153,4 @@ class TravelController extends Controller
 
         return view('reservation', ['routes' => $routes]);
     }
-
-
 }
