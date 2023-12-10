@@ -63,9 +63,12 @@ class TravelsImport implements ToCollection,WithHeadingRow
                 }
                 else
                 {
-                    $this->invalidRows[] = $row;
-                    $row['type'] = '2';
-                    $this->allRows[] = $row;
+                    if ($row['origen'] != null && $row['destino'] != null && $row['cantidad_de_asientos'] != "" && $row['tarifa_base'] != "") {
+                        // dd($row);
+                        $this->invalidRows[] = $row;
+                        $row['type'] = '2';
+                        $this->allRows[] = $row;
+                    }
                 }
             }
 
