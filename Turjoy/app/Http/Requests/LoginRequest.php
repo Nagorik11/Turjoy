@@ -32,8 +32,8 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.filled' => 'debe ingresar su correo electrónico para iniciar sesión',
-            'password.required' => 'debe ingresar su contraseña para iniciar sesión',
+            'email.filled' => 'Debe ingresar su correo electrónico para iniciar sesión',
+            'password.required' => 'Debe ingresar su contraseña para iniciar sesión',
         ];
     }
     /**
@@ -74,6 +74,6 @@ class LoginRequest extends FormRequest
             ['email' => $param],
             ['email' => 'email']
         )->fails();
-       
+
     }
 }
