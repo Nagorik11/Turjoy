@@ -172,8 +172,11 @@ class VoucherController extends Controller
             return redirect()->back()->withErrors(['error' => 'La fecha de inicio y de término no pueden ser iguales']);
 
         }
+        if($max_date<$min_date){
+            return redirect()->back();//->withErrors(['error' => 'La fecha de inicio no puede ser posterior a la fecha de termino']);
+        }
         if($min_date>$max_date){
-            return redirect()->back()->withErrors(['error' => 'La fecha de inicio no puede ser posterior a la fecha de termino']);
+            return redirect()->back();//->withErrors(['error' => 'La fecha de inicio no puede ser posterior a la fecha de termino']);
         }
         if($min_date == null){
             $vouchers = Voucher::where('date', '<', $max_date)->orderBy('date', 'asc')->get();
