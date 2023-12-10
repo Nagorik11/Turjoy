@@ -7,14 +7,14 @@
         <h3 class="my-6 font-bold text-3x1 uppercase">Reporte de reservas</h3>
         <form action="{{ route('report.reservations') }}" method="GET">
             @csrf
-            <div class="d-flex flex justify-center  gap-4 my-4">
-                <div class="input-group">
+            <div class="d-flex flex gap-4 my-4">
+                <div class="input-group" style="width: auto !important">
                     <span class="input-group-text" id="basic-addon1">Fecha inicial</span>
                     <input type="date" class="border border-2 rounded-end" name="min_date" id="min_date" class=""
                         data-toggle="tooltip" data-placement="top" title="Las reservas tendran una fecha superior a esta">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">Fecha termino</span>
+                <div class="input-group" style="width: auto !important">
+                    <span class="input-group-text" id="basic-addon1">Fecha término</span>
                     <input type="date" class="border border-2 rounded-end" name="max_date" id="max_date" class=""
                         data-toggle="tooltip" data-placement="top" title="Las reservas tendran una fecha inferior a esta">
                 </div>
