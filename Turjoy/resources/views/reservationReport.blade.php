@@ -18,7 +18,7 @@
                     <input type="date" class="border border-2 rounded-end" name="max_date" id="max_date" class=""
                         data-toggle="tooltip" data-placement="top" title="Las reservas tendran una fecha inferior a esta">
                 </div>
-                <button type="submit" class="btn btn-primary">Buscar</button>
+                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Haz clic para buscar las reservas entre las fechas">Buscar</button>
             </div>
         </form>
         @error('error')
