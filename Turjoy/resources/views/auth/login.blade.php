@@ -3,6 +3,7 @@
 @section('content')
 
 <head>
+    
     <style>
         .card {
             height: 800px !important;
@@ -54,19 +55,20 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
                 <div class="form-group form-floating mb-3">
-                    <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Correo electrónico" autofocus>
-                    <label for="floatingName">Correo electrónico</label>
+                        <input type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="Correo electrónico" autofocus
+                        data-toggle="tooltip" data-placement="top" title="Ingrese su correo electrónico">
+                         <label for="floatingName">Correo electrónico</label>
                 </div>
 
                 @include('layouts.partials.messages')
 
                 <div class="form-group form-floating mb-3">
-                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Contraseña">
+                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Contraseña"
+                    data-placement="top" title="Ingrese su contraseña">
                     <label for="floatingPassword">Contraseña</label>
                 </div>
 
-                <button class="btn btn-primary" type="submit">Acceder</button>
-            </div>
+                <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="top" title="Haga clic para acceder">Acceder</button>            </div>
         </form>
 
         <footer style="padding:10px; text-align: center; position: absolute; bottom: 0; left: 0; right: 0;">
