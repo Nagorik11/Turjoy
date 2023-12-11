@@ -274,7 +274,7 @@
 
 
                         @csrf
-                        <button id="reservarButton" type="submit" class="btn btn-primary"
+                        <button id="reservarButton" type="submit" class="btn btn-primary"">Reservar</button>"
                         data-toggle="tooltip" data-placement="top" title="Haz clic para reservar">Reservar</button>
                         <script src="{{ asset('js/app.js') }}"></script>
 
