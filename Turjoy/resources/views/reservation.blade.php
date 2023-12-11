@@ -85,7 +85,8 @@
 
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="date">Fecha del viaje:</label>
+                    <label for="date" data-toggle="tooltip" data-placement="top" title="Seleccione la fecha del viaje">Fecha del
+                    viaje:</label>
 
                         <script>
                             $(function() {
@@ -112,7 +113,7 @@
                             <div class="form-group">
                                 <label for="origin">Origen:</label>
                                 <select id="origin" name="origin" class="selectpicker form-control" data-flag="true"
-                                    title="Selecciona una opción..." data-width="margin: 20px auto 0; max-width:480px;">
+                                    title="Selecciona la ciudad de origen" data-width="margin: 20px auto 0; max-width:480px;">
                                     @php
                                         $uniqueOrigins = $routes
                                             ->pluck('origin')
@@ -139,7 +140,7 @@
                                 @enderror
                                 <label for="destiny">Destino:</label>
                                 <select name="destiny" id="destinoSelect" class="selectpicker form-control"
-                                    data-flag="true" title="Selecciona una opción..." data-width=480px;">
+                                    data-flag="true" title="Selecciona la ciudad de destino" data-width=480px;">
                                     @php
                                         $uniqueDestiny = $routes
                                             ->pluck('destiny')
@@ -273,7 +274,8 @@
 
 
                         @csrf
-                        <button id="reservarButton" type="submit" class="btn btn-primary">Reservar</button>
+                        <button id="reservarButton" type="submit" class="btn btn-primary"
+                        data-toggle="tooltip" data-placement="top" title="Haz clic para reservar">Reservar</button>
                         <script src="{{ asset('js/app.js') }}"></script>
 
 

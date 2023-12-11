@@ -50,7 +50,7 @@
                     <a class="navbar-brand" href="/">
                         <img src="{{ URL('images/turjoylogo.png') }}" width="100" height="100">
                     </a>
-                    <a href="login" class="btn btn-primary ml-auto">Iniciar Sesión</a>
+                    <a href="login" class="btn btn-primary ml-auto" data-toggle="tooltip" data-placement="top" title="Haz clic para iniciar sesión">Iniciar Sesión</a>
                 </div>
             </nav>
         </div>
@@ -78,7 +78,7 @@
                             <h2 class="card-title text-center">Reservar pasaje</h2>
                             <p class="card-text text-center">Reserva tus viajes de manera fácil y sencilla. ¡No te quedes sin tu asiento, asegura tu fecha y pasaje ahora en Turjoy!</p>
                             <div class="text-center">
-                                <a href="reservation" class="btn btn-light">Comprar pasaje</a>
+                            <a href="reservation" class="btn btn-light" data-toggle="tooltip" data-placement="top" title="Haz clic para comprar tu pasaje">Reservar pasaje</a>
                             </div>
                         </div>
                     </div>
