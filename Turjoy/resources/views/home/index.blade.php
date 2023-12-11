@@ -37,7 +37,7 @@
                         title="Solo archivos .xlsx con peso menor a 5MB">Escoge un archivo</button>
                     <span id="custom-text">No has seleccionado ningún archivo</span>
                 </div>
-                <button type="submit" class="btn btn-primary">Cargar archivo</button>
+                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Haz clic subir las rutas al sistema">Cargar archivo</button>
             </form>
             @error('archivo')
                 <div class="alert alert-danger mt-3">
