@@ -102,7 +102,7 @@
                             <h2 class="card-title">Buscar reserva</h2>
                             <p class="card-text">¡Revisa y accede a todos los detalles de tu reserva en un abrir y cerrar de ojos. Explora y revisa todos los detalles de tu viaje.</p>
                             <div class="text-center">
-                                <a href="voucher" class="btn btn-light">Buscar tu reserva</a>
+                                <a href="voucher" class="btn btn-light" data-toggle="tooltip" data-placement="top" title="Haz clic para buscar tu reserva">Buscar tu reserva</a>
                             </div>
                         </div>
                     </div>
