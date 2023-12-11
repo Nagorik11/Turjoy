@@ -61,7 +61,7 @@
         <div class="card-header" style="background-color: #0A74DA;">
             <a class="header-container navbar-brand" href="/">
                 <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" width="100"
-                    height="100">
+                    height="100" data-toggle="tooltip" data-placement="top" title="Haz clic para volver al inicio">
             </a>
         </div>
         <h1 class="custom-label">Buscar Reservas</h1>
@@ -76,7 +76,7 @@
                                 placeholder="Código de reserva" data-toggle="tooltip" data-placement="top"
                                 title="Código de la reserva a buscar">
                             <div>
-                                <button class="btn btn-primary" type="submit">Buscar</button>
+                                <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="top" title="Haz clic buscar la reserva">Buscar</button>
                             </div>
                         </div>
                     </form>
