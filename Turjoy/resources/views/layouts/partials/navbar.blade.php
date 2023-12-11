@@ -8,10 +8,10 @@
           <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" height="90" width="90">
         </a>   -->
         
-        <a href="/" class="btn btn-outline-light me-2">Inicio</a>
+        <a href="/" class="btn btn-outline-light me-2" data-toggle="tooltip" data-placement="top" title="Haz clic para ir al inicio">Inicio</a>
         @auth
-          <a href="/reservation-report" class="btn btn-outline-light me-2">Reporte Reservas</a>
-          <a href="/home" class="btn btn-outline-light me-2">Cargar Rutas</a>
+          <a href="/reservation-report" class="btn btn-outline-light me-2" data-toggle="tooltip" data-placement="top" title="Haz clic para ir al reporte de reservas">Reporte Reservas</a>
+          <a href="/home" class="btn btn-outline-light me-2" data-toggle="tooltip" data-placement="top" title="Haz clic para ir a cargar rutas">Cargar Rutas</a>
         @endauth
         
       </ul>
@@ -20,13 +20,13 @@
         
         <div class="text-end px-2">
           {{auth()->user()->name}}
-          <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">Cerrar sesión</a>
+          <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2" data-toggle="tooltip" data-placement="top" title="Haz clic para cerrar tu sesión">Cerrar sesión</a>
         </div>
       @endauth
 
       @guest
         <div class="text-end">
-          <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Iniciar Sesión</a>
+          <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2" data-toggle="tooltip" data-placement="top" title="Haz clic para iniciar tu sesión">Iniciar Sesión</a>
         </div>
       @endguest
     </div>
