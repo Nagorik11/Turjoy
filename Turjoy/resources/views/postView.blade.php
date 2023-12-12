@@ -60,7 +60,7 @@
         <div class="card-header" style="background-color: #0A74DA;">
             <a class="header-container navbar-brand" href="/">
                 <img href="/" class="header-logo" src="{{ URL('images/turjoylogo.png') }}" width="100"
-                    height="100">
+                    height="100" data-toggle="tooltip" data-placement="top" title="Haz clic para volver al inicio">
             </a>
         </div>
 
