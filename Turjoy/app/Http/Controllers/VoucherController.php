@@ -189,12 +189,12 @@ class VoucherController extends Controller
             }
             $vouchers = Voucher::whereBetween('date',[$min_date,$max_date])->orderBy('date', 'asc')->get();
             // dd("none",$vouchers);
-            if($vouchers->isEmpty()){
-                return redirect()->back()->withErrors(['error' => 'No se encontraron reservas dentro del rango seleccionado']);
-            }
+
 
         }
-
+        if($vouchers->isEmpty()){
+            return redirect()->back()->withErrors(['error' => 'No se encontraron reservas dentro del rango seleccionado']);
+        }
         return view('reservationReport')->with('vouchers',$vouchers);
     }
 

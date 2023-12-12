@@ -52,7 +52,7 @@
                                 <td class="border border-1">{{ $row['origin'] }}</td>
                                 <td class="border border-1">{{ $row['destiny'] }}</td>
                                 <td class="border border-1">{{ $row['seat_quantity'] }}</td>
-                                <td class="border border-1">{{ $row['base_rate'] * $row['seat_quantity'] }}</td>
+                                <td class="border border-1">{{  "$" . number_format(($row['base_rate'] * $row['seat_quantity']), 0, ',', '.')}}</td>
                                 <td class="border border-1">{{ $row['payment'] }}</td>
                             </tr>
                         @endforeach
